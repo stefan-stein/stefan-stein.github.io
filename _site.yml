@@ -1,0 +1,21 @@
+name: "SteinsZeit"
+title: "SteinsZeit"
+description: |
+  Building things in R and Python
+base_url: https://stefan-stein.github.io
+repository_url: https://stefan-stein.github.io
+collections:
+  posts:
+    disqus: steinszeit
+    hidden: true
+    share: [twitter, linkedin]
+output_dir: "."
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+    - icon: fa fa-rss
+      href: index.xml
+output: distill::distill_article

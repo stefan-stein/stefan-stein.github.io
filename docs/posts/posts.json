@@ -1,0 +1,29 @@
+[
+  {
+    "path": "posts/welcome/",
+    "title": "Welcome to SteinsZeit",
+    "description": "Welcome to our new blog, SteinsZeit. We hope you enjoy \nreading what we have to say!",
+    "author": [
+      {
+        "name": "Nora Jones",
+        "url": "https://example.com/norajones"
+      }
+    ],
+    "date": "2020-01-07",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2020-01-07T21:19:50+01:00"
+  },
+  {
+    "path": "posts/2020-01-07-a-first-test-post/",
+    "title": "A first test post",
+    "description": "A short description of the post.",
+    "author": [],
+    "date": "2020-01-07",
+    "categories": [],
+    "preview": "posts/2020-01-07-a-first-test-post/a-first-test-post_files/figure-html5/unnamed-chunk-1-1.png",
+    "last_modified": "2020-01-07T22:03:42+01:00",
+    "preview_width": 1248,
+    "preview_height": 768
+  }
+]
