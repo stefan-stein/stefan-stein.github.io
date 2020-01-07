@@ -1,13 +1,12 @@
 ---
-title: "A first test post"
+title: "A second test post"
 description: |
-  A short description of the post.
+  A short description of the post and some longer test text.
 date: 01-07-2020
 author: Stefan Stein
 categories:
   - test
-tags:
-  - demo
+  - cats
 twitter:
   site: "@SteinsZeit"
   creator: "@SteinsZeit"
@@ -21,12 +20,14 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+# Header 1
+
 Distill is a publication format for scientific and technical writing, native to the web.
 
 Learn more about using Distill at <https://rstudio.github.io/distill>.
 
-```{r, layout="l-body-outset", preview=TRUE}
-library(ggplot2)
-ggplot(diamonds, aes(carat, price)) + geom_smooth() +
-  facet_grid(~ cut)
-```
+## Header 2
+
+Text text text
+
+I like cats

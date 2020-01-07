@@ -10,6 +10,7 @@
     <lastBuildDate>Di, 07 Jan 2020 00:00:00 +0000</lastBuildDate>
     <item>
       <title>A first test post</title>
+      <dc:creator>Stefan Stein</dc:creator>
       <link>https://stefan-stein.github.io/posts/2020-01-07-a-first-test-post</link>
       <description>A short description of the post.</description>
       <guid>https://stefan-stein.github.io/posts/2020-01-07-a-first-test-post</guid>
@@ -24,6 +25,14 @@
 reading what we have to say!</description>
       <guid>https://stefan-stein.github.io/posts/welcome</guid>
       <pubDate>Di, 07 Jan 2020 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>A second test post</title>
+      <dc:creator>Stefan Stein</dc:creator>
+      <link>https://stefan-stein.github.io/posts/2020-01-07-a-second-test-post</link>
+      <description>A short description of the post and some longer test text.</description>
+      <guid>https://stefan-stein.github.io/posts/2020-01-07-a-second-test-post</guid>
+      <pubDate>Mo, 06 Jan 2020 00:00:00 +0000</pubDate>
     </item>
   </channel>
 </rss>

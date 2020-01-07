@@ -3,11 +3,18 @@
     "path": "posts/2020-01-07-a-first-test-post/",
     "title": "A first test post",
     "description": "A short description of the post.",
-    "author": [],
+    "author": [
+      {
+        "name": "Stefan Stein",
+        "url": {}
+      }
+    ],
     "date": "2020-01-07",
-    "categories": [],
+    "categories": [
+      "test"
+    ],
     "preview": "posts/2020-01-07-a-first-test-post/a-first-test-post_files/figure-html5/unnamed-chunk-1-1.png",
-    "last_modified": "2020-01-07T22:08:01+01:00",
+    "last_modified": "2020-01-07T22:30:29+01:00",
     "preview_width": 1248,
     "preview_height": 768
   },
@@ -25,5 +32,23 @@
     "categories": [],
     "preview": {},
     "last_modified": "2020-01-07T21:19:50+01:00"
+  },
+  {
+    "path": "posts/2020-01-07-a-second-test-post/",
+    "title": "A second test post",
+    "description": "A short description of the post and some longer test text.",
+    "author": [
+      {
+        "name": "Stefan Stein",
+        "url": {}
+      }
+    ],
+    "date": "2020-01-07",
+    "categories": [
+      "test",
+      "cats"
+    ],
+    "preview": {},
+    "last_modified": "2020-01-07T22:35:04+01:00"
   }
 ]
