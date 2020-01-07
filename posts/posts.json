@@ -19,21 +19,6 @@
     "preview_height": 768
   },
   {
-    "path": "posts/welcome/",
-    "title": "Welcome to SteinsZeit",
-    "description": "Welcome to our new blog, SteinsZeit. We hope you enjoy \nreading what we have to say!",
-    "author": [
-      {
-        "name": "Nora Jones",
-        "url": "https://example.com/norajones"
-      }
-    ],
-    "date": "2020-01-07",
-    "categories": [],
-    "preview": {},
-    "last_modified": "2020-01-07T21:19:50+01:00"
-  },
-  {
     "path": "posts/2020-01-07-a-second-test-post/",
     "title": "A second test post",
     "description": "A short description of the post and some longer test text.",
@@ -50,5 +35,20 @@
     ],
     "preview": {},
     "last_modified": "2020-01-07T22:35:04+01:00"
+  },
+  {
+    "path": "posts/welcome/",
+    "title": "Welcome to SteinsZeit",
+    "description": "Welcome to our new blog, SteinsZeit. We hope you enjoy \nreading what we have to say!",
+    "author": [
+      {
+        "name": "Nora Jones",
+        "url": "https://example.com/norajones"
+      }
+    ],
+    "date": "2020-01-07",
+    "categories": [],
+    "preview": {},
+    "last_modified": "2020-01-07T21:19:50+01:00"
   }
 ]
