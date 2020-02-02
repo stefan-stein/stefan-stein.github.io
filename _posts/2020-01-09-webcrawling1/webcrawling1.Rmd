@@ -3,11 +3,15 @@ title: "Web crawling with R part 1: Teaching rvest how to crawl"
 description: |
   rvest is a great package for downloading information from the internet straight into your R session. 
   However, it does not natively "crawl" the web, i.e. traverse from one website to another. So let's teach it!
-  The code and the extracted hyperlink network data can be found in the corresponding [GitHub repository](https://github.com/stefan-stein/Wikipedia_webcrawling).
+  The code and the extracted hyperlink network data can be found in the corresponding 
+  <a href="https://github.com/stefan-stein/Wikipedia_webcrawling">GitHub repository</a>.
 author:
   - name: Stefan Stein
     url: {}
 date: 02-01-2020
+twitter:
+  site: "@SteinsZeit"
+  creator: "@SteinsZeit"
 categories:
   - webcrawling
   - R
