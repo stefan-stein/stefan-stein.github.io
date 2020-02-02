@@ -1,26 +1,55 @@
 ---
-title: "Welcome to SteinsZeit"
+title: "The list of things we all know we should know"
 description: |
-  Welcome to our new blog, SteinsZeit. We hope you enjoy 
-  reading what we have to say!
+  Welcome to my new blog, SteinsZeit. I hope you enjoy 
+  reading what I have to say! For my first blogpost I have compiled a list of useful mathas and programming 
+  references and guides.
 author:
-  - name: Nora Jones 
-    url: https://example.com/norajones
-    affiliation: Spacely Sprockets
-    affiliation_url: https://example.com/spacelysprokets
-date: 01-07-2020
+  - name: Stefan Stein  
+date: 01-08-2020
+categories:
+  - Statistics
+  - Probability
+  - R
+  - Python
 output:
   distill::distill_article:
     self_contained: false
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+This is a blogpost I wrote some time ago for the [Things I wish I knew when I started my PhD blog](https://iwihktw.wordpress.com/2019/12/05/the-list-of-things-we-all-know-we-should-know/) and I thought it might make a good first post for my new blog. I hope you enjoy!
 
-# Learn more about creating blogs with Distill at:
-# https://rstudio.github.io/distill/blog.html
+As a PhD student in statistics there are certain things we all know we should know. You know, those “basic knowledge” things everybody just *knows*. And even though we certainly all knew all of those things at some point, if we don’t use them in our day to day tasks we can even forget those “basic knowledge” things or at least not remember all of their details. Inverting matrices and calculating Eigenvalues by hand is a pretty good candidate for that.
 
-```
+We can live perfectly happily with having forgotten those things until one day we find ourselves in a situation where somebody expects us to draw upon that knowledge. If that situation happens to be us sitting in a seminar, the appropriate response might be blushing inwardly and thinking “Oh shoot! I really should know this!”. If that situation happens to be us sitting in a job interview, telling our interviewer “I really knew this once!”, might not be quite enough.
+
+Long story short, I think it is good to remind ourselves of those basics every now and then. To help with that I have compiled a list of cheat sheets and quick reference guides about some of those “common knowledge” topics. The list is not exhaustive and suggestions for new additions are always welcome.
+
+## Maths and Stats
+
+- [Linear Algebra cheat sheet](https://www.souravsengupta.com/cds2016/lectures/Savov_Notes.pdf)
+
+- [Calculus cheat sheet](http://www.toomey.org/tutor/harolds_cheat_sheets/Harolds_Calculus_Notes_Cheat_Sheet_2017.pdf?fbclid=IwAR3egBMCUlIYPlN1Sq2zJJMlws5-1DUgIFjPbqfs5lYR7mx2yp9TPF84uQI)
+
+- [Probability cheat sheet](http://iwihktw.files.wordpress.com/2019/12/18f81-probability_cheatsheet.pdf)
+
+- [PCA](http://alexhwilliams.info/itsneuronalblog/2016/03/27/pca/)
+
+- [Useful inequalities](http://www.lkozma.net/inequalities_cheat_sheet/ineq.pdf): This one might be a bit more specific to theoretical statisticians or probabilists, but I find this collection super useful as a first reference step. Often when trying to prove something I find myself thinking "hold on, there was some result for a situation like this" and chances are high I might find it on here. You should look up the conditions for the inequality you want to use separately, though
+
+## Programming
+
+All of this is not restricted to maths and stats of course, but readily extends to programming as well. I think most of us will have those special kind of functions or programming commands that we use ever so often, but not quite often enough to actually remember them. Just often enough to be annoyed at not remembering them when we need them. In a situation like that, I find the following resources quite helpful:
+
+- Git: I love [this](http://rogerdudler.github.io/git-guide/?ref=hackr.io) overview of the most common git commands. Straight to the point and sufficient for most situations.
+- [Markdown cheat sheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet): Ever so often I find myself wondering, "how did I do that again in markdown?" and more often than not I find the answer here.
+- [Create awesome tables in LaTeX with R Markdown](https://haozhu233.github.io/kableExtra/awesome_table_in_pdf.pdf): I just can't remember all the commands needed to make pretty LaTeX tables in R Markdown. Luckily, I don't have to. This guide has you covered.
+- [R Studio cheat sheet collection](https://www.rstudio.com/resources/cheatsheets/)
+- Writing R packages: While the [writing R extensions]("https://cran.r-project.org/doc/manuals/r-release/R-exts.html") page is the official guide on how to write R packages, it can be very daunting. I have found [this](http://r-pkgs.had.co.nz) and [this](https://kbroman.org/pkg_primer/) guide to be sufficient for answering most of my questions.
+- [Learn Python in 10 min](https://www.stavros.io/tutorials/python/): What the title says. Very good introduction to Python programming.
+
+
+
 
 
 

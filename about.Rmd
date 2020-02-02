@@ -8,4 +8,6 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Welcome to my blog! I'm a statistics PhD student at the University of Warwick. I blog about stats and R.
+
+
+Welcome to my blog! My name is Stefan Stein and I'm a third year statistics PhD student at the University of Warwick. I blog about stats and R. I obtained my BSc and MSc in mathematics at the University of Heidelberg, Germany, before coming to the UK for my PhD. I like building unconventional stuff in R and Python. Feel free to connect with me via Twitter.
