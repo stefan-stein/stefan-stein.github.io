@@ -13,12 +13,10 @@
       <dc:creator>Stefan Stein</dc:creator>
       <link>https://stefan-stein.github.io/posts/2020-01-09-webcrawling1</link>
       <description>rvest is a great package for downloading information from the internet straight into your R session. 
-However, it does not natively "crawl" the web, i.e. traverse from one website to another. So let's teach it!
-The code and the extracted hyperlink network data can be found in the corresponding 
-&lt;a href="https://github.com/stefan-stein/Wikipedia_webcrawling"&gt;GitHub repository&lt;/a&gt;.</description>
+However, it does not natively "crawl" the web, i.e. traverse from one website to another. So let's teach it!</description>
       <guid>https://stefan-stein.github.io/posts/2020-01-09-webcrawling1</guid>
       <pubDate>Sa, 01 Feb 2020 00:00:00 +0000</pubDate>
-      <media:content url="https://en.wikipedia.org/wiki/Squirrel#/media/File:Sciuridae.jpg" medium="image" type="image/jpeg"/>
+      <media:content url="https://upload.wikimedia.org/wikipedia/commons/6/68/Sciuridae.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>
       <title>The list of things we all know we should know</title>

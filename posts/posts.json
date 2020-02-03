@@ -2,7 +2,7 @@
   {
     "path": "posts/2020-01-09-webcrawling1/",
     "title": "Web crawling with R part 1: Teaching rvest how to crawl",
-    "description": "rvest is a great package for downloading information from the internet straight into your R session. \nHowever, it does not natively \"crawl\" the web, i.e. traverse from one website to another. So let's teach it!\nThe code and the extracted hyperlink network data can be found in the corresponding \n<a href=\"https://github.com/stefan-stein/Wikipedia_webcrawling\">GitHub repository<\/a>.",
+    "description": "rvest is a great package for downloading information from the internet straight into your R session. \nHowever, it does not natively \"crawl\" the web, i.e. traverse from one website to another. So let's teach it!",
     "author": [
       {
         "name": "Stefan Stein",
@@ -14,8 +14,8 @@
       "webcrawling",
       "R"
     ],
-    "preview": "https://en.wikipedia.org/wiki/Squirrel#/media/File:Sciuridae.jpg",
-    "last_modified": "2020-02-02T19:45:05+00:00"
+    "preview": "https://upload.wikimedia.org/wikipedia/commons/6/68/Sciuridae.jpg",
+    "last_modified": "2020-02-03T17:42:39+00:00"
   },
   {
     "path": "posts/welcome/",
