@@ -8,6 +8,51 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-
+```{css}
+d-article a,
+d-article a:hover {
+  text-decoration: none;
+  border-bottom: none;
+}
+```
 
 Welcome to my blog! My name is Stefan Stein and I'm a third year statistics PhD student at the University of Warwick. I blog about stats and R. I obtained my BSc and MSc in mathematics at the University of Heidelberg, Germany, before coming to the UK for my PhD. I like building unconventional stuff in R and Python. Feel free to connect with me via Twitter.
+
+<p style="text-align: center;">
+<a href='mailto:D.Selby@warwick.ac.uk' title="E-mail me">
+  <span class="fa-stack fa-lg">
+  <i class="fa fa-circle fa-stack-2x"></i>
+  <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+  </span>
+</a>
+<a href="https://www.facebook.com/selbosh" title="Facebook">
+  <span class="fa-stack fa-lg">
+  <i class="fa fa-circle fa-stack-2x"></i>
+  <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+  </span>
+</a>
+<a href="https://github.com/Selbosh" title="GitHub">
+  <span class="fa-stack fa-lg">
+  <i class="fa fa-circle fa-stack-2x"></i>
+  <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+  </span>
+</a>
+<a href="https://linkedin.com/in/daselby" title="LinkedIn">
+  <span class="fa-stack fa-lg">
+  <i class="fa fa-circle fa-stack-2x"></i>
+  <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+  </span>
+</a>
+<a href="https://twitter.com/TeaStats" title="Twitter">
+  <span class="fa-stack fa-lg">
+  <i class="fa fa-circle fa-stack-2x"></i>
+  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+  </span>
+</a>
+<a href="http://warwick.ac.uk/dselby" title="Academic page">
+  <span class="fa-stack fa-lg">
+  <i class="fa fa-circle fa-stack-2x"></i>
+  <i class="fa fa-graduation-cap fa-stack-1x fa-inverse"></i>
+  </span>
+</a>
+</p>
