@@ -2,7 +2,7 @@
 title: "The list of things we all know we should know"
 description: |
   Welcome to my new blog, SteinsZeit. I hope you enjoy 
-  reading what I have to say! For my first blogpost I have compiled a list of useful mathas and programming 
+  reading what I have to say! For my first blog post I have compiled a list of useful maths and programming 
   references and guides.
 author:
   - name: Stefan Stein  
@@ -17,7 +17,7 @@ output:
     self_contained: false
 ---
 
-This is a blogpost I wrote some time ago for the [Things I wish I knew when I started my PhD blog](https://iwihktw.wordpress.com/2019/12/05/the-list-of-things-we-all-know-we-should-know/) and I thought it might make a good first post for my new blog. I hope you enjoy!
+This is a blog post I wrote some time ago for the [Things I wish I knew when I started my PhD blog](https://iwihktw.wordpress.com/2019/12/05/the-list-of-things-we-all-know-we-should-know/) and I thought it might make a good first post for my new blog. I hope you enjoy!
 
 As a PhD student in statistics there are certain things we all know we should know. You know, those “basic knowledge” things everybody just *knows*. And even though we certainly all knew all of those things at some point, if we don’t use them in our day to day tasks we can even forget those “basic knowledge” things or at least not remember all of their details. Inverting matrices and calculating Eigenvalues by hand is a pretty good candidate for that.
 

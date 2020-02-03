@@ -15,12 +15,12 @@
       "R"
     ],
     "preview": "https://upload.wikimedia.org/wikipedia/commons/6/68/Sciuridae.jpg",
-    "last_modified": "2020-02-03T17:42:39+00:00"
+    "last_modified": "2020-02-03T17:42:40+00:00"
   },
   {
     "path": "posts/welcome/",
     "title": "The list of things we all know we should know",
-    "description": "Welcome to my new blog, SteinsZeit. I hope you enjoy \nreading what I have to say! For my first blogpost I have compiled a list of useful mathas and programming \nreferences and guides.",
+    "description": "Welcome to my new blog, SteinsZeit. I hope you enjoy \nreading what I have to say! For my first blog post I have compiled a list of useful maths and programming \nreferences and guides.",
     "author": [
       {
         "name": "Stefan Stein",
@@ -35,6 +35,6 @@
       "Python"
     ],
     "preview": {},
-    "last_modified": "2020-01-09T17:44:46+01:00"
+    "last_modified": "2020-02-03T20:44:11+00:00"
   }
 ]
