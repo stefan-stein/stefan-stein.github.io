@@ -1,5 +1,5 @@
 ---
-title: "Web crawling with R part 2"
+title: "Web crawling with R part 2: Power laws and enlightened squirrels"
 description: |
   In this post we analyze the data we scraped in part one of the web crawling with R series.
 author:
@@ -58,7 +58,7 @@ Last time we had just finished crawling the 2-neighborhood of the English Wikipe
 
 Let's briefly recap the shape in which our data was when we left off: We had
 
-- `url_dictionary`: a two-column data frame storing the topic and the corresponding url, i.e. the first row would be "squirrel" and "https://en.wikipedia.org/wiki/Squirrel". This is the node-list of our network and we use it to keep track of the actual topics behind each url. It is also useful for keeping track of different hyperlinks resolving to the same page. For example, "wiki/Adjective", "wiki/Adjectives", "wiki/Predicate_adjective" or "wiki/Adjectival_form" all link to the page for "adjective".
+- `url_dictionary`: a two-column data frame storing the topic and the corresponding url, i.e. the first row would be "squirrel" and "https://en.wikipedia.org/wiki/Squirrel". This is the node-list of our network and we use it to keep track of the actual topics behind each url. It is particularly useful for keeping track of different hyperlinks resolving to the same page. For example, "wiki/Adjective", "wiki/Adjectives", "wiki/Predicate_adjective" or "wiki/Adjectival_form" all link to the page for "adjective".
 - `edges`: a data frame containing the actual edge information of our network. It has four columns: `From` is the name of the topic of the outgoing edge and `from_url` its url. `to_url` is the url `From` is linking to and `To` is the topic behind that url. Currently we have only populated the first three columns and still need to populate the `To` column.
 
 
@@ -91,7 +91,7 @@ Since different urls may point to the same web page, this is only an upper bound
 length(unique(url_dictionary$name))
 ```
 
-To get the number of edges, let's first process the `edges` data frame a little.
+To get the number of edges, let's first process the `edges` data frame a little. It currently looks like this.
 
 ```{r, eval=FALSE}
 head(edges)
@@ -162,28 +162,37 @@ We read in our data as a directed graph, which ticks the second goal we had for 
 is.simple(g)
 ```
 
-Nice! Note that we also could have read the edge list with multi-edges and self-loops into `igraph` first and then used the `simplify()` function with the options `remove.multiple=TRUE` and `remove.loops=TRUE`. While that might have been somewhat faster, I think manual data manipulations such as those we did above can be a good exercise to make sure we understand our data properly, e.g. we precisely understand the various reasons why our graph might not be simple and know how to remove them. Anyways, without further ado, on to visualizations!
+Nice! Note that we also could have read the edge list with multi-edges and self-loops into `igraph` first and then used the `simplify()` function with the options `remove.multiple=TRUE` and `remove.loops=TRUE`. While that might have been somewhat faster, I think manual data manipulations such as those we did above can be a good exercise to make sure we understand our data properly, e.g. we precisely understand the various reasons why our graph might not be simple and know how to remove them. Anyways, without further ado, let's dive into some network analytics!
 
 ### Analyzing the degree distribution
 
-From the last post, we already know that the "Squirrel" page has 512 outgoing connections and above we just saw that there is a total of ~2.5 million directed edges between the ~22.5 thousand nodes of our network. So some natural questions to ask would be: How are these 22.5k edges distributed amongst the nodes; is it an even spread? Is 512 outgoing edges a lot? How "important" is the squirrel to the connectivity of our network? These questions can be answered by looking at the *degree distribution* of our network. Leaving the distinction between outgoing and incoming edges aside for the moment, a look at the following histogram shows that there seems to be something going on here.
+From the last post, we already know that the "Squirrel" page has 512 outgoing connections and above we just saw that there is a total of ~2.5 million directed edges between the ~22.5 thousand nodes of our network. So some natural questions to ask would be: How are these 22.5k edges distributed amongst the nodes; is it an even spread? Is 512 outgoing edges a lot? How "important" is the squirrel to the connectivity of our network? These questions can be answered by looking at the how the degrees in our network are distributed. Leaving the distinction between outgoing and incoming edges aside for the moment, a first approach to shed some light onto the matter might be plotting a histogram of the degrees in `g`.
 
 ```{r}
 hist(degree(g))
 ```
 
-Very clearly, almost all nodes have a degree somewhere between 1 and 1000 (isolated nodes are not possible due to how the data was collected). But then, not even perceptible on the plot above, there seem to be very few nodes with very high degrees, going all the way up to 15,000. A log-log plot gives us a better idea of what's going on.
+Something seems to be going on here. Almost all nodes have a degree somewhere between 1 and 1000 (isolated nodes are not possible due to how the data was collected). But then, not even perceptible on the plot above, there seem to be very few nodes with very high degrees, going all the way up to 15,000. Clearly, a standard histogram is not the best tool for visualizing the distribution of the degrees in our network. 
+
+More insights can be gained by looking at the *degree distribution* of our network. The degree distribution of a graph is defined as the empirical distribution of the degrees in our network and is thus a probability distribution in the proper mathematical sense. It can be accessed by calling `igraph`'s `degree_distribution()` function. Given a graph `g`, it returns a numeric vector with a length of the maximum degree of any vertex in `g` plus 1. The $i$-th entry of that vector is the relative frequency of vertices with degree $i-1$ in `g`, that is
+
+$$
+\text{degree_distribution(g)}_i = \frac{\# \text{vertices of degree } i-1}{\text{total number of vertices in }g}.
+$$
+More intuitively, if we pick a vertex in `g` at random, with probability `degree_distribution(g)[i]` its degree
+will be $i-1$ (the "-1" shift is there, because the first entry gives the relative frequency of vertices with degree zero). For real-world network, such distributions are typically visualized as a log-log plot: 
 
 ```{r}
 library(ggplot2)
-ggplot(mapping = aes(x = 1:15080, y = degree.distribution(g)[-1]))+
+ggplot(mapping = aes(x = 1:15081, y = degree_distribution(g)))+
   geom_point()+
-  geom_jitter()+
   scale_y_log10()+
   scale_x_log10()
 
 ```
 
+Aha, this already tells us a more interesting story. As we can see, indeed most degrees are between 1 and 1,000.
+The shape we observed in the plot above is very typical for real-world networks and known as a [*power-law distribution*](https://en.wikipedia.org/wiki/Power_law).
 
 ### Visualizations
 
