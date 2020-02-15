@@ -1,5 +1,26 @@
 [
   {
+    "path": "posts/2020-02-09-webcrawling2/",
+    "title": "Web crawling with R part 2: Power laws and enlightened squirrels",
+    "description": "In this post we analyze the data we scraped in part one of the web crawling with R series. We find that the degree distribution of the hyperlink 2-neighborhood of the English Wikipedia page for \"Squirrel\" follows a power-law distribution and stumble across some unexpected topics in our network.",
+    "author": [
+      {
+        "name": "Stefan Stein",
+        "url": {}
+      }
+    ],
+    "date": "2020-02-15",
+    "categories": [
+      "webcrawling",
+      "R",
+      "igraph"
+    ],
+    "preview": "posts/2020-02-09-webcrawling2/webcrawling2_files/figure-html5/unnamed-chunk-19-1.png",
+    "last_modified": "2020-02-15T15:06:36+01:00",
+    "preview_width": 1248,
+    "preview_height": 768
+  },
+  {
     "path": "posts/2020-01-09-webcrawling1/",
     "title": "Web crawling with R part 1: Teaching rvest how to crawl",
     "description": "rvest is a great package for downloading information from the internet straight into your R session. \nHowever, it does not natively \"crawl\" the web, i.e. traverse from one website to another. So let's teach it!",
@@ -15,7 +36,7 @@
       "R"
     ],
     "preview": "https://upload.wikimedia.org/wikipedia/commons/6/68/Sciuridae.jpg",
-    "last_modified": "2020-02-03T17:42:40+00:00"
+    "last_modified": "2020-02-03T18:42:40+01:00"
   },
   {
     "path": "posts/welcome/",
@@ -35,6 +56,6 @@
       "Python"
     ],
     "preview": {},
-    "last_modified": "2020-02-03T20:44:11+00:00"
+    "last_modified": "2020-02-03T21:44:11+01:00"
   }
 ]

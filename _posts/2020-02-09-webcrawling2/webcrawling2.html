@@ -21,38 +21,39 @@
   <!--radix_placeholder_meta_tags-->
   <title>Web crawling with R part 2: Power laws and enlightened squirrels</title>
   
-  <meta property="description" itemprop="description" content="In this post we analyze the data we scraped in part one of the web crawling with R series."/>
+  <meta property="description" itemprop="description" content="In this post we analyze the data we scraped in part one of the web crawling with R series. We find that the degree distribution of the hyperlink 2-neighborhood of the English Wikipedia page for &quot;Squirrel&quot; follows a power-law distribution and stumble across some unexpected topics in our network."/>
   
   
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2020-02-09"/>
-  <meta property="article:created" itemprop="dateCreated" content="2020-02-09"/>
+  <meta property="article:published" itemprop="datePublished" content="2020-02-15"/>
+  <meta property="article:created" itemprop="dateCreated" content="2020-02-15"/>
   <meta name="article:author" content="Stefan Stein"/>
   
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Web crawling with R part 2: Power laws and enlightened squirrels"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="In this post we analyze the data we scraped in part one of the web crawling with R series."/>
+  <meta property="og:description" content="In this post we analyze the data we scraped in part one of the web crawling with R series. We find that the degree distribution of the hyperlink 2-neighborhood of the English Wikipedia page for &quot;Squirrel&quot; follows a power-law distribution and stumble across some unexpected topics in our network."/>
   <meta property="og:locale" content="en_US"/>
   
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="Web crawling with R part 2: Power laws and enlightened squirrels"/>
-  <meta property="twitter:description" content="In this post we analyze the data we scraped in part one of the web crawling with R series."/>
+  <meta property="twitter:description" content="In this post we analyze the data we scraped in part one of the web crawling with R series. We find that the degree distribution of the hyperlink 2-neighborhood of the English Wikipedia page for &quot;Squirrel&quot; follows a power-law distribution and stumble across some unexpected topics in our network."/>
   
   <!--/radix_placeholder_meta_tags-->
   
   <meta name="citation_reference" content="citation_title=The igraph software package for complex network research;citation_publication_date=2006;citation_volume=Complex Systems;citation_author=Gabor Csardi;citation_author=Tamas Nepusz"/>
-  <meta name="citation_reference" content="citation_title=Diagram: Functions for visualising simple graphs (networks), plotting flow diagrams;citation_publication_date=2017;citation_author=Karline Soetaert"/>
+  <meta name="citation_reference" content="citation_title=diagram: Functions for Visualising Simple Graphs (Networks), Plotting Flow Diagrams;citation_publication_date=2017;citation_author=Karline Soetaert"/>
+  <meta name="citation_reference" content="citation_title=Random Graphs and Complex Networks;citation_publication_date=2016;citation_publisher=Cambridge University Press;citation_volume=1;citation_doi=10.1017/9781316779422;citation_author=Remco van der Hofstad"/>
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","categories","output","bibliography","repository_url","draft"]}},"value":[{"type":"character","attributes":{},"value":["Web crawling with R part 2: Power laws and enlightened squirrels"]},{"type":"character","attributes":{},"value":["In this post we analyze the data we scraped in part one of the web crawling with R series.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Stefan Stein"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["02-09-2020"]},{"type":"character","attributes":{},"value":["webcrawling","R","igraph"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["bibliography.bib"]},{"type":"character","attributes":{},"value":["https://github.com/stefan-stein/Wikipedia_webcrawling"]},{"type":"logical","attributes":{},"value":[true]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","categories","output","bibliography","repository_url"]}},"value":[{"type":"character","attributes":{},"value":["Web crawling with R part 2: Power laws and enlightened squirrels"]},{"type":"character","attributes":{},"value":["In this post we analyze the data we scraped in part one of the web crawling with R series. We find that the degree distribution of the hyperlink 2-neighborhood of the English Wikipedia page for \"Squirrel\" follows a power-law distribution and stumble across some unexpected topics in our network.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Stefan Stein"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["02-15-2020"]},{"type":"character","attributes":{},"value":["webcrawling","R","igraph"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["bibliography.bib"]},{"type":"character","attributes":{},"value":["https://github.com/stefan-stein/Wikipedia_webcrawling"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["Age_of_Enlightenment.png","bibliography.bib","webcrawling2_files/bowser-1.9.3/bowser.min.js","webcrawling2_files/distill-2.2.21/template.v2.js","webcrawling2_files/figure-html5/unnamed-chunk-17-1.png","webcrawling2_files/figure-html5/unnamed-chunk-18-1.png","webcrawling2_files/figure-html5/unnamed-chunk-23-1.png","webcrawling2_files/figure-html5/unnamed-chunk-25-1.png","webcrawling2_files/jquery-1.11.3/jquery.min.js","webcrawling2_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["Age_of_Enlightenment.png","bibliography.bib","ISBN.png","Rplot.svg","webcrawling2_files/bowser-1.9.3/bowser.min.js","webcrawling2_files/distill-2.2.21/template.v2.js","webcrawling2_files/figure-html5/unnamed-chunk-17-1.png","webcrawling2_files/figure-html5/unnamed-chunk-18-1.png","webcrawling2_files/figure-html5/unnamed-chunk-19-1.png","webcrawling2_files/figure-html5/unnamed-chunk-20-1.png","webcrawling2_files/figure-html5/unnamed-chunk-20-2.png","webcrawling2_files/figure-html5/unnamed-chunk-23-1.png","webcrawling2_files/figure-html5/unnamed-chunk-25-1.png","webcrawling2_files/figure-html5/unnamed-chunk-27-1.png","webcrawling2_files/figure-html5/unnamed-chunk-29-1.png","webcrawling2_files/figure-html5/unnamed-chunk-30-1.png","webcrawling2_files/figure-html5/unnamed-chunk-31-1.png","webcrawling2_files/figure-html5/unnamed-chunk-31-2.png","webcrawling2_files/figure-html5/unnamed-chunk-31-3.png","webcrawling2_files/figure-html5/unnamed-chunk-31-4.png","webcrawling2_files/figure-html5/unnamed-chunk-32-1.png","webcrawling2_files/figure-html5/unnamed-chunk-32-2.png","webcrawling2_files/figure-html5/unnamed-chunk-32-3.png","webcrawling2_files/figure-html5/unnamed-chunk-32-4.png","webcrawling2_files/figure-html5/unnamed-chunk-33-1.png","webcrawling2_files/figure-html5/unnamed-chunk-34-1.png","webcrawling2_files/figure-html5/unnamed-chunk-34-2.png","webcrawling2_files/figure-html5/unnamed-chunk-34-3.png","webcrawling2_files/figure-html5/unnamed-chunk-34-4.png","webcrawling2_files/jquery-1.11.3/jquery.min.js","webcrawling2_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -945,7 +946,7 @@
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Web crawling with R part 2: Power laws and enlightened squirrels","description":"In this post we analyze the data we scraped in part one of the web crawling with R series.","authors":[{"author":"Stefan Stein","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2020-02-09T00:00:00.000+00:00","citationText":"Stein, 2020"}
+{"title":"Web crawling with R part 2: Power laws and enlightened squirrels","description":"In this post we analyze the data we scraped in part one of the web crawling with R series. We find that the degree distribution of the hyperlink 2-neighborhood of the English Wikipedia page for \"Squirrel\" follows a power-law distribution and stumble across some unexpected topics in our network.","authors":[{"author":"Stefan Stein","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2020-02-15T00:00:00.000+01:00","citationText":"Stein, 2020"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -956,44 +957,51 @@
 
 <div class="d-title">
 <h1>Web crawling with R part 2: Power laws and enlightened squirrels</h1>
-<p><p>In this post we analyze the data we scraped in part one of the web crawling with R series.</p></p>
+<p>In this post we analyze the data we scraped in part one of the web crawling with R series. We find that the degree distribution of the hyperlink 2-neighborhood of the English Wikipedia page for “Squirrel” follows a power-law distribution and stumble across some unexpected topics in our network.</p>
 </div>
 
 <div class="d-byline">
   Stefan Stein true 
   
-<br/>02-09-2020
+<br/>02-15-2020
 </div>
 
 <div class="d-article">
-<p>This is the second part of my two-part series on webcrawling with R. If you havn’t already, I encourage you to check out <a href="https://stefan-stein.github.io/posts/2020-01-09-webcrawling1/">part one</a> to understand where the data in this post are coming from.</p>
+<p>This is the second part of my two-part series on web crawling with R. If you haven’t already, I encourage you to check out <a href="https://stefan-stein.github.io/posts/2020-01-09-webcrawling1/">part one</a> to understand where the data in this post are coming from.</p>
 <h3 id="in-this-post-i-cover">In this post I cover</h3>
 <ul>
-<li>How to present our scraped data as a network using the <code>igraph</code> package <span class="citation" data-cites="igraph">(Csardi and Nepusz <a href="#ref-igraph" role="doc-biblioref">2006</a>)</span>.</li>
+<li>How to present our scraped data as a network using the <code>igraph</code> package <span class="citation" data-cites="igraph">(Csardi and Nepusz <a href="#ref-igraph">2006</a>)</span>.</li>
 <li>Understanding the degree distribution of our graph.</li>
 <li>How to find all the paths between two nodes on our network.</li>
-<li>How to create a visually appealing (at least I hope so…) representation of all those paths. For this we will make use of the <code>diagram</code> package <span class="citation" data-cites="diagram">(Soetaert <a href="#ref-diagram" role="doc-biblioref">2017</a>)</span>.</li>
+<li>How to create a visually appealing (at least I hope so…) representation of all those paths. For this we will make use of the <code>diagram</code> package <span class="citation" data-cites="diagram">(Soetaert <a href="#ref-diagram">2017</a>)</span>.</li>
 </ul>
-<p>For the second part, in short, I want to have function, say <code>graph_path()</code>, that does something like this:</p>
+<p>As you might have guessed, we will also rely on <code>dplyr</code> for data processing. But before we get into all of that, let’s quickly recap where we left off last time.</p>
+<h3 id="previously-on-web-crawling-with-r">Previously on web crawling with R…</h3>
+<p>Last time we had just finished crawling the 2-neighborhood of the English Wikipedia page for “Squirrel”. That is, we started at the Squirrel page and visited all the other English Wikipedia pages that we could reach with no more than two clicks. We extracted the URL of each page and its topic. In the end we learned that you could reach over 20,000 other pages with just two clicks! When I first saw that number, I was very surprised and my first goal for this post is to understand the basic connectivity structure of the data we scraped a little better. I want to understand how this number could explode so rapidly. To that end, we will represent the data as a network and our primary tool for analyzing it will be the <code>igraph</code> <span class="citation" data-cites="igraph">(Csardi and Nepusz <a href="#ref-igraph">2006</a>)</span> package. I won’t go into too much detail when it comes to the various network summary statistics that we can look at, focusing mostly on the degree distribution. The <a href="https://igraph.org/r/">official R igraph website</a> contains many more examples of what you can do with this powerful package and <a href="https://kateto.net/networks-r-igraph">Katya Ognyanova’s blog</a> is also a great resource for learning about network analysis with R.</p>
+<p>At the end of the last post, our data was stored in two objects. We had</p>
+<ul>
+<li><code>url_dictionary</code>: a two-column data frame storing the topic and the corresponding URL, i.e. the first row is “Squirrel” and “<a href="https://en.wikipedia.org/wiki/Squirrel" class="uri">https://en.wikipedia.org/wiki/Squirrel</a>”. This is the node-list of our network and we use it to keep track of the actual topics behind each URL. It is particularly useful for keeping track of different hyperlinks resolving to the same page. For example, “wiki/Adjective”, “wiki/Adjectives”, “wiki/Predicate_adjective” or “wiki/Adjectival_form” all link to the page for “adjective”.</li>
+<li><code>edges</code>: a data frame containing the actual edge information of our network. It has four columns: <code>From</code> is the name of the topic of the outgoing edge and <code>from_url</code> its URL. <code>to_url</code> is the URL <code>From</code> is linking to and <code>To</code> is the topic behind that URL. Currently we have only populated the first three columns and still need to populate the <code>To</code> column.</li>
+</ul>
+<p>Just browsing through <code>url_dictionary</code> more or less randomly, we can get a rough feel of what the hyperlink neighborhood of “Squirrel” looks like. We see a lot of topics that we would expect. For example, there are all sorts of different types of other squirrels such as “Fox squirrel”, “Oriental giant squirrel” or “Flying squirrel”. But there are also some rather odd topics mingling in the immediate hyperlink neighborhood of “Squirrel” that we might not have expected, such as “Age of Enlightenment”, “Bible”, “Abraham Lincoln and slavery”, “LGBT rights in Germany” or “Frankfurt Stock Exchange”. My first reaction to finding these topics was “What? <em>How</em>??” and answering the “What? How?” is going to be the second goal for this blog post. More precisely, I would like to have a function, let’s call it <code>graph_path()</code>, to which I can pass any topic and it will show me all the different paths in my hyperlink network leading from “Squirrel” to that topic. The end result should look something like this:</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 graph_path(&quot;Age of Enlightenment&quot;)</code></pre>
 </div>
 <p><img src="Age_of_Enlightenment.png" /></p>
-<p>As you might have guessed, we will also rely on <code>dplyr</code> for data processing. First, let’s recall where we left off last time.</p>
-<h3 id="previously-on-web-crawling-with-r">Previously on web crawling with R…</h3>
-<p>Last time we had just finished crawling the 2-neighborhood of the English Wikipedia page for “Squirrel”. That is, we started at the Squirrel page and visited all the other English Wikipedia pages that we could reach with no more than two clicks. We extracted the url of each page and its topic. In the end we learned that you could reach over 20,000 other pages with just two clicks! In this post, we will analyze the data we collected. We will represent the data as a network and our primary tool for analysing it will be the <code>igraph</code> <span class="citation" data-cites="igraph">(Csardi and Nepusz <a href="#ref-igraph" role="doc-biblioref">2006</a>)</span> package.</p>
-<p>Let’s briefly recap the shape in which our data was when we left off: We had</p>
-<ul>
-<li><code>url_dictionary</code>: a two-column data frame storing the topic and the corresponding url, i.e. the first row would be “squirrel” and “<a href="https://en.wikipedia.org/wiki/Squirrel" class="uri">https://en.wikipedia.org/wiki/Squirrel</a>”. This is the node-list of our network and we use it to keep track of the actual topics behind each url. It is particularly useful for keeping track of different hyperlinks resolving to the same page. For example, “wiki/Adjective”, “wiki/Adjectives”, “wiki/Predicate_adjective” or “wiki/Adjectival_form” all link to the page for “adjective”.</li>
-<li><code>edges</code>: a data frame containing the actual edge information of our network. It has four columns: <code>From</code> is the name of the topic of the outgoing edge and <code>from_url</code> its url. <code>to_url</code> is the url <code>From</code> is linking to and <code>To</code> is the topic behind that url. Currently we have only populated the first three columns and still need to populate the <code>To</code> column.</li>
-</ul>
+<p><strong>Goals</strong>:</p>
+<ol type="1">
+<li>Understand how number of reachable nodes could explode so quickly.</li>
+<li>Write a function that gives us all the connections from “Squirrel” to a given topic.</li>
+</ol>
+<p>All in all, the first step on our agenda is getting our data into network format.</p>
 <h3 id="creating-the-network">Creating the network</h3>
 <p>The nodes of our network will be the individual Wikipedia pages and the edges will be the hyperlinks between them. The goal is to represent our data as a <em>simple, directed</em> network. Let’s recall what these two terms mean:</p>
 <ul>
 <li>A network is <em>simple</em>, if there are no self-loops and each edge appears at most once. Obviously, in our data it can (and does) happen that one page will link to another page multiple times. Rather than creating many edges between these two nodes, we will count how many times the link appears and assign it as a weight to the edge.</li>
 <li>A network can be <em>directed</em> or <em>undirected</em>. It is directed if an edge from <em>A</em> to <em>B</em> is not equivalent to an edge from <em>B</em> to <em>A</em> and undirected otherwise. A hyperlink network is a classical case of a directed network. Page <em>A</em> linking to page <em>B</em> does not automatically mean that <em>B</em> is also linking back to page <em>A</em>. Another typical example of a directed network is the Twitter network of who follows whom. This is opposed to the Facebook network, which in social media analysis would be a typical example for an undirected network. If <em>A</em> is friends with <em>B</em>, then <em>B</em> is automatically also friends with <em>A</em>.</li>
 </ul>
+<p>Also note that I use the terms “node” and “vertex” interchangeably. In statistics, we usually use the term “network” to denote a random graph as opposed to just “graph” which refers to a deterministic link structure. This is more of a guideline than a strict rule and for the sake of this post “network” and “graph” mean pretty much the same thing.</p>
 <p>Let’s take a look at the data frames we have.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
@@ -1041,7 +1049,7 @@ nrow(url_dictionary)</code></pre>
 <pre><code>
 [1] 26655</code></pre>
 </div>
-<p>Since different urls may point to the same web page, this is only an upper bound on the number of nodes in our network. To get the actual size of our network, we can run</p>
+<p>Since different URLs may point to the same web page, this is only an upper bound on the number of nodes in our network. To get the actual size of our network, we can run</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 length(unique(url_dictionary$name))</code></pre>
@@ -1103,10 +1111,10 @@ head(edges)</code></pre>
 </tbody>
 </table>
 </div>
-<p>The <code>url_dictionary</code> works like an address book for all the topics we scraped. We can use it to populate the <code>To</code> column in our <code>edges</code> data frame using a simple <code>left_join()</code>. Also notice that our <code>edges</code> data frame contains edges that point outside of the 2-neighborhood of “Squirrel”: When we were scraping pages at a distance of 2 from the squirrel page, we also recorded all the outgoing edges from those pages. This was necessary to find any edges pointing back to nodes within the 2-neighborhood we were interested in. But in doing so we also recorded edges pointing out to new pages located at a distance of 3 from the squirrel page. For this project we are not interested in those edges and we remove them by dropping any rows in <code>edges</code> that still contian <code>NA</code> after the <code>left_join()</code> with <code>url_dictionary</code>.</p>
+<p>The <code>url_dictionary</code> works like an address book for all the topics we scraped. We can use it to populate the <code>To</code> column in our <code>edges</code> data frame using a simple <code>left_join()</code>. Also notice that our <code>edges</code> data frame contains edges that point outside of the 2-neighborhood of “Squirrel”: When we were scraping pages at a distance of 2 from the squirrel page, we also recorded all the outgoing edges from those pages. This was necessary to find any edges pointing back to nodes within the 2-neighborhood we were interested in. But in doing so we also recorded edges pointing out to new pages located at a distance of 3 from the squirrel page. For this project we are not interested in those edges and we remove them by dropping any rows in <code>edges</code> that still contain <code>NA</code> after the <code>left_join()</code> with <code>url_dictionary</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
-library(dplyr)
+library(tidyverse)
 weighted_edges &lt;- edges%&gt;%left_join(url_dictionary, by = c(&quot;to_url&quot; = &quot;url&quot;))%&gt;%
   mutate(To = name)%&gt;%
   select(-name)%&gt;%
@@ -1166,7 +1174,7 @@ head(weighted_edges)</code></pre>
 </tbody>
 </table>
 </div>
-<p>Nice! This is almost what we want to have. Right now, there are still multi-edges in this edge list. For example, “Squirrel” might link to “Eocene” several times. To summarise how many times each topic is linking to another we use <code>group_by()</code>, followed by a <code>filter()</code> to get rid of self-loops:</p>
+<p>Nice! This is almost what we want to have. Right now, there are still multi-edges in this edge list. For example, “Squirrel” might link to “Eocene” several times. To summarize how many times each topic is linking to another we use <code>group_by()</code>, followed by a <code>filter()</code> to get rid of self-loops:</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 weighted_edges &lt;- edges%&gt;%left_join(url_dictionary, by = c(&quot;to_url&quot; = &quot;url&quot;))%&gt;%
@@ -1233,7 +1241,7 @@ nrow(weighted_edges)</code></pre>
 <pre><code>
 [1] 2512479</code></pre>
 </div>
-<p>That’s over 2.5 million hyperlinks that we can click on within two-clicks of the squirrel page. We are now ready to load our network into an <code>igraph</code> object.</p>
+<p>That’s over 2.5 million links that we can click on within two-clicks of the squirrel page. We are now ready to load our network into an <code>igraph</code> object.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 library(igraph)
@@ -1248,49 +1256,168 @@ is.simple(g)</code></pre>
 </div>
 <p>Nice! Note that we also could have read the edge list with multi-edges and self-loops into <code>igraph</code> first and then used the <code>simplify()</code> function with the options <code>remove.multiple=TRUE</code> and <code>remove.loops=TRUE</code>. While that might have been somewhat faster, I think manual data manipulations such as those we did above can be a good exercise to make sure we understand our data properly, e.g. we precisely understand the various reasons why our graph might not be simple and know how to remove them. Anyways, without further ado, let’s dive into some network analytics!</p>
 <h3 id="analyzing-the-degree-distribution">Analyzing the degree distribution</h3>
-<p>From the last post, we already know that the “Squirrel” page has 512 outgoing connections and above we just saw that there is a total of ~2.5 million directed edges between the ~22.5 thousand nodes of our network. So some natural questions to ask would be: How are these 22.5k edges distributed amongst the nodes; is it an even spread? Is 512 outgoing edges a lot? How “important” is the squirrel to the connectivity of our network? These questions can be answered by looking at the how the degrees in our network are distributed. Leaving the distinction between outgoing and incoming edges aside for the moment, a first approach to shed some light onto the matter might be plotting a histogram of the degrees in <code>g</code>.</p>
+<p>From the last post, we already know that the “Squirrel” page has 512 outgoing connections and above we just saw that there is a total of ~2.5 million directed edges between the ~22.5 thousand nodes of our network. So, some natural questions to ask would be: How are these 22.5k edges distributed amongst the nodes; is it an even spread? Is 512 outgoing edges a lot? How “important” is the squirrel to the connectivity of our network? These questions can be answered by looking at the how the degrees in our network are distributed. We leave the distinction between outgoing and incoming edges aside for the moment and look at the <em>total degree</em> of each node, that is the sum of their incoming degree and outgoing degree. Let’s see what the average total degree is.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+mean(degree(g))</code></pre>
+<pre><code>
+[1] 223.0935</code></pre>
+</div>
+<p>A natural question to ask when looking at the mean as a summary statistic is always how well it captures the actual underlying distribution of the data. Is it tightly centered around the mean? To answer this question, we might be tempted to plot a histogram of the degrees in <code>g</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 hist(degree(g))</code></pre>
-<p><img src="webcrawling2_files/figure-html5/unnamed-chunk-17-1.png" width="624" /></p>
+<p><img src="webcrawling2_files/figure-html5/unnamed-chunk-18-1.png" width="624" /></p>
 </div>
-<p>Something seems to be going on here. Almost all nodes have a degree somewhere between 1 and 1000 (isolated nodes are not possible due to how the data was collected). But then, not even perceptible on the plot above, there seem to be very few nodes with very high degrees, going all the way up to 15,000. Clearly, a standard histogram is not the best tool for visualizing the distribution of the degrees in our network.</p>
-<p>More insights can be gained by looking at the <em>degree distribution</em> of our network. The degree distribution of a graph is defined as the empirical distribution of the degrees in our network and is thus a probability distribution in the proper mathematical sense. It can be accessed by calling <code>igraph</code>’s <code>degree_distribution()</code> function. Given a graph <code>g</code>, it returns a numeric vector with a length of the maximum degree of any vertex in <code>g</code> plus 1. The <span class="math inline">\(i\)</span>-th entry of that vector is the relative frequency of vertices with degree <span class="math inline">\(i-1\)</span> in <code>g</code>, that is</p>
+<p>Something seems to be going on here. Almost all nodes have a degree somewhere between 1 and 1000 (isolated nodes are not possible due to how the data was collected). But then, not even perceptible on the plot above, there seem to be very few nodes with very high degrees, going all the way up to 15,000. Clearly, a standard histogram is not the best tool for visualizing the distribution of the degrees in our network. And also very clearly, the average degree of 223 does not represent our data accurately at all.</p>
+<p>This behavior is actually very common for real world networks and some light can be shed on what is going on here by looking at the <em>degree distribution</em> of our network. The degree distribution of a graph is defined as the empirical distribution of the degrees in our network and is thus a probability distribution in the proper mathematical sense. It can be accessed by calling <code>igraph</code>’s <code>degree_distribution()</code> function. Given a graph <code>g</code>, it returns a numeric vector with a length of the maximum degree of any vertex in <code>g</code> plus 1. The <span class="math inline">\(i\)</span>-th entry of that vector is the relative frequency of vertices with degree <span class="math inline">\(i-1\)</span> in <code>g</code>, that is</p>
 <p><span class="math display">\[
-\text{degree_distribution(g)}_i = \frac{\# \text{vertices of degree } i-1}{\text{total number of vertices in }g}.
+\text{degree_distribution(g)}_i = \frac{\# \text{vertices of degree } (i-1)}{\text{total number of vertices in }g}.
 \]</span> More intuitively, if we pick a vertex in <code>g</code> at random, with probability <code>degree_distribution(g)[i]</code> its degree will be <span class="math inline">\(i-1\)</span> (the “-1” shift is there, because the first entry gives the relative frequency of vertices with degree zero). For real-world network, such distributions are typically visualized as a log-log plot:</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 library(ggplot2)
-ggplot(mapping = aes(x = 1:15081, y = degree_distribution(g)))+
+ggplot(mapping = aes(x = 1:(max(degree(g))+1), y = degree_distribution(g)))+
   geom_point()+
   scale_y_log10()+
-  scale_x_log10()</code></pre>
-<p><img src="webcrawling2_files/figure-html5/unnamed-chunk-18-1.png" width="624" /></p>
+  scale_x_log10()+
+  xlab(&quot;Degree&quot;)+
+  ylab(&quot;Proportion&quot;)+
+  labs(title = &quot;Distribution of total degrees, log-log plot&quot;)</code></pre>
+<p><img src="webcrawling2_files/figure-html5/unnamed-chunk-19-1.png" width="624" data-distill-preview=1 /></p>
 </div>
-<p>Aha, this already tells us a more interesting story. As we can see, indeed most degrees are between 1 and 1,000. The shape we observed in the plot above is very typical for real-world networks and known as a <a href="https://en.wikipedia.org/wiki/Power_law"><em>power-law distribution</em></a>.</p>
+<p>Aha! This already tells us a more interesting story. As we can see, indeed most degrees are between 1 and 1,000, while very few nodes have a degree larger than 1,000. This means that the number of vertices in <code>g</code> with degree at least <span class="math inline">\(k\)</span> decays slowly for large <span class="math inline">\(k\)</span>, implying that the variance of the degree of a vertex picked at random is very large. The shape we observed in the plot above is very typical for real-world networks and known as a <a href="https://en.wikipedia.org/wiki/Power_law"><em>power-law distribution</em></a> and the resulting graphs are called “scale-free graphs”. A distinctive feature of power-law distributions is that they are distributions with <em>fat tails</em>, i.e. there is a strictly positive probability of observing extreme value events, such as the vertices with a degree over 10,000 in our graph. Such a node with a very high degree is commonly referred to as a “hub”. A very good and easy to digest introduction to power-laws and properties of real world networks is the introductory chapter of Remco van der Hofstad’s book on “Random Graphs and Complex Networks” which is freely available <a href="https://www.win.tue.nl/~rhofstad/NotesRGCN.html">online</a><span class="citation" data-cites="hofstad_2016">(Hofstad <a href="#ref-hofstad_2016">2016</a>)</span>.</p>
+<p>Now, let’s look at the out-degrees and in-degrees separately.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+out_degrees &lt;- degree_distribution(g, mode = &quot;out&quot;)
+in_degrees &lt;- degree_distribution(g, mode = &quot;in&quot;)
+
+ggplot(mapping = aes(x = 1:(max(degree(g, mode = &quot;out&quot;))+1), y = out_degrees))+
+  geom_point()+
+  scale_y_log10()+
+  scale_x_log10()+
+  xlab(&quot;Degree&quot;)+
+  ylab(&quot;Proportion&quot;)+
+  labs(title = &quot;Distribution of out degrees, log-log plot&quot;)</code></pre>
+<p><img src="webcrawling2_files/figure-html5/unnamed-chunk-20-1.png" width="624" /></p>
+<pre class="r"><code>
+ggplot(mapping = aes(x = 1:(max(degree(g, mode = &quot;in&quot;))+1), y = in_degrees))+
+  geom_point()+
+  scale_y_log10()+
+  scale_x_log10()+
+  xlab(&quot;Degree&quot;)+
+  ylab(&quot;Proportion&quot;)+
+  labs(title = &quot;Distribution of in degrees, log-log plot&quot;)</code></pre>
+<p><img src="webcrawling2_files/figure-html5/unnamed-chunk-20-2.png" width="624" /></p>
+</div>
+<p>We see a similar shape of the plot here. One thing to realize, though, is that the out-degrees are capped at around 1,000, while the in-degrees go up all the way to over 10,000. There seem to be a few pages, to which a lot of other pages link, but that themselves do not link back to any other pages. What could they be?</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+sort(degree(g, mode = &quot;in&quot;), decreasing = TRUE)%&gt;%head(10)</code></pre>
+<pre><code>
+  International Standard Book Number 
+                               14543 
+           Digital object identifier 
+                               11374 
+                              PubMed 
+                                6550 
+                  Taxonomy (biology) 
+                                5392 
+           Integrated Authority File 
+                                4980 
+International Standard Serial Number 
+                                4817 
+                            Wikidata 
+                                4798 
+                      PubMed Central 
+                                4677 
+                              Animal 
+                                4643 
+                     Wayback Machine 
+                                4559 </code></pre>
+</div>
+<p>Right! Down in the “References” section of each article most topics would be linking to some book together with its ISBN (= “International Standard Book Number”) or some digital media together with its DOI (= “Digital object identifier”), but these would link back to hardly any topics themselves. Let’s take a look at their out-degrees.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+degree(g, mode = &quot;out&quot;)[c(&quot;International Standard Book Number&quot;, &quot;Digital object identifier&quot;)]</code></pre>
+<pre><code>
+International Standard Book Number          Digital object identifier 
+                               537                                455 </code></pre>
+</div>
+<p>While not small in an overall sense, these numbers are tiny when compared to the respective in-degrees. This explains why there is such a discrepancy between the in-degree distribution and the out-degree distribution.</p>
+<p>To answer the first question we asked ourselves, i.e. why the number of pages we can reach with two clicks is so large, the <em>out-degrees</em> are actually more interesting, because they allow us to answer the question: When I am at the “Squirrel” page, which pages can I get to with one click which <em>in turn</em> allow me to get to many new pages? Those pages act as gateways to many new pages we can discover. Let’s take a look.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+sort(degree(g, mode = &quot;out&quot;), decreasing = TRUE)%&gt;%head(10)</code></pre>
+<pre><code>
+           South America                   Africa 
+                    1864                     1722 
+                    Asia                   Europe 
+                    1521                     1406 
+      Sub-Saharan Africa                     Bird 
+                    1227                     1217 
+                Americas Germanic-speaking Europe 
+                    1206                     1197 
+           North America                  Oceania 
+                    1178                     1174 </code></pre>
+</div>
+<p>That makes sense! All the pages with a high out-degree are either continents or refer in some way to large geographic regions. Of course, a topic such as “South America” would link to all sorts of diverse other topics and for sure the history section of the “Europe” page will link to “Age of Enlightenment”. It also makes sense for “Squirrel” to link to many of the continents/ large geographic regions in the sections talking about where in the world they can be found. This allows us to give an answer for our goal number one: The number of pages we can reach with two clicks grows so rapidly, because the “Squirrel” page links to geographic “hub-pages” that themselves link to a very broad range of topics.</p>
+<h3 id="a-quick-aside-the-squirrel-subgraph">A quick aside: The squirrel subgraph</h3>
+<p>Now that we have our data in network format, we can actually take a look at how many different squirrel pages we have visited. To that end, we extract all the pages that have “squirrel” in their name and look at the induced subgraph.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+squirrels &lt;- str_subset(names(V(g)), pattern = &quot;squirrel&quot;)
+squirrels &lt;- c(squirrels, &quot;Squirrel&quot;)</code></pre>
+</div>
+<p>We add to add the capitalized “Squirrel” page manually. This is preferable to running <code>pattern = &quot;squirrel|Squirrel</code> in <code>str_subset()</code>, because as it turns out, there are quite a few pages with capitalized “Squirrel” in their name referring to rock bands, songs and such and we don’t want them in our subgraph. We extract the subgraph induced by all the various squirrel pages with <code>induced_subgraph()</code>, that is, we only keep the graph which has all the pages with “squirrel” in their name as nodes and only the edges between these nodes as edges.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+squirrel_graph &lt;- induced_subgraph(g, vids = squirrels)
+# Number of vertices
+length(V(squirrel_graph))</code></pre>
+<pre><code>
+[1] 272</code></pre>
+<pre class="r"><code>
+# Number of edges in the induced subgraph
+length(E(squirrel_graph))</code></pre>
+<pre><code>
+[1] 12006</code></pre>
+</div>
+<p>That’s 272 different types of squirrels!</p>
+<p>We store the layout for plotting the network in the <code>l_force</code> object to make our plots reproducible. If no layout is passed into <code>plot</code> the vertices will be laid out randomly each time we plot the graph.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+l_force &lt;- layout_with_kk(squirrel_graph)
+plot(squirrel_graph, vertex.size = 2, vertex.label.cex = 0.3, layout = l_force,
+     edge.arrow.size = 0.005, edge.width = 0.05)</code></pre>
+</div>
+<p><img src="Rplot.svg" /></p>
+<p>As you can see… you see nothing… Visualizing networks of moderate or large sizes is an art in itself and would deserve its own blog post. The above is an svg image though, so you should be able to zoom in on single nodes and still get a good resolution. We can spot some patterns: The central node in the middle is the “Squirrel” page that unsurprisingly links to most other pages. Furthermore, we seem to have several clusters of different topics. If that is only an artifact of the way the network was plotted above or an actual structural property, is not discernible from this plot alone, but might be an interesting thing to look at in a future blog post. To answer that question, one would have to run a community detection algorithm on the network.</p>
+<p>In any case, enough with this aside and on to achieving our goal number two!</p>
 <h3 id="visualizations">Visualizations</h3>
-<p>To create a visulatzation as the one in the introduction, we need to be able to find all shortest paths leading from “Squirrel” to any other given topic. In <code>igraph</code> we can find those quite easily using <code>all_shortest_paths()</code>. The output is a list of lists and the actual paths are stored in the <code>res</code> value.</p>
+<p>It remains to achieve goal number two, creating a function that gives me all the paths from “Squirrel” to any topic I choose. To create a visualization as the one in the introduction, we first need to be able to find all shortest paths leading from “Squirrel” to any other given topic. In <code>igraph</code> we can find those quite easily using <code>all_shortest_paths()</code>. The output is a list of lists and the actual paths are stored in the <code>res</code> value.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 all_shortest_paths(g, from = &quot;Squirrel&quot;, to = &quot;Age of Enlightenment&quot;)$res</code></pre>
 <pre><code>
 [[1]]
-+ 3/22524 vertices, named, from beb5b1b:
++ 3/22524 vertices, named, from 53aa536:
 [1] Squirrel             Taxonomy (biology)   Age of Enlightenment
 
 [[2]]
-+ 3/22524 vertices, named, from beb5b1b:
++ 3/22524 vertices, named, from 53aa536:
 [1] Squirrel             South America        Age of Enlightenment
 
 [[3]]
-+ 3/22524 vertices, named, from beb5b1b:
++ 3/22524 vertices, named, from 53aa536:
 [1] Squirrel             Euthanasia           Age of Enlightenment</code></pre>
 </div>
-<p>These are exactly the connections we saw in the introduction. Currently they are still in <code>igraph</code> format. For our visualization, we want to extract the actual vertex names, which we can achive like so.</p>
+<p>These are exactly the connections we saw in the introduction. Currently they are still in <code>igraph</code> format. For our visualization, we want to extract the actual vertex names, which we can achieve like so.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
-all_shortest_paths(g, from = &quot;Squirrel&quot;, to = &quot;Age of Enlightenment&quot;)$res[[1]]%&gt;%names()</code></pre>
+all_shortest_paths(g, from = &quot;Squirrel&quot;, to = &quot;Age of Enlightenment&quot;)$res[[1]]%&gt;%
+  names()</code></pre>
 <pre><code>
 [1] &quot;Squirrel&quot;             &quot;Taxonomy (biology)&quot;  
 [3] &quot;Age of Enlightenment&quot;</code></pre>
@@ -1309,7 +1436,7 @@ graph_path &lt;- function(target){
   
 }</code></pre>
 </div>
-<p>The <code>tryCatch()</code> trhows an error if there is no path between <code>from</code> and <code>to</code>, be it because they simply are not connected or because we misspelled one of them <code>sapply</code> at the bottom gives us a matrix in which each column corresponds to one valid path.</p>
+<p><code>graph_path()</code> gives us a matrix in which each column represents one valid path from “Squirrel” to our target.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 graph_path(&quot;Age of Enlightenment&quot;)</code></pre>
@@ -1323,7 +1450,7 @@ graph_path(&quot;Age of Enlightenment&quot;)</code></pre>
 [2,] &quot;Euthanasia&quot;          
 [3,] &quot;Age of Enlightenment&quot;</code></pre>
 </div>
-<p>To visualize these paths, we have to lay out the nodes in the diamond shape from the introduction. We can do this using the <code>coordinates()</code> function from the <code>diagram</code> package. It allows us to arrange objects in a grid-like manner. Its <code>pos</code> argument takes a vector specifying how many objects we want in each column of our grid. In the case above this vector will be of length three, with the first and last entry equal to one (corresponding to “Squirrel” and “Age of Enlightenment”). The middel entry will be equal to the number of paths leading from “Squirrel” to “Age of Enlightenment”, so in this case, 3. Setting <code>hor=F</code> ensures we get the layout above. Since the distance to any other node from “Squirrel” is either one or two, we only need to distinguish between these two cases.</p>
+<p>To visualize these paths, we have to lay out the nodes in the diamond shape from the introduction. We can do this using the <code>coordinates()</code> function from the <code>diagram</code> package. It allows us to arrange objects in a grid-like manner. Its <code>pos</code> argument takes a vector specifying how many objects we want in each column of our grid. In the case above, this vector will be of length three, with the first and last entry equal to one (corresponding to “Squirrel” and “Age of Enlightenment”). The middle entry will be equal to the number of paths leading from “Squirrel” to “Age of Enlightenment”, so in this case, 3. Setting <code>hor=F</code> ensures we get the layout above. Since the distance to any other node from “Squirrel” is either one or two, we only need to distinguish between these two cases.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 library(diagram)
@@ -1367,7 +1494,7 @@ graph_path &lt;- function(target){
     plot(graph_from_edgelist(matrix(c(&quot;Squirrel&quot;, target), nrow = 1)), 
          layout=coords, vertex.shape = &quot;none&quot;,
          vertex.label.font=2, vertex.label.color=&quot;gray40&quot;,
-         vertex.label.cex=.7, edge.color=&quot;gray85&quot;)
+         vertex.label.cex=.5, edge.color=&quot;gray85&quot;)
     
   }else{
     coords &lt;- coordinates(pos = c(1, ncol(paths_matrix), 1), hor = F)
@@ -1376,7 +1503,7 @@ graph_path &lt;- function(target){
     
     plot(g, layout=coords, vertex.shape = &quot;none&quot;,
          vertex.label.font=2, vertex.label.color=&quot;gray40&quot;,
-         vertex.label.cex=.7, edge.color=&quot;gray85&quot;)
+         vertex.label.cex=.5, edge.color=&quot;gray85&quot;)
     
   }
 
@@ -1386,11 +1513,32 @@ graph_path &lt;- function(target){
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 graph_path(&quot;Age of Enlightenment&quot;)</code></pre>
-<p><img src="webcrawling2_files/figure-html5/unnamed-chunk-25-1.png" width="624" /></p>
+<p><img src="webcrawling2_files/figure-html5/unnamed-chunk-33-1.png" width="624" /></p>
 </div>
-<div id="refs" class="references" role="doc-bibliography">
+<p>Great! This is the plot from the beginning. Now we can finally figure out how we can reach the other unexpected topics mentioned in the introduction.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+graph_path(&quot;Bible&quot;)</code></pre>
+<p><img src="webcrawling2_files/figure-html5/unnamed-chunk-34-1.png" width="624" /></p>
+<pre class="r"><code>
+graph_path(&quot;Abraham Lincoln and slavery&quot;)</code></pre>
+<p><img src="webcrawling2_files/figure-html5/unnamed-chunk-34-2.png" width="624" /></p>
+<pre class="r"><code>
+graph_path(&quot;LGBT rights in Germany&quot;)</code></pre>
+<p><img src="webcrawling2_files/figure-html5/unnamed-chunk-34-3.png" width="624" /></p>
+<pre class="r"><code>
+graph_path(&quot;Frankfurt Stock Exchange&quot;)</code></pre>
+<p><img src="webcrawling2_files/figure-html5/unnamed-chunk-34-4.png" width="624" /></p>
+</div>
+<p>As we might have expected, there are quite a few ways of reaching such a broad topic as “Bible” from “Squirrel”. I especially like the path “Squirrel” -&gt; “Snake” -&gt; “Bible”, because it make so much sense, when you think about it. For slightly more specific topics as “LGBT rights in Germany”, only one unique path can be found.</p>
+<p>Feel free to play around with the functions shown here and let me know if you find any particularly interesting connections in the data! You can get the data from the accompanying <a href="https://github.com/stefan-stein/Wikipedia_webcrawling">GitHub repository</a>.</p>
+<p>If you have any comments or suggestions, feel free to comment below or reach out to me via my social media channels. The easiest way to get in touch is via <a href="https://twitter.com/SteinsZeit">Twitter</a>.</p>
+<div id="refs" class="references">
 <div id="ref-igraph">
 <p>Csardi, Gabor, and Tamas Nepusz. 2006. “The Igraph Software Package for Complex Network Research.” <em>InterJournal</em> Complex Systems: 1695. <a href="http://igraph.org">http://igraph.org</a>.</p>
+</div>
+<div id="ref-hofstad_2016">
+<p>Hofstad, Remco van der. 2016. <em>Random Graphs and Complex Networks</em>. Vol. 1. Cambridge Series in Statistical and Probabilistic Mathematics. Cambridge University Press. <a href="https://doi.org/10.1017/9781316779422">https://doi.org/10.1017/9781316779422</a>.</p>
 </div>
 <div id="ref-diagram">
 <p>Soetaert, Karline. 2017. <em>Diagram: Functions for Visualising Simple Graphs (Networks), Plotting Flow Diagrams</em>. <a href="https://CRAN.R-project.org/package=diagram">https://CRAN.R-project.org/package=diagram</a>.</p>
@@ -1447,6 +1595,8 @@ Flow Diagrams},
     note = {R package version 1.6.4},
     url = {https://CRAN.R-project.org/package=diagram},
   }
+  
+@book{hofstad_2016, place={Cambridge}, series={Cambridge Series in Statistical and Probabilistic Mathematics}, title={Random Graphs and Complex Networks}, volume={1}, DOI={10.1017/9781316779422}, publisher={Cambridge University Press}, author={Hofstad, Remco van der}, year={2016}, collection={Cambridge Series in Statistical and Probabilistic Mathematics}}
 </script>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->

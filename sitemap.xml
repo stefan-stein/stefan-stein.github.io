@@ -2,18 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" version="1.0">
   <url>
     <loc>https://stefan-stein.github.io/about.html</loc>
-    <lastmod>2020-02-03T18:09:11+00:00</lastmod>
+    <lastmod>2020-02-03T19:09:11+01:00</lastmod>
   </url>
   <url>
     <loc>https://stefan-stein.github.io/</loc>
-    <lastmod>2020-01-07T20:19:49+00:00</lastmod>
+    <lastmod>2020-01-07T21:19:49+01:00</lastmod>
+  </url>
+  <url>
+    <loc>https://stefan-stein.github.io/posts/2020-02-09-webcrawling2/</loc>
+    <lastmod>2020-02-15T15:06:36+01:00</lastmod>
   </url>
   <url>
     <loc>https://stefan-stein.github.io/posts/2020-01-09-webcrawling1/</loc>
-    <lastmod>2020-02-03T17:42:40+00:00</lastmod>
+    <lastmod>2020-02-03T18:42:40+01:00</lastmod>
   </url>
   <url>
     <loc>https://stefan-stein.github.io/posts/welcome/</loc>
-    <lastmod>2020-02-03T20:44:11+00:00</lastmod>
+    <lastmod>2020-02-03T21:44:11+01:00</lastmod>
   </url>
 </urlset>
