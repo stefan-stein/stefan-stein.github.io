@@ -39,7 +39,7 @@ Our main tool will be the package `rvest`, [@rvest] by Hadley Wickham. This is a
 - Obtaining content of a website (using `rvest`, [@rvest])
 - Filtering that content for specific data (using `rvest`)
 - Teaching `rvest` how to crawl (using a `while loop` and `regular expressions`)
-- Making pretty graphs (using `igraph`, [@igraph], in part 2 of this series)
+- Getting the scraped data into network format and analysing its properties (using `igraph`, [@igraph], in [part 2](https://stefan-stein.github.io/posts/2020-02-09-webcrawling2/) of this series)
 
 ### General strategy
 
@@ -270,7 +270,7 @@ length(to_be_checked_urls)
 
 
 26625! That's a lot! How close was your initial estimate? The actual number turns out to be slightly smaller, 22524, to be precise, but that is still a lot of pages we can reach with just two clicks. 
-To finish the scraping, change `length(links_body)` in the loop above to `26625` and run the loop again. This will take quite a long time (at least 26625 seconds which is just shy of 7.5 hours), so when I did this project I simply left my computer running over night. There is a good chance you might get away with a shorter break between downloading pages, but I am not sure at which point Wikipedia might decide that enough is enough and block your IP. If you don't want to wait for 7.5 hours (not that anyone could blame you), feel free to check out the corresponding [GitHub repo](https://github.com/stefan-stein/Wikipedia_webcrawling) which contains the scraped link structure as well as the code for some basic network analysis that I will be going over in the next post. In that post we will analyse the actual link structure of the data we scraped and find some explanation as to why this number of hyperlinks is so impressive. I'd love to see you back here again for that!
+To finish the scraping, change `length(links_body)` in the loop above to `26625` and run the loop again. This will take quite a long time (at least 26625 seconds which is just shy of 7.5 hours), so when I did this project I simply left my computer running over night. There is a good chance you might get away with a shorter break between downloading pages, but I am not sure at which point Wikipedia might decide that enough is enough and block your IP. If you don't want to wait for 7.5 hours (not that anyone could blame you), feel free to check out the corresponding [GitHub repo](https://github.com/stefan-stein/Wikipedia_webcrawling) which contains the scraped link structure as well as the code for some basic network analysis that I will be going over in [part 2](https://stefan-stein.github.io/posts/2020-02-09-webcrawling2/) of this series. In that post we will analyse the actual link structure of the data we scraped and find some explanation as to why this number of hyperlinks is so impressive. I'd love to see you back here again for that!
 
 #### Credits for the preview image
 

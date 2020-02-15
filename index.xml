@@ -7,14 +7,14 @@
     <description>Building things in R and Python
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Fr, 14 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sa, 15 Feb 2020 00:00:00 +0000</lastBuildDate>
     <item>
       <title>Web crawling with R part 2: Power laws and enlightened squirrels</title>
       <dc:creator>Stefan Stein</dc:creator>
       <link>https://stefan-stein.github.io/posts/2020-02-09-webcrawling2</link>
       <description>In this post we analyze the data we scraped in part one of the web crawling with R series. We find that the degree distribution of the hyperlink 2-neighborhood of the English Wikipedia page for "Squirrel" follows a power-law distribution and stumble across some unexpected topics in our network.</description>
       <guid>https://stefan-stein.github.io/posts/2020-02-09-webcrawling2</guid>
-      <pubDate>Fr, 14 Feb 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sa, 15 Feb 2020 00:00:00 +0000</pubDate>
       <media:content url="https://stefan-stein.github.io/posts/2020-02-09-webcrawling2/webcrawling2_files/figure-html5/unnamed-chunk-19-1.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
