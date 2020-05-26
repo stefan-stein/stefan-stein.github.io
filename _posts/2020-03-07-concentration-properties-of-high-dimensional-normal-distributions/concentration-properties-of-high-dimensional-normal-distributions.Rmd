@@ -45,7 +45,7 @@ Thus, we now have two questions we want answers to:
 1. Why are high-dimensional normal vectors far away from the origin in the first place?
 1. Why, with growing dimension, do they move out from the origin in an almost perfect circle?
 
-The mathematical theory presented here is developed very nicely and in the more general context of sub-gaussian random vectors in chapter 3 of the book "High-Dimensional Probability - An Introduction with Applications in Data Science" by Ronan Vershynin, which is freely available [online](https://www.math.uci.edu/~rvershyn/papers/HDP-book/HDP-book.pdf), [@vershynin_2018]. In particular, the author states and proves above theorem in more generality as theorem 3.1.1.
+The mathematical theory presented here is developed very nicely and in the more general context of sub-gaussian random vectors in chapter 3 of the book "High-Dimensional Probability - An Introduction with Applications in Data Science" by Roman Vershynin, which is freely available [online](https://www.math.uci.edu/~rvershyn/papers/HDP-book/HDP-book.pdf), [@vershynin_2018]. In particular, the author states and proves above theorem in more generality as theorem 3.1.1.
 
 
 ## Normal distributions in low-dimensions
