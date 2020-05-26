@@ -15,7 +15,7 @@ output:
     self_contained: false
 bibliography: bibliography.bib
 repository_url: https://github.com/stefan-stein/Wikipedia_webcrawling
-preview: img/squirrel_network.png
+preview: squirrel_network.png
 ---
 
 ```{r setup, include=FALSE}

@@ -13,13 +13,13 @@
       <dc:creator>Stefan Stein</dc:creator>
       <link>https://stefan-stein.github.io/posts/2020-03-07-concentration-properties-of-high-dimensional-normal-distributions</link>
       <description>Our intuition and experience in low dimensions tells us that random standard normal vectors cluster around the origin.
-In higher dimensions, this is no longer true. Instead, despite having expectation zero, $n$-dimensional vectors with 
-independent $\mathcal{N}(0,1)$ entries will concentrate tightly around a sphere of radius $\sqrt{n}$. 
-In particular, they will be nowhere close to the origin. In this post we look at the mathematical theory behind why
+In higher dimensions, this is no longer true. Instead, despite having expectation zero, n-dimensional vectors with 
+independent N(0,1) entries will concentrate tightly around a sphere of radius n^0.5. 
+In particular, they will be nowhere near the origin. In this post we look at the mathematical theory behind why
 that is.</description>
       <guid>https://stefan-stein.github.io/posts/2020-03-07-concentration-properties-of-high-dimensional-normal-distributions</guid>
       <pubDate>Di, 26 Mai 2020 00:00:00 +0000</pubDate>
-      <media:content url="https://stefan-stein.github.io/posts/2020-03-07-concentration-properties-of-high-dimensional-normal-distributions/concentration-properties-of-high-dimensional-normal-distributions_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
+      <media:content url="https://stefan-stein.github.io/posts/2020-03-07-concentration-properties-of-high-dimensional-normal-distributions/deviation.png" medium="image" type="image/png" width="1298" height="676"/>
     </item>
     <item>
       <title>Web crawling with R part 2: Power laws and enlightened squirrels</title>
@@ -28,7 +28,7 @@ that is.</description>
       <description>In this post we analyze the data we scraped in part one of the web crawling with R series. We find that the degree distribution of the hyperlink 2-neighborhood of the English Wikipedia page for "Squirrel" follows a power-law distribution and stumble across some unexpected topics in our network.</description>
       <guid>https://stefan-stein.github.io/posts/2020-02-09-webcrawling2</guid>
       <pubDate>Sa, 15 Feb 2020 00:00:00 +0000</pubDate>
-      <media:content url="https://stefan-stein.github.io/posts/2020-02-09-webcrawling2/webcrawling2_files/figure-html5/unnamed-chunk-18-1.png" medium="image" type="image/png" width="1248" height="768"/>
+      <media:content url="https://stefan-stein.github.io/posts/2020-02-09-webcrawling2/squirrel_network.png" medium="image" type="image/png" width="974" height="840"/>
     </item>
     <item>
       <title>Web crawling with R part 1: Teaching rvest how to crawl</title>

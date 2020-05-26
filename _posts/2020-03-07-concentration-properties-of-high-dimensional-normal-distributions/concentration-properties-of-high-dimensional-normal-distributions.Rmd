@@ -2,9 +2,9 @@
 title: "Concentration properties of high-dimensional normal distributions"
 description: |
   Our intuition and experience in low dimensions tells us that random standard normal vectors cluster around the origin.
-  In higher dimensions, this is no longer true. Instead, despite having expectation zero, $n$-dimensional vectors with 
-  independent $\mathcal{N}(0,1)$ entries will concentrate tightly around a sphere of radius $\sqrt{n}$. 
-  In particular, they will be nowhere close to the origin. In this post we look at the mathematical theory behind why
+  In higher dimensions, this is no longer true. Instead, despite having expectation zero, n-dimensional vectors with 
+  independent N(0,1) entries will concentrate tightly around a sphere of radius n^0.5. 
+  In particular, they will be nowhere near the origin. In this post we look at the mathematical theory behind why
   that is.
 author:
   - name: Stefan Stein
@@ -18,6 +18,7 @@ output:
   distill::distill_article:
     self_contained: false
 bibliography: bibliography.bib
+preview: deviation.png
 ---
 
 ```{r setup, include=FALSE}
@@ -26,17 +27,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 The probability that an $n$-dimensional standard normal vector is far away from the sphere of radius $\sqrt{n}$ decays exponentially fast. In particular, even though it has expectation zero, its realizations will be nowhere close to zero.
 
-When I first came accross this fact, I was quite surprised. It did not seem clear to me at all why this would be the case and indeed, our experience from handling low-dimensional normal distributions seems to tell us exactly the opposite: If I draw from a 1-dimensional $\mathcal{N}(0,1)$ distribution, I expect the value to be close to the origin and the "$3\sigma$-rule" tells me that the probablity of observing anything that is further away than 3 from the origin is way below $1\%$. When drawing form a 2-dimensional standard normal distribution, the values will again cluster close to the origin. Why is it then, that when I draw from a $n$-dimensional standard-normal distribution, my draws will be pushed outwards and away from the origin towards infinity? Especially since the expectation of such a vector will still be equal to zero? More, even, why are they pushed outward in an almost perfect circle? As it turns out, this result is much more intuitive and logical as it might seem at first glance, which for me, makes out a lot of the beauty of it: It seems strange and unintituve at first, but after thinking about it, you have to come to the conclusion that it actually cannot be any other way.
+When I first came across this fact, I was quite surprised. It did not seem clear to me at all why this would be the case and indeed, our experience from handling low-dimensional normal distributions seems to tell us exactly the opposite: If I draw from a 1-dimensional $\mathcal{N}(0,1)$ distribution, I expect the value to be close to the origin and the "$3\sigma$-rule" tells me that the probability of observing anything that is further away than 3 from the origin is way below $1\%$. When drawing form a 2-dimensional standard normal distribution, the values will again cluster close to the origin. Why is it then, that when I draw from a $n$-dimensional standard-normal distribution, my draws will be pushed outwards and away from the origin towards infinity? Especially since the expectation of such a vector will still be equal to zero? More, even, why are they pushed outward in an almost perfect circle? As it turns out, this result is much more intuitive and logical as it might seem at first glance, which for me, makes out a lot of the beauty of it: It seems strange and unintituve at first, but after thinking about it, you have to come to the conclusion that it actually cannot be any other way.
 
 First, let's make precise in the following theorem what I mean by "an $n$-dimensional standard normal vector will concentrate tightly around a sphere of radius $\sqrt{n}$".
 
- **Theorem:** *Let $X$ be a random $n$-dimensional vecotr with independent $\mathcal{N}(0,1)$ entries. Denote by $\Vert \; . \; \Vert_2$ the Euclidean vector norm. Then, for any $t \ge 0$,*
+ **Theorem:** *Let $X$ be a random $n$-dimensional vector with independent $\mathcal{N}(0,1)$ entries. Denote by $\Vert \; . \; \Vert_2$ the Euclidean vector norm. Then, for any $t \ge 0$,*
  \[
     P(\vert \Vert X \Vert_2 - \sqrt{n} \vert \ge t) \le 2 \exp(-c t^2),
  \]
 *for some universal $c > 0$ independent of $n$.*
 
-In other words, the probability of observing a ralization of $X$ that is far away from the sphere with radius $\sqrt{n}$ decays exponentially fast with the distance from the sphere. Another way to read this theorem is: If we fix a probability $p$, say $99\%$, then with probability $p$, $X$ will stay within *constant distance* from the sphere of radius $\sqrt{n}$. Something that is not made explicit in the theorem, but holds nonetheless, is that the realizations of $X$ will also be spread evenly around the sphere of radius $\sqrt{n}$, i.e. there is not one direction in which all realizations of $X$ lie, but rather, $X$ behaves almost like the uniform distribution on said sphere.
+In other words, the probability of observing a realization of $X$ that is far away from the sphere with radius $\sqrt{n}$ decays exponentially fast with the distance from the sphere. Another way to read this theorem is: If we fix a probability $p$, say $99\%$, then with probability $p$, $X$ will stay within *constant distance* from the sphere of radius $\sqrt{n}$. Something that is not made explicit in the theorem, but holds nonetheless, is that the realizations of $X$ will also be spread evenly around the sphere of radius $\sqrt{n}$, i.e. there is not one direction in which all realizations of $X$ lie, but rather, $X$ behaves almost like the uniform distribution on said sphere.
 
 
 Thus, we now have two questions we want answers to:
@@ -44,7 +45,7 @@ Thus, we now have two questions we want answers to:
 1. Why are high-dimensional normal vectors far away from the origin in the first place?
 1. Why, with growing dimension, do they move out from the origin in an almost perfect circle?
 
-The mathematical theory presented here is developed very nicely and in the more general context of subgaussian random vectors in chapter 3 of the book "High-Dimensional Probability - An Introduction with Applications in Data Science" by Ronan Vershynin, which is freely available [online](https://www.math.uci.edu/~rvershyn/papers/HDP-book/HDP-book.pdf), [@vershynin_2018]. In particular, the author states and proves above theorem in more generality as theorem 3.1.1.
+The mathematical theory presented here is developed very nicely and in the more general context of sub-gaussian random vectors in chapter 3 of the book "High-Dimensional Probability - An Introduction with Applications in Data Science" by Ronan Vershynin, which is freely available [online](https://www.math.uci.edu/~rvershyn/papers/HDP-book/HDP-book.pdf), [@vershynin_2018]. In particular, the author states and proves above theorem in more generality as theorem 3.1.1.
 
 
 ## Normal distributions in low-dimensions
@@ -57,7 +58,7 @@ Probably all of us know the characteristic bell-like shape of the density of a s
 ```{r, echo=FALSE}
 normal_density <- dnorm(seq(-5,5, by = 0.1))
 plot(seq(-5,5, by = 0.1), normal_density, type = "l",
-     main = "Density of a N(0,1) distribbution",
+     main = "Density of a N(0,1) distribution",
      xlab = "x")
 ```
 
@@ -81,7 +82,7 @@ summary(normals_1d)
 
 How about two dimensions?
 
-```{r}
+```{r, preview=TRUE}
 library(tidyverse)
 normals_2d <- data.frame(x = rnorm(20000),
                          y = rnorm(20000))
@@ -103,7 +104,7 @@ So, what happens when we move to higher dimensions? Well, it is quite logical, a
 \[
   \Vert x \Vert_2 = \sqrt{x_1^2 + x_2^2 + \dots + x_n^2}.
 \]
-If $x$ is a realization of a $n$-dimensional standard-normal random variable, each of its components $x_i$ follows a $\mathcal{N}(0,1)$ distribution. So, each component will on average be close to zero. However, when adding up the deviations from zero accross all components, this will still give a large number and thus, $x$ is far away from the orign. In low dimensions, this is phenomenon is not so prominent, because there simply aren't that many small contributions to add up. Expressed differently, in high-dimensions there are simply many more directions for our vector to wiggle away from the origin. Also we can come up with a heuristic that gives us a great intuition behind our theorem: the expected *square distance* of a $n$-dimensional standard normal vector $X$ is simply the sum of the variances of the entries:
+If $x$ is a realization of a $n$-dimensional standard-normal random variable, each of its components $x_i$ follows a $\mathcal{N}(0,1)$ distribution. So, each component will on average be close to zero. However, when adding up the deviations from zero across all components, this will still give a large number and thus, $x$ is far away from the origin. In low dimensions, this is phenomenon is not so prominent, because there simply aren't that many small contributions to add up. Expressed differently, in high-dimensions there are simply many more directions for our vector to wiggle away from the origin. Also we can come up with a heuristic that gives us a great intuition behind our theorem: the expected *square distance* of a $n$-dimensional standard normal vector $X$ is simply the sum of the variances of the entries:
 \[
   E[\Vert X \Vert_2^2] = \sum_{i=1}^n 1 = n.
 \]
@@ -111,7 +112,7 @@ Thus, as a heuristic we can say,
 
 >if the expected square distance of our vector $X$ is equal to $n$, then the expected distance should be roughly equal to $\sqrt{n}$. 
 
-Hence, the theorem basically just says that the length of $X$ will be concentrated thightly around its expectation.
+Hence, the theorem basically just says that the length of $X$ will be concentrated tightly around its expectation.
 
 Let's take a look at some more simulations. What happens if we go to higher dimensions, say 100?
 
@@ -144,4 +145,21 @@ But then $O\theta$ has the same distribution as $\theta$. Thus, $\theta$ is rota
 
 This lemma tells us that the *direction* of a $n$-dimensional standard normal random variable $X$ is distributed uniformly in all directions. This makes sense: Each component of $X$ is independent and identically distributed, so $X$ is equally likely to wiggle into any direction.
 
-So how does our theorem fit into this? Well, we already heuristically found out that we roughly have $E \Vert X \Vert_2 \approx \sqrt{n}$. The theorem tells us that $X$ will be close to the sphere of radius $\sqrt{n}$, $\sqrt{n}\mathbb{S}^{n-1}$. In other words, it simply says, that the actual value of $\Vert X \Vert_2$ will be close to its expectation! This sort concentration behaviour of random variables taking values very close to their expectation is frequently observed for "sufficiently well-behaved" random variables. It is also one of the key properties of the family of [sub-gaussian random variables](https://en.wikipedia.org/wiki/Sub-Gaussian_distribution), which includes many common distributions and in particular all bounded random variables.
+So how does our theorem fit into this? Well, we already heuristically found out that we roughly have $E \Vert X \Vert_2 \approx \sqrt{n}$. The theorem tells us that $X$ will be close to the sphere of radius $\sqrt{n}$, $\sqrt{n}\mathbb{S}^{n-1}$. In other words, it simply says, that the actual value of $\Vert X \Vert_2$ will be close to its expectation! This sort concentration behavior of random variables taking values very close to their expectation is frequently observed for "sufficiently well-behaved" random variables. It is also one of the key properties of the family of [sub-gaussian random variables](https://en.wikipedia.org/wiki/Sub-Gaussian_distribution), which includes many common distributions and in particular all bounded random variables.
+
+In [@vershynin_2018] we find another interpretation of this theorem (Remark 3.1.2): We know $\Vert X \Vert_2^2$ has expectation $n$ and standard deviation $O(\sqrt{n})$. This means, $\Vert X \Vert_2^2 \approx n \pm O(\sqrt{n})$ and therefore $\Vert X \Vert_2 \approx \sqrt{n \pm O(\sqrt{n})}$. However, we have
+\[
+  \sqrt{n \pm O(\sqrt{n})} = \sqrt{n} \pm O(1).
+\]
+The author illustrates this beautifully in his figure 3.2, which I borrow for this blog post:
+
+![](deviation.png)
+
+While $\Vert X \Vert_2^2$ deviates by $O(\sqrt{n})$ around $n$, $\Vert X \Vert_2$ only deviates by a constant amount around $\sqrt{n}$.
+
+
+
+#### Credits for the preview image
+
+The preview image is taken from [@vershynin_2018], figure 3.2, and all rights belong to its author.
+
