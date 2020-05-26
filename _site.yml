@@ -4,7 +4,7 @@ description: |
   Building things in R and Python
 base_url: https://stefan-stein.github.io
 google_analytics: "UA-157630283-1"
-repository_url: https://github.com/stefan-stein/stefan-stein.github.io
+repository_url: https://github.com/stefan-stein/stefan-stein.github.io/
 collections:
   posts:
     disqus: steinszeit

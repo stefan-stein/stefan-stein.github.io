@@ -1,5 +1,26 @@
 [
   {
+    "path": "posts/2020-03-07-concentration-properties-of-high-dimensional-normal-distributions/",
+    "title": "Concentration properties of high-dimensional normal distributions",
+    "description": "Our intuition and experience in low dimensions tells us that random standard normal vectors cluster around the origin.\nIn higher dimensions, this is no longer true. Instead, despite having expectation zero, $n$-dimensional vectors with \nindependent $\\mathcal{N}(0,1)$ entries will concentrate tightly around a sphere of radius $\\sqrt{n}$. \nIn particular, they will be nowhere close to the origin. In this post we look at the mathematical theory behind why\nthat is.",
+    "author": [
+      {
+        "name": "Stefan Stein",
+        "url": {}
+      }
+    ],
+    "date": "2020-05-26",
+    "categories": [
+      "Probability",
+      "Statistics",
+      "High-dimensional"
+    ],
+    "preview": "posts/2020-03-07-concentration-properties-of-high-dimensional-normal-distributions/concentration-properties-of-high-dimensional-normal-distributions_files/figure-html5/unnamed-chunk-1-1.png",
+    "last_modified": "2020-05-26T14:20:49+02:00",
+    "preview_width": 1248,
+    "preview_height": 768
+  },
+  {
     "path": "posts/2020-02-09-webcrawling2/",
     "title": "Web crawling with R part 2: Power laws and enlightened squirrels",
     "description": "In this post we analyze the data we scraped in part one of the web crawling with R series. We find that the degree distribution of the hyperlink 2-neighborhood of the English Wikipedia page for \"Squirrel\" follows a power-law distribution and stumble across some unexpected topics in our network.",
@@ -15,8 +36,8 @@
       "R",
       "igraph"
     ],
-    "preview": "posts/2020-02-09-webcrawling2/webcrawling2_files/figure-html5/unnamed-chunk-19-1.png",
-    "last_modified": "2020-02-15T15:06:36+01:00",
+    "preview": "posts/2020-02-09-webcrawling2/webcrawling2_files/figure-html5/unnamed-chunk-18-1.png",
+    "last_modified": "2020-05-26T14:17:44+02:00",
     "preview_width": 1248,
     "preview_height": 768
   },

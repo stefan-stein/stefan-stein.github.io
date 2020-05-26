@@ -15,6 +15,7 @@ output:
     self_contained: false
 bibliography: bibliography.bib
 repository_url: https://github.com/stefan-stein/Wikipedia_webcrawling
+preview: img/squirrel_network.png
 ---
 
 ```{r setup, include=FALSE}
@@ -196,7 +197,7 @@ $$
 More intuitively, if we pick a vertex in `g` at random, with probability `degree_distribution(g)[i]` its degree
 will be $i-1$ (the "-1" shift is there, because the first entry gives the relative frequency of vertices with degree zero). For real-world network, such distributions are typically visualized as a log-log plot: 
 
-```{r, preview=TRUE}
+```{r}
 library(ggplot2)
 ggplot(mapping = aes(x = 1:(max(degree(g))+1), y = degree_distribution(g)))+
   geom_point()+
@@ -284,6 +285,7 @@ l_force <- layout_with_kk(squirrel_graph)
 plot(squirrel_graph, vertex.size = 2, vertex.label.cex = 0.3, layout = l_force,
      edge.arrow.size = 0.005, edge.width = 0.05)
 ```
+
 
 ![](Rplot.svg)
 
