@@ -13,7 +13,7 @@
       <dc:creator>Stefan Stein</dc:creator>
       <link>https://stefan-stein.github.io/posts/2020-06-14-websitesimilarities</link>
       <description>Spend enough time in academia and you might start to think that this is an excellent research question. In this post
-I try to give an answer, by calculating the website similarities between the Wikipedia pages of Batman, the Joker and
+I try to give an answer by calculating the website similarities between the Wikipedia pages of Batman, the Joker and
 Robin. Some web scraping, data wrangling and NLP with Python lies ahead!</description>
       <guid>https://stefan-stein.github.io/posts/2020-06-14-websitesimilarities</guid>
       <pubDate>Sa, 13 Jun 2020 00:00:00 +0000</pubDate>
