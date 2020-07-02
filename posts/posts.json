@@ -1,5 +1,25 @@
 [
   {
+    "path": "posts/2020-06-14-websitesimilarities/",
+    "title": "Is Batman more like the Joker or more like Robin?",
+    "description": "Spend enough time in academia and you might start to think that this is an excellent research question. In this post\nI try to give an answer, by calculating the website similarities between the Wikipedia pages of Batman, the Joker and\nRobin. Some web scraping, data wrangling and NLP with Python lies ahead!",
+    "author": [
+      {
+        "name": "Stefan Stein",
+        "url": {}
+      }
+    ],
+    "date": "2020-06-14",
+    "categories": [
+      "webcrawling",
+      "Python",
+      "NLP",
+      "tf-idf"
+    ],
+    "preview": "posts/2020-06-14-websitesimilarities/the-lego-batman-movie-the-joker-robin-batman-wallpaper-preview.jpg",
+    "last_modified": "2020-07-02T16:59:10+02:00"
+  },
+  {
     "path": "posts/2020-03-07-concentration-properties-of-high-dimensional-normal-distributions/",
     "title": "Concentration properties of high-dimensional normal distributions",
     "description": "Our intuition and experience in low dimensions tells us that random standard normal vectors cluster around the origin.\nIn higher dimensions, this is no longer true. Instead, despite having expectation zero, n-dimensional vectors with \nindependent N(0,1) entries will concentrate tightly around a sphere of radius n^0.5. \nIn particular, they will be nowhere near the origin. In this post we look at the mathematical theory behind why\nthat is.",

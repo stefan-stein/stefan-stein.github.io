@@ -7,7 +7,18 @@
     <description>Building things in R and Python
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Di, 26 Mai 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sa, 13 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Is Batman more like the Joker or more like Robin?</title>
+      <dc:creator>Stefan Stein</dc:creator>
+      <link>https://stefan-stein.github.io/posts/2020-06-14-websitesimilarities</link>
+      <description>Spend enough time in academia and you might start to think that this is an excellent research question. In this post
+I try to give an answer, by calculating the website similarities between the Wikipedia pages of Batman, the Joker and
+Robin. Some web scraping, data wrangling and NLP with Python lies ahead!</description>
+      <guid>https://stefan-stein.github.io/posts/2020-06-14-websitesimilarities</guid>
+      <pubDate>Sa, 13 Jun 2020 00:00:00 +0000</pubDate>
+      <media:content url="https://stefan-stein.github.io/posts/2020-06-14-websitesimilarities/the-lego-batman-movie-the-joker-robin-batman-wallpaper-preview.jpg" medium="image" type="image/jpeg"/>
+    </item>
     <item>
       <title>Concentration properties of high-dimensional normal distributions</title>
       <dc:creator>Stefan Stein</dc:creator>
