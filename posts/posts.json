@@ -1,7 +1,7 @@
 [
   {
     "path": "posts/2020-06-14-websitesimilarities/",
-    "title": "Is Batman more like the Joker or more like Robin?",
+    "title": "Website similarities with Python: Is Batman more like the Joker or more like Robin?",
     "description": "Spend enough time in academia and you might start to think that this is an excellent research question. In this post\nI try to give an answer by calculating the website similarities between the Wikipedia pages of Batman, the Joker and\nRobin. Some web scraping, data wrangling and NLP with Python lies ahead!",
     "author": [
       {
@@ -17,7 +17,7 @@
       "tf-idf"
     ],
     "preview": "posts/2020-06-14-websitesimilarities/the-lego-batman-movie-the-joker-robin-batman-wallpaper-preview.jpg",
-    "last_modified": "2020-07-02T17:04:13+02:00"
+    "last_modified": "2020-07-03T17:46:54+02:00"
   },
   {
     "path": "posts/2020-03-07-concentration-properties-of-high-dimensional-normal-distributions/",

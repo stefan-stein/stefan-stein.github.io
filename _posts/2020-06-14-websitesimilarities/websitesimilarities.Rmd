@@ -1,5 +1,5 @@
 ---
-title: "Is Batman more like the Joker or more like Robin?"
+title: "Website similarities with Python: Is Batman more like the Joker or more like Robin?"
 description: |
   Spend enough time in academia and you might start to think that this is an excellent research question. In this post
   I try to give an answer by calculating the website similarities between the Wikipedia pages of Batman, the Joker and
