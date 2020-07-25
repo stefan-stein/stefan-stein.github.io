@@ -1656,8 +1656,9 @@ hist(degree(g))</code></pre>
 <p>Something seems to be going on here. Almost all nodes have a degree somewhere between 1 and 1000 (isolated nodes are not possible due to how the data was collected). But then, not even perceptible on the plot above, there seem to be very few nodes with very high degrees, going all the way up to 15,000. Clearly, a standard histogram is not the best tool for visualizing the distribution of the degrees in our network. And also very clearly, the average degree of 223 does not represent our data accurately at all.</p>
 <p>This behavior is actually very common for real world networks and some light can be shed on what is going on here by looking at the <em>degree distribution</em> of our network. The degree distribution of a graph is defined as the empirical distribution of the degrees in our network and is thus a probability distribution in the proper mathematical sense. It can be accessed by calling <code>igraph</code>’s <code>degree_distribution()</code> function. Given a graph <code>g</code>, it returns a numeric vector with a length of the maximum degree of any vertex in <code>g</code> plus 1. The <span class="math inline">\(i\)</span>-th entry of that vector is the relative frequency of vertices with degree <span class="math inline">\(i-1\)</span> in <code>g</code>, that is</p>
 <p><span class="math display">\[
-\text{degree_distribution(g)}_i = \frac{\# \text{vertices of degree } (i-1)}{\text{total number of vertices in }g}.
-\]</span> More intuitively, if we pick a vertex in <code>g</code> at random, with probability <code>degree_distribution(g)[i]</code> its degree will be <span class="math inline">\(i-1\)</span> (the “-1” shift is there, because the first entry gives the relative frequency of vertices with degree zero). For real-world network, such distributions are typically visualized as a log-log plot:</p>
+\text{degree_distribution(g)}_{\text{ } i} = \frac{\# \text{vertices of degree } (i-1)}{\text{total number of vertices in }g}.
+\]</span></p>
+<p>More intuitively, if we pick a vertex in <code>g</code> at random, with probability <code>degree_distribution(g)[i]</code> its degree will be <span class="math inline">\(i-1\)</span> (the “-1” shift is there, because the first entry gives the relative frequency of vertices with degree zero). For real-world network, such distributions are typically visualized as a log-log plot:</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 library(ggplot2)
@@ -1683,7 +1684,7 @@ ggplot(mapping = aes(x = 1:(max(degree(g, mode = &quot;out&quot;))+1), y = out_d
   scale_x_log10()+
   xlab(&quot;Degree&quot;)+
   ylab(&quot;Proportion&quot;)+
-  labs(title = &quot;Distribution of out degrees, log-log plot&quot;)</code></pre>
+  labs(title = &quot;Distribution of out-degrees, log-log plot&quot;)</code></pre>
 <p><img src="webcrawling2_files/figure-html5/unnamed-chunk-20-1.png" width="624" /></p>
 <pre class="r"><code>
 ggplot(mapping = aes(x = 1:(max(degree(g, mode = &quot;in&quot;))+1), y = in_degrees))+
@@ -1692,7 +1693,7 @@ ggplot(mapping = aes(x = 1:(max(degree(g, mode = &quot;in&quot;))+1), y = in_deg
   scale_x_log10()+
   xlab(&quot;Degree&quot;)+
   ylab(&quot;Proportion&quot;)+
-  labs(title = &quot;Distribution of in degrees, log-log plot&quot;)</code></pre>
+  labs(title = &quot;Distribution of in-degrees, log-log plot&quot;)</code></pre>
 <p><img src="webcrawling2_files/figure-html5/unnamed-chunk-20-2.png" width="624" /></p>
 </div>
 <p>We see a similar shape of the plot here. One thing to realize, though, is that the out-degrees are capped at around 1,000, while the in-degrees go up all the way to over 10,000. There seem to be a few pages, to which a lot of other pages link, but that themselves do not link back to any other pages. What could they be?</p>
@@ -1746,7 +1747,10 @@ sort(degree(g, mode = &quot;out&quot;), decreasing = TRUE)%&gt;%head(10)</code><
            North America                  Oceania 
                     1178                     1174 </code></pre>
 </div>
-<p>That makes sense! All the pages with a high out-degree are either continents or refer in some way to large geographic regions. Of course, a topic such as “South America” would link to all sorts of diverse other topics and for sure the history section of the “Europe” page will link to “Age of Enlightenment”. It also makes sense for “Squirrel” to link to many of the continents/ large geographic regions in the sections talking about where in the world they can be found. This allows us to give an answer for our goal number one: The number of pages we can reach with two clicks grows so rapidly, because the “Squirrel” page links to geographic “hub-pages” that themselves link to a very broad range of topics.</p>
+<p>That makes sense! All the pages with a high out-degree are either continents or refer in some way to large geographic regions. Of course, a topic such as “South America” would link to all sorts of diverse other topics and for sure the history section of the “Europe” page will link to “Age of Enlightenment”. It also makes sense for “Squirrel” to link to many of the continents/ large geographic regions in the sections talking about where in the world they can be found. This allows us to give an answer for our goal number one:</p>
+<blockquote>
+<p>The number of pages we can reach with two clicks grows so rapidly, because the “Squirrel” page links to geographic “hub-pages” that themselves link to a very broad range of topics.</p>
+</blockquote>
 <h3 id="a-quick-aside-the-squirrel-subgraph">A quick aside: The squirrel subgraph</h3>
 <p>Now that we have our data in network format, we can actually take a look at how many different squirrel pages we have visited. To that end, we extract all the pages that have “squirrel” in their name and look at the induced subgraph.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1754,7 +1758,7 @@ sort(degree(g, mode = &quot;out&quot;), decreasing = TRUE)%&gt;%head(10)</code><
 squirrels &lt;- str_subset(names(V(g)), pattern = &quot;squirrel&quot;)
 squirrels &lt;- c(squirrels, &quot;Squirrel&quot;)</code></pre>
 </div>
-<p>We add to add the capitalized “Squirrel” page manually. This is preferable to running <code>pattern = &quot;squirrel|Squirrel</code> in <code>str_subset()</code>, because as it turns out, there are quite a few pages with capitalized “Squirrel” in their name referring to rock bands, songs and such and we don’t want them in our subgraph. We extract the subgraph induced by all the various squirrel pages with <code>induced_subgraph()</code>, that is, we only keep the graph which has all the pages with “squirrel” in their name as nodes and only the edges between these nodes as edges.</p>
+<p>We need to add the capitalized “Squirrel” page manually. This is preferable to running <code>pattern = &quot;squirrel|Squirrel&quot;</code> in <code>str_subset()</code>, because as it turns out, there are quite a few pages with capitalized “Squirrel” in their name referring to rock bands, songs and such and we don’t want them in our subgraph. We extract the subgraph induced by all the various squirrel pages with <code>induced_subgraph()</code>, that is, we only keep the graph which has all the pages with “squirrel” in their name as nodes and only the edges between these nodes as edges.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 squirrel_graph &lt;- induced_subgraph(g, vids = squirrels)
@@ -1786,15 +1790,15 @@ plot(squirrel_graph, vertex.size = 2, vertex.label.cex = 0.3, layout = l_force,
 all_shortest_paths(g, from = &quot;Squirrel&quot;, to = &quot;Age of Enlightenment&quot;)$res</code></pre>
 <pre><code>
 [[1]]
-+ 3/22524 vertices, named, from 8b87748:
++ 3/22524 vertices, named, from 979bae7:
 [1] Squirrel             Taxonomy (biology)   Age of Enlightenment
 
 [[2]]
-+ 3/22524 vertices, named, from 8b87748:
++ 3/22524 vertices, named, from 979bae7:
 [1] Squirrel             South America        Age of Enlightenment
 
 [[3]]
-+ 3/22524 vertices, named, from 8b87748:
++ 3/22524 vertices, named, from 979bae7:
 [1] Squirrel             Euthanasia           Age of Enlightenment</code></pre>
 </div>
 <p>These are exactly the connections we saw in the introduction. Currently they are still in <code>igraph</code> format. For our visualization, we want to extract the actual vertex names, which we can achieve like so.</p>

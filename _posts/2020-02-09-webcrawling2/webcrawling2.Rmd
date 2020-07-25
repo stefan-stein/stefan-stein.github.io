@@ -192,8 +192,9 @@ Something seems to be going on here. Almost all nodes have a degree somewhere be
 This behavior is actually very common for real world networks and some light can be shed on what is going on here by looking at the *degree distribution* of our network. The degree distribution of a graph is defined as the empirical distribution of the degrees in our network and is thus a probability distribution in the proper mathematical sense. It can be accessed by calling `igraph`'s `degree_distribution()` function. Given a graph `g`, it returns a numeric vector with a length of the maximum degree of any vertex in `g` plus 1. The $i$-th entry of that vector is the relative frequency of vertices with degree $i-1$ in `g`, that is
 
 $$
-\text{degree_distribution(g)}_i = \frac{\# \text{vertices of degree } (i-1)}{\text{total number of vertices in }g}.
+\text{degree_distribution(g)}_{\text{ } i} = \frac{\# \text{vertices of degree } (i-1)}{\text{total number of vertices in }g}.
 $$
+
 More intuitively, if we pick a vertex in `g` at random, with probability `degree_distribution(g)[i]` its degree
 will be $i-1$ (the "-1" shift is there, because the first entry gives the relative frequency of vertices with degree zero). For real-world network, such distributions are typically visualized as a log-log plot: 
 
@@ -223,7 +224,7 @@ ggplot(mapping = aes(x = 1:(max(degree(g, mode = "out"))+1), y = out_degrees))+
   scale_x_log10()+
   xlab("Degree")+
   ylab("Proportion")+
-  labs(title = "Distribution of out degrees, log-log plot")
+  labs(title = "Distribution of out-degrees, log-log plot")
 
 
 ggplot(mapping = aes(x = 1:(max(degree(g, mode = "in"))+1), y = in_degrees))+
@@ -232,7 +233,7 @@ ggplot(mapping = aes(x = 1:(max(degree(g, mode = "in"))+1), y = in_degrees))+
   scale_x_log10()+
   xlab("Degree")+
   ylab("Proportion")+
-  labs(title = "Distribution of in degrees, log-log plot")
+  labs(title = "Distribution of in-degrees, log-log plot")
 ```
 
 We see a similar shape of the plot here. One thing to realize, though, is that the out-degrees are capped at around 1,000, while the in-degrees go up all the way to over 10,000. There seem to be a few pages, to which a lot of other pages link, but that themselves do not link back to any other pages. What could they be?
@@ -255,7 +256,9 @@ To answer the first question we asked ourselves, i.e. why the number of pages we
 sort(degree(g, mode = "out"), decreasing = TRUE)%>%head(10)
 ```
 
-That makes sense! All the pages with a high out-degree are either continents or refer in some way to large geographic regions. Of course, a topic such as "South America" would link to all sorts of diverse other topics and for sure the history section of the "Europe" page will link to "Age of Enlightenment". It also makes sense for "Squirrel" to link to many of the continents/ large geographic regions in the sections talking about where in the world they can be found. This allows us to give an answer for our goal number one: The number of pages we can reach with two clicks grows so rapidly, because the "Squirrel" page links to geographic "hub-pages" that themselves link to a very broad range of topics.
+That makes sense! All the pages with a high out-degree are either continents or refer in some way to large geographic regions. Of course, a topic such as "South America" would link to all sorts of diverse other topics and for sure the history section of the "Europe" page will link to "Age of Enlightenment". It also makes sense for "Squirrel" to link to many of the continents/ large geographic regions in the sections talking about where in the world they can be found. This allows us to give an answer for our goal number one: 
+
+> The number of pages we can reach with two clicks grows so rapidly, because the "Squirrel" page links to geographic "hub-pages" that themselves link to a very broad range of topics.
 
 ### A quick aside: The squirrel subgraph
 
@@ -266,7 +269,7 @@ squirrels <- str_subset(names(V(g)), pattern = "squirrel")
 squirrels <- c(squirrels, "Squirrel")
 ```
 
-We add to add the capitalized "Squirrel" page manually. This is preferable to running `pattern = "squirrel|Squirrel` in `str_subset()`, because as it turns out, there are quite a few pages with capitalized "Squirrel" in their name referring to rock bands, songs and such and we don't want them in our subgraph. We extract the subgraph induced by all the various squirrel pages with `induced_subgraph()`, that is, we only keep the graph which has all the pages with "squirrel" in their name as nodes and only the edges between these nodes as edges.
+We need to add the capitalized "Squirrel" page manually. This is preferable to running `pattern = "squirrel|Squirrel"` in `str_subset()`, because as it turns out, there are quite a few pages with capitalized "Squirrel" in their name referring to rock bands, songs and such and we don't want them in our subgraph. We extract the subgraph induced by all the various squirrel pages with `induced_subgraph()`, that is, we only keep the graph which has all the pages with "squirrel" in their name as nodes and only the edges between these nodes as edges.
 
 ```{r}
 squirrel_graph <- induced_subgraph(g, vids = squirrels)
