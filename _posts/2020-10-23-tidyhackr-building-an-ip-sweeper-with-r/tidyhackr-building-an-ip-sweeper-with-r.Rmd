@@ -1,0 +1,109 @@
+---
+title: "tidyHackR: Building an IP sweeper with R"
+description: |
+  One of the first questions an (ethical) hacker would want to answer when testing a network for vulnerabilities is: Which other machines are sitting on the network in question (followed by: how can I attack them, but that's for another post)? IP sweepers are tools that answer this question for you. In this post I show you how to build an IP sweeper from scratch in R using the tidyverse suite.
+author:
+  - name: Stefan Stein
+    url: {}
+date: 10-23-2020
+output:
+  distill::distill_article:
+    self_contained: false
+draft: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Being a hackR
+
+Truth be told, I cannot think of too many reasons *why* you would want to build an IP sweeper, or any half-serious infosec tool, for that matter, with R. There is an abundance of tools out there (e.g. [`arp-scan`](https://linux.die.net/man/1/arp-scan) or [`netdiscover`](https://github.com/alexxy/netdiscover), just to name two) that are much faster and provide much richer information than what we will build here.
+
+The reason why I wanted to do this project nonetheless is simply to see if I *could* - and the answer turned out to be "yes". At the end of this post, we will have built a functioning IP sweeper. It won't be fast and it won't be very useful for most practical purposes, but it will do what it is supposed to, which is give you a list of all the other devices connected to the network you are on. For me, this project has been a nice learning experience about R programming and computer networking and I hope this post will bring you value, too.
+
+# Finding other machines on your network
+
+Our strategy will be quite simple: We will simply try to connect to all [*Internet Protocol (IP) addresses*](https://en.wikipedia.org/wiki/IP_address) on our network and see for which IPs we get a response. If we get a response, we then will know that there must be a device or service located at that IP address. If we do not get a response, we will conclude that there is no device located at that IP. That's it. 
+
+There is a slight problem with that reasoning, though, that we should keep in mind. When we try to connect to another machine, we will send it a [`ping`](https://en.wikipedia.org/wiki/Ping_(networking_utility)). Depending on the firewall setting of the machine it can either
+
+- allow the connection, in which case we know that there is a machine at that IP address and it is open to receive packets, or,
+- actively block the connection, in which case we know that there is a machine there, but it is blocking attempts to connect to it, or,
+- do nothing and wait until the ping times out.
+
+In the last case, which for example is used on newer Windows machines with active firewall by default, we have no way of distinguishing between an unoccupied IP address and a machine that simply ignores us. Firewall evasion is a whole science unto itself and a very rapidly changing field. So we will not worry about this for this blog post and simply assume that IPs from which we do not get a response are unoccupied. In the later part of the post, when we try out our IP sweeper, we will switch off the firewall on our target machine for demonstration purposes. While this obviously is not a very realistic setting in the real world, I think it's accaptable when we only want to understand the general concept of IP sweepers.
+
+In summary, the ingredients we need for our project are:
+
+- Our own IP address,
+- The network identifier and subnetmask (this will allow us to calculate the list of available IP addresses on the network),
+- A way of connecting to IP addresses.
+
+# IP addresses
+
+We will focus on [IPv4 addresses](https://en.wikipedia.org/wiki/IPv4#Addressing) and when referring to IP addresses I implicitly mean IPv4. An IPv4 address oncists of four bytes or 32 bits and usually is denoted in the [dot-decimal notation](https://en.wikipedia.org/wiki/Dot-decimal_notation). That means, it looks something like this:
+
+$$
+192.168.56.1
+$$
+
+Put simply, an IPv4 address consists of four numbers between $0$ and $255$, written next to each other, separated by a period. Each of these numbers corresponds to one byte whose value has been written out in decimal notation rather than binary notation, which allows for a more compact way of writing. 
+
+A quick calculation shows that there only are $2^{32} \approx 4.3 \times 10^9$ IPv4 addresses in the whole world - way too few to assign a unique IP address to every device connected to the internet. To remedy this, people came up with IPv6, which with 128 bit long addresses and has an address space of $2^{128} \approx 3.4 \times 10^{38}$, which are more than enough addresses (for now, anyways).
+
+Still, IPv4 addresses did not abruptly disappear as one might expect. Instead, people used another workaround that allowed IPv4 to be continued to be used: The distinction between private and public IP addresses.
+
+Say, I have connected with my computing device to my home WIFI. My home WIFI and all the devices connected to it form one network. When my device wants to talk to a machine on a different network (such as a server hosting a website), my device sends the message it wants to transmit to the so-called *default gateway* for talking to the outside world (usually located inside little blinking box commonly called *router*). That is a particular router on my network that has an interface to other networks (“the outside world”) and its address was told to my computer when it first logged onto the network. In fact, every device on my network sends its requests with the outside world through that default gateway and the outside world sends all its replies back to that default gateway which then distributes it to the correct machines on my WIFI network. That means, for the outside world, it does not matter which devices are sitting on my network. All it needs to know is how to reach my default gateway, which then takes care of the rest. For that purpose, the default gateway has two interfaces, each with its own IP address. Let's call them the "inwards facing IP address", known to the devices on my network and the "outwards facing IP address" known to the outside world. The outwards facing IP address has to be unique, so that traffic can be sent correctly back to the machines on my network. The inward facing IP address on the other hand can be used in other networks, too! In fact, if you check your device's IP address while connected to your home network, it will most likely start with $192.168.$, as this is the type of IP address typically assigned to home networks.
+
+Therefore, sharing your private IP (the one starting with $192.168.$) won't tell others anything about you other than the fact that you are probably using a standard home network. The public or outwards facing IP of your router does reveal a lot about your location, however, as it is a unique identifier for your home network. When police in movies talk about "tracking down IP addresses", they are referring to these public IPs.
+
+## Finding your IP address
+
+To check your device's (private) IP address on a Mac, simply hold down the option (alt) key and click on the wifi symbol in the top right corner of your status bar. It will display all sorts of information about your current wifi connection including:
+
+- IP-address: The address of your device on the network,
+- Router: The address of the default gateway.
+
+You can also find your address via the terminal (this also works on Linux). Open the terminal and type
+
+```{bash, eval=FALSE}
+ifconfig
+```
+
+Depending on how many networks your computer is connected to, this might result in a length list. Usually you are interested in the WIFI network located at `en0`, which should be located at the top of the list. You can also run
+
+
+```{bash, eval=FALSE}
+ifconfig en0
+```
+
+To only display the information about the `en0` network. Look for the line starting with `inet`. The IP address following is the IP address of your computer.
+
+On windows, open the comand prompt (search for `cmd` if unsure how to find it) and type
+
+
+```{bash, eval=FALSE}
+ipconfig
+```
+
+The line starting with "IPv4 address" contains your computer's IP address.
+
+## Available IP addresses on a network
+
+The next question we need to answer is, which IP addresses are available on the network we are connected to. Obviously it cannot be all $2^{32}$ and indeed, it usually are way fewer than that. The answer to that question is given by the [`subnetmask`](https://en.wikipedia.org/wiki/Subnetwork). It has the same format as an IP address and its value is located on the same line of the output of `ifconfig` (Mac, Linux) or on the line starting with `subnetmask` on Windows. For home networks, it usually is $255.255.255.0$. The value of the subnetmask tells us how many of leading bits of the 32 bits of the IP addresses are "blocked" and how many are available to be used for the assignment of IP addresses. This is easiest understood if we convert the dot-decimal notation of the subnet mask back to binary notation. 
+
+Suppose we our machine has IP address $192.168.56.3$ and we found out that the subnet mask is $255.255.255.0$. Turning it into binary representation gives us:
+
+$$
+11111111.11111111.11111111.0
+$$
+
+We see that there are 24 ones in that representation. That means, the first 24 bits of the IP space are fixed. The first 24 bits of our computer's IP address are (back in dot-decimal notation): $192.168.56.$ The subnetmask of $255.255.255.0$ now tells us that every device connected to our network will have these exact same first 24 bits. Only the last 8 bits may varie between IP addresses. Since 8 bits allow for 256 different numbers, there can only be at most 256 different IP addresses assigned in our network. Since most households probably have way fewer devices connected to the internet, that's plenty for most private purposes.
+
+
+```{r}
+paste(sapply(strsplit(paste(rev(intToBits(12))),""),`[[`,2),collapse="")
+```
+
