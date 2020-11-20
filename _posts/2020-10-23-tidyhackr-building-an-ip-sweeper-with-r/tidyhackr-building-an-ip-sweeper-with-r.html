@@ -964,8 +964,10 @@
 
 <div class="d-article">
 <h1 id="being-a-hackr">Being a hackR</h1>
-<p>Truth be told, I cannot think of too many reasons <em>why</em> you would want to build an IP sweeper, or any half-serious infosec tool, for that matter, with R. There is an abundance of tools out there (e.g. <a href="https://linux.die.net/man/1/arp-scan"><code>arp-scan</code></a> or <a href="https://github.com/alexxy/netdiscover"><code>netdiscover</code></a>, just to name two) that are much faster and provide much richer information than what we will build here.</p>
+<p>Truth be told, I cannot think of too many reasons <em>why</em> you would want to build an IP sweeper, or any half-serious infosec tool, for that matter, with R. There is an abundance of tools out there (e.g. the infamous <a href="https://nmap.org">nmap</a>, <a href="https://linux.die.net/man/1/arp-scan"><code>arp-scan</code></a> or <a href="https://github.com/alexxy/netdiscover"><code>netdiscover</code></a>, just to name a few) that are much faster and provide much richer information than what we will build here.</p>
 <p>The reason why I wanted to do this project nonetheless is simply to see if I <em>could</em> - and the answer turned out to be “yes”. At the end of this post, we will have built a functioning IP sweeper. It won’t be fast and it won’t be very useful for most practical purposes, but it will do what it is supposed to, which is give you a list of all the other devices connected to the network you are on. For me, this project has been a nice learning experience about R programming and computer networking and I hope this post will bring you value, too.</p>
+<h1 id="disclaimer">Disclaimer</h1>
+<p>Please be aware that the resources in this blog post are provided for educational purposes only. Don’t use them for anything illegal! Only sweep networks you own or have explicit permission to sweep. If you get in trouble for using the code presented here in an illicit manner, it is not my problem.</p>
 <h1 id="finding-other-machines-on-your-network">Finding other machines on your network</h1>
 <p>Our strategy will be quite simple: We will simply try to connect to all <a href="https://en.wikipedia.org/wiki/IP_address"><em>Internet Protocol (IP) addresses</em></a> on our network and see for which IPs we get a response. If we get a response, we then will know that there must be a device or service located at that IP address. If we do not get a response, we will conclude that there is no device located at that IP. That’s it.</p>
 <p>There is a slight problem with that reasoning, though, that we should keep in mind. When we try to connect to another machine, we will send it a <a href="https://en.wikipedia.org/wiki/Ping_(networking_utility)"><code>ping</code></a>. Depending on the firewall setting of the machine it can either</p>
@@ -987,12 +989,12 @@
 192.168.56.1
 \]</span></p>
 <p>Put simply, an IPv4 address consists of four numbers between <span class="math inline">\(0\)</span> and <span class="math inline">\(255\)</span>, written next to each other, separated by a period. Each of these numbers corresponds to one byte whose value has been written out in decimal notation rather than binary notation, which allows for a more compact way of writing.</p>
-<p>A quick calculation shows that there only are <span class="math inline">\(2^{32} \approx 4.3 \times 10^9\)</span> IPv4 addresses in the whole world - way too few to assign a unique IP address to every device connected to the internet. To remedy this, people came up with IPv6, which with 128 bit long addresses and has an address space of <span class="math inline">\(2^{128} \approx 3.4 \times 10^{38}\)</span>, which are more than enough addresses (for now, anyways).</p>
+<p>A quick calculation shows that there only are <span class="math inline">\(2^{32} \approx 4.3 \times 10^9\)</span> IPv4 addresses in the whole world - way too few to assign a unique IP address to every device connected to the internet. To remedy this, people came up with IPv6, which with 128 bit long addresses and has an address space of <span class="math inline">\(2^{128} \approx 3.4 \times 10^{38}\)</span>, which are more addresses than we could ever need.</p>
 <p>Still, IPv4 addresses did not abruptly disappear as one might expect. Instead, people used another workaround that allowed IPv4 to be continued to be used: The distinction between private and public IP addresses.</p>
-<p>Say, I have connected with my computing device to my home WIFI. My home WIFI and all the devices connected to it form one network. When my device wants to talk to a machine on a different network (such as a server hosting a website), my device sends the message it wants to transmit to the so-called <em>default gateway</em> for talking to the outside world (usually located inside little blinking box commonly called <em>router</em>). That is a particular router on my network that has an interface to other networks (“the outside world”) and its address was told to my computer when it first logged onto the network. In fact, every device on my network sends its requests with the outside world through that default gateway and the outside world sends all its replies back to that default gateway which then distributes it to the correct machines on my WIFI network. That means, for the outside world, it does not matter which devices are sitting on my network. All it needs to know is how to reach my default gateway, which then takes care of the rest. For that purpose, the default gateway has two interfaces, each with its own IP address. Let’s call them the “inwards facing IP address”, known to the devices on my network and the “outwards facing IP address” known to the outside world. The outwards facing IP address has to be unique, so that traffic can be sent correctly back to the machines on my network. The inward facing IP address on the other hand can be used in other networks, too! In fact, if you check your device’s IP address while connected to your home network, it will most likely start with <span class="math inline">\(192.168.\)</span>, as this is the type of IP address typically assigned to home networks.</p>
+<p>Say, I have connected with my computing device to my home WIFI. My home WIFI and all the devices connected to it form one network. When my device wants to talk to a machine on a different network (such as a server hosting a website), my device sends the message it wants to transmit to the so-called <em>default gateway</em> for talking to the outside world (usually located inside little blinking box commonly called <em>router</em>). That is a particular router on my network that has an interface to other networks (“the outside world”) and its address was told to my computer when it first logged onto the network. In fact, every device on my network sends its requests with the outside world through that default gateway and the outside world sends all its replies back to that default gateway which then distributes it to the correct machines on my WIFI network. That means, for the outside world, it does not matter which devices are sitting on my network. All it needs to know is how to reach my default gateway, which then takes care of the rest. For that purpose, the default gateway has two interfaces, each with its own IP address. Let’s call them the “inwards facing IP address”, known to the devices on my network and the “outwards facing IP address” known to the outside world. The outwards facing IP address has to be unique, so that traffic can be sent correctly back to the machines on my network. The inward facing IP address on the other hand can be used in other networks, too! Simply because these inward facing addresses are only used to communicate within my local network. If somebody else, far away, uses the same local IP addresses in their network, it has no effect on me using them. These local addresses are never used to talk to the outside world. In fact, if you check your device’s IP address while connected to your home network, it will most likely start with <span class="math inline">\(192.168.\)</span>, as this is the type of IP address typically assigned to home networks.</p>
 <p>Therefore, sharing your private IP (the one starting with <span class="math inline">\(192.168.\)</span>) won’t tell others anything about you other than the fact that you are probably using a standard home network. The public or outwards facing IP of your router does reveal a lot about your location, however, as it is a unique identifier for your home network. When police in movies talk about “tracking down IP addresses”, they are referring to these public IPs.</p>
 <h2 id="finding-your-ip-address">Finding your IP address</h2>
-<p>To check your device’s (private) IP address on a Mac, simply hold down the option (alt) key and click on the wifi symbol in the top right corner of your status bar. It will display all sorts of information about your current wifi connection including:</p>
+<p>To check your device’s (private/ inward facing) IP address on a Mac, simply hold down the option (alt) key and click on the wifi symbol in the top right corner of your status bar. It will display all sorts of information about your current WIFI connection including:</p>
 <ul>
 <li>IP-address: The address of your device on the network,</li>
 <li>Router: The address of the default gateway.</li>
@@ -1002,7 +1004,7 @@
 <pre class="bash"><code>
 ifconfig</code></pre>
 </div>
-<p>Depending on how many networks your computer is connected to, this might result in a length list. Usually you are interested in the WIFI network located at <code>en0</code>, which should be located at the top of the list. You can also run</p>
+<p>Depending on how many networks your computer is connected to, this might result in a lengthy list. Usually you are interested in the WIFI network located at <code>en0</code>, which should be located at the top of the list. You can also run</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="bash"><code>
 ifconfig en0</code></pre>
@@ -1015,18 +1017,105 @@ ipconfig</code></pre>
 </div>
 <p>The line starting with “IPv4 address” contains your computer’s IP address.</p>
 <h2 id="available-ip-addresses-on-a-network">Available IP addresses on a network</h2>
-<p>The next question we need to answer is, which IP addresses are available on the network we are connected to. Obviously it cannot be all <span class="math inline">\(2^{32}\)</span> and indeed, it usually are way fewer than that. The answer to that question is given by the <a href="https://en.wikipedia.org/wiki/Subnetwork"><code>subnetmask</code></a>. It has the same format as an IP address and its value is located on the same line of the output of <code>ifconfig</code> (Mac, Linux) or on the line starting with <code>subnetmask</code> on Windows. For home networks, it usually is <span class="math inline">\(255.255.255.0\)</span>. The value of the subnetmask tells us how many of leading bits of the 32 bits of the IP addresses are “blocked” and how many are available to be used for the assignment of IP addresses. This is easiest understood if we convert the dot-decimal notation of the subnet mask back to binary notation.</p>
+<p>The next question we need to answer is, which IP addresses are available on the network we are connected to. Obviously it cannot be all <span class="math inline">\(2^{32}\)</span> and indeed, it usually are way fewer than that. The answer to that question is given by the <a href="https://en.wikipedia.org/wiki/Subnetwork"><code>subnetmask</code></a>. It has the same format as an IP address and its value is located on the same line of the output of <code>ifconfig</code> (Mac, Linux) or on the line starting with <code>subnetmask</code> on Windows. For home networks, it usually is <span class="math inline">\(255.255.255.0\)</span>. The value of the subnetmask tells us how many leading bits of the 32 bits of the IP addresses are “blocked” and how many are available to be used for the assignment of IP addresses. This is easiest understood if we convert the dot-decimal notation of the subnet mask back to binary notation.</p>
 <p>Suppose we our machine has IP address <span class="math inline">\(192.168.56.3\)</span> and we found out that the subnet mask is <span class="math inline">\(255.255.255.0\)</span>. Turning it into binary representation gives us:</p>
 <p><span class="math display">\[
 11111111.11111111.11111111.0
 \]</span></p>
-<p>We see that there are 24 ones in that representation. That means, the first 24 bits of the IP space are fixed. The first 24 bits of our computer’s IP address are (back in dot-decimal notation): <span class="math inline">\(192.168.56.\)</span> The subnetmask of <span class="math inline">\(255.255.255.0\)</span> now tells us that every device connected to our network will have these exact same first 24 bits. Only the last 8 bits may varie between IP addresses. Since 8 bits allow for 256 different numbers, there can only be at most 256 different IP addresses assigned in our network. Since most households probably have way fewer devices connected to the internet, that’s plenty for most private purposes.</p>
+<p>We see that there are 24 ones in that representation. That means, the first 24 bits of the IP space are fixed. The first 24 bits of our computer’s IP address are (back in dot-decimal notation): <span class="math inline">\(192.168.56.\)</span> The subnetmask of <span class="math inline">\(255.255.255.0\)</span> now tells us that every device connected to our network will have these exact same first 24 bits. Only the last 8 bits may vary between IP addresses. Since 8 bits allow for 256 different numbers, there can only be at most 256 different IP addresses assigned in our network. Since most households probably have way fewer devices connected to the internet, that’s plenty for most private purposes.</p>
+<h2 id="getting-that-info-in-r">Getting that info in R</h2>
+<p>Now that we have the necessary knowledge, the question is, how do we get that all that info into our R session? After all, being a true hackR means that we never leave R, right? First, we need to get our own IP address. For the purpose of this post, I have setup a virtual network using <a href="https://www.virtualbox.org">VirtualBox</a> and several <a href="https://en.wikipedia.org/wiki/Virtual_machine">virtual machines</a>, more on that in section <strong>FILL IN</strong> below. The name of my virtual network is the default name <code>vboxnet0</code>. So to get the local IP address of my machine for that network, I need to run</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="bash"><code>
+ifconfig vboxnet0</code></pre>
+<pre><code>
+vboxnet0: flags=8943&lt;UP,BROADCAST,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500
+    ether 0a:00:27:00:00:00 
+    inet 192.168.56.1 netmask 0xffffff00 broadcast 192.168.56.255</code></pre>
+</div>
+<p>If you are coding along on a Mac or Linux and are using your standard WIFI network, run <code>ifconfig en0</code> to get an output similar to the above. Alternatively, simply run <code>ifconfig</code> and search for your WIFI network/ for en0 (usually the first, possibly the only entry in that list). The line that we are interested in is the last one in the above display. It tells us that our local IP address is <code>192.168.56.1</code> and the subnetmask is <code>0xffffff00</code>, which is the hexadecimal notation for <code>255.255.255.0</code>, i.e. there are 256 IP addresses in that network available.</p>
+<p>In R, to run command line commands from within R, we can use the <code>system</code> (in case we do not specify any additional parameters) or <code>system2</code> (in case there are additional parameters) command. In this case, we want to pass the network name as parameter, so we need to use <code>system2</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+raw_IP &lt;- system2(&quot;ifconfig&quot;, args = &quot;vboxnet0&quot;, stdout = TRUE)
+raw_IP</code></pre>
+<pre><code>
+[1] &quot;vboxnet0: flags=8943&lt;UP,BROADCAST,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500&quot;
+[2] &quot;\tether 0a:00:27:00:00:00 &quot;                                                   
+[3] &quot;\tinet 192.168.56.1 netmask 0xffffff00 broadcast 192.168.56.255&quot;              </code></pre>
+</div>
+<p>The <code>args</code> argument takes the parameters we want to pass to the commandline command and setting <code>stdout = TRUE</code> means that we would like to have the result of the command returned to us as a string.</p>
+<p>To grab the information we are after, we need to use some regex magic. We can use <code>grep</code> to grab the line that holds the information we want (the output of <code>ifconfig</code> may have differing number of lines depending on your network, so simply running <code>raw_IP[3]</code> won’t do).</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]</code></pre>
+<pre><code>
+[1] &quot;\tinet 192.168.56.1 netmask 0xffffff00 broadcast 192.168.56.255&quot;</code></pre>
+</div>
+<p>Let’s grab the first IP address. We use the <code>str_extract</code> function from the <code>stringr</code> package. Notice the tab (<code>\t</code>) sign at the beginning of the string, which we have to match, too. The regular expression we want is <code>&quot;\\tinet [\\d|\\.]+&quot;</code>, which translates to: Search for the pattern starting with “” (we have to escape the <code>\</code>, hence the <code>\\</code> in the expression), followed by a space, followed by as many instances of digits (<code>\d</code>) or periods (<code>\.</code>) as possible (again, we need to escape the <code>\</code> and hence are using <code>\\</code>). The output looks like this.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+library(stringr)
+raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+    str_extract(&quot;\\tinet [\\d|\\.]+&quot;)</code></pre>
+<pre><code>
+[1] &quot;\tinet 192.168.56.1&quot;</code></pre>
+</div>
+<p>Now, to get the actual IP address, we need to get rid of the <code>\tinet</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+myip &lt;- raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+  str_extract(&quot;\\tinet [\\d|\\.]+&quot;)%&gt;%
+  str_extract(&quot;[\\d|\\.]+&quot;)
+
+myip</code></pre>
+<pre><code>
+[1] &quot;192.168.56.1&quot;</code></pre>
+</div>
+<p>We can extract the subnet mask in a similar manner, this time matching for the expression starting with <code>netmask 0x</code> followed by any number of alphanumeric characters.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+  str_extract(&quot;netmask 0x[:alnum:]+&quot;)%&gt;%
+  str_extract(&quot;0x[:alnum:]+&quot;)</code></pre>
+<pre><code>
+[1] &quot;0xffffff00&quot;</code></pre>
+</div>
+<p>This is currently a string, to get it into a more readable format, we first remove the leading <code>0x</code>. Then, we split it into pairs of two (each pair of two corresponds to one byte, i.e. one of the numbers between periods in our IP address) using the <code>base</code> function <code>substring</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+  str_extract(&quot;netmask 0x[:alnum:]+&quot;)%&gt;%
+  str_extract(&quot;0x[:alnum:]+&quot;)%&gt;%
+  str_remove(&quot;0x&quot;)%&gt;%
+  substring(., seq(1, nchar(.)-1, 2), seq(2, nchar(.), 2))</code></pre>
+<pre><code>
+[1] &quot;ff&quot; &quot;ff&quot; &quot;ff&quot; &quot;00&quot;</code></pre>
+</div>
+<p>Next, we add the <code>0x</code> back on to each of these entries, to indicate that these are hexadecimal representations of integers. Then, we get their integer representation using <code>strtoi</code> from R <code>base</code>. Finally, we collapse the vector we created using a period between entries to get the familiar IP address notation.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+netmask &lt;- raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+    str_extract(&quot;netmask 0x[:alnum:]+&quot;)%&gt;%
+    str_extract(&quot;0x[:alnum:]+&quot;)%&gt;%
+    str_remove(&quot;0x&quot;)%&gt;%
+    substring(., seq(1, nchar(.)-1, 2), seq(2, nchar(.), 2))%&gt;%
+    paste0(&quot;0x&quot;, .)%&gt;%
+    strtoi()%&gt;%
+    paste0(collapse = &quot;.&quot;)
+
+netmask</code></pre>
+<pre><code>
+[1] &quot;255.255.255.0&quot;</code></pre>
+</div>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 paste(sapply(strsplit(paste(rev(intToBits(12))),&quot;&quot;),`[[`,2),collapse=&quot;&quot;)</code></pre>
 <pre><code>
 [1] &quot;00000000000000000000000000001100&quot;</code></pre>
 </div>
+<h2 id="trying-it-out">Trying it out!</h2>
+<p>Set up lab with virtual box</p>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
