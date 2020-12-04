@@ -20,7 +20,7 @@ d-article a:hover {
   <img src="websitefotome.jpeg" style="border-radius: 50%; width: 10rem;" />
 </center>
 
-Welcome to my blog! My name is Stefan Stein and I'm a third year statistics PhD student at the University of Warwick. I blog about maths, stats and R. My PhD is on the asymptotics of random networks and high-dimensional statistics. Before coming to the UK for my PhD I obtained my BSc and MSc in mathematics at the University of Heidelberg, Germany. I like building unconventional stuff in R and Python and I set up this blog to share as well as keep track off some of the programming projects I did. Feel free to connect with me.
+Welcome to my blog! My name is Stefan Stein and I'm a fourth year statistics PhD student at the University of Warwick. I blog about maths, stats, R and Python. My PhD is on the asymptotics of random networks and high-dimensional statistics. Before coming to the UK for my PhD I obtained my BSc and MSc in mathematics at the University of Heidelberg, Germany. I like building unconventional stuff in R and Python and I set up this blog to share as well as keep track off some of the programming projects I did. Feel free to connect with me.
 
 <p style="text-align: center;">
 <a href='mailto:s.stein@warwick.ac.uk' title="E-mail me">

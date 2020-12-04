@@ -7,14 +7,14 @@
     <description>Building things in R and Python
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Do, 19 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fr, 20 Nov 2020 00:00:00 +0000</lastBuildDate>
     <item>
       <title>tidyHackR: Building an IP sweeper with R</title>
       <dc:creator>Stefan Stein</dc:creator>
       <link>https://stefan-stein.github.io/posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r</link>
       <description>One of the first questions an (ethical) hacker would want to answer when testing a network for vulnerabilities is: Which other machines are sitting on the network in question (followed by: how can I attack them, but that's for another post)? IP sweepers are tools that answer this question for you. In this post I show you how to build an IP sweeper from scratch in R using the tidyverse suite.</description>
       <guid>https://stefan-stein.github.io/posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r</guid>
-      <pubDate>Do, 19 Nov 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fr, 20 Nov 2020 00:00:00 +0000</pubDate>
       <media:content url="https://stefan-stein.github.io/posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/hacker.png" medium="image" type="image/png" width="512" height="512"/>
     </item>
     <item>
