@@ -25,8 +25,8 @@
   
   
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2020-10-23"/>
-  <meta property="article:created" itemprop="dateCreated" content="2020-10-23"/>
+  <meta property="article:published" itemprop="datePublished" content="2020-11-20"/>
+  <meta property="article:created" itemprop="dateCreated" content="2020-11-20"/>
   <meta name="article:author" content="Stefan Stein"/>
   
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -44,12 +44,12 @@
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","draft"]}},"value":[{"type":"character","attributes":{},"value":["tidyHackR: Building an IP sweeper with R"]},{"type":"character","attributes":{},"value":["One of the first questions an (ethical) hacker would want to answer when testing a network for vulnerabilities is: Which other machines are sitting on the network in question (followed by: how can I attack them, but that's for another post)? IP sweepers are tools that answer this question for you. In this post I show you how to build an IP sweeper from scratch in R using the tidyverse suite.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Stefan Stein"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["10-23-2020"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"logical","attributes":{},"value":[true]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","draft"]}},"value":[{"type":"character","attributes":{},"value":["tidyHackR: Building an IP sweeper with R"]},{"type":"character","attributes":{},"value":["One of the first questions an (ethical) hacker would want to answer when testing a network for vulnerabilities is: Which other machines are sitting on the network in question (followed by: how can I attack them, but that's for another post)? IP sweepers are tools that answer this question for you. In this post I show you how to build an IP sweeper from scratch in R using the tidyverse suite.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Stefan Stein"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["11-20-2020"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"logical","attributes":{},"value":[true]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["tidyhackr-building-an-ip-sweeper-with-r_files/bowser-1.9.3/bowser.min.js","tidyhackr-building-an-ip-sweeper-with-r_files/distill-2.2.21/template.v2.js","tidyhackr-building-an-ip-sweeper-with-r_files/jquery-1.11.3/jquery.min.js","tidyhackr-building-an-ip-sweeper-with-r_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["swept.csv","swept.png","tidyhackr-building-an-ip-sweeper-with-r_files/bowser-1.9.3/bowser.min.js","tidyhackr-building-an-ip-sweeper-with-r_files/distill-2.2.21/template.v2.js","tidyhackr-building-an-ip-sweeper-with-r_files/jquery-1.11.3/jquery.min.js","tidyhackr-building-an-ip-sweeper-with-r_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -942,7 +942,7 @@
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"tidyHackR: Building an IP sweeper with R","description":"One of the first questions an (ethical) hacker would want to answer when testing a network for vulnerabilities is: Which other machines are sitting on the network in question (followed by: how can I attack them, but that's for another post)? IP sweepers are tools that answer this question for you. In this post I show you how to build an IP sweeper from scratch in R using the tidyverse suite.","authors":[{"author":"Stefan Stein","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2020-10-23T00:00:00.000+02:00","citationText":"Stein, 2020"}
+{"title":"tidyHackR: Building an IP sweeper with R","description":"One of the first questions an (ethical) hacker would want to answer when testing a network for vulnerabilities is: Which other machines are sitting on the network in question (followed by: how can I attack them, but that's for another post)? IP sweepers are tools that answer this question for you. In this post I show you how to build an IP sweeper from scratch in R using the tidyverse suite.","authors":[{"author":"Stefan Stein","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2020-11-20T00:00:00.000+01:00","citationText":"Stein, 2020"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -959,13 +959,13 @@
 <div class="d-byline">
   Stefan Stein true 
   
-<br/>10-23-2020
+<br/>11-20-2020
 </div>
 
 <div class="d-article">
 <h1 id="being-a-hackr">Being a hackR</h1>
 <p>Truth be told, I cannot think of too many reasons <em>why</em> you would want to build an IP sweeper, or any half-serious infosec tool, for that matter, with R. There is an abundance of tools out there (e.g. the infamous <a href="https://nmap.org">nmap</a>, <a href="https://linux.die.net/man/1/arp-scan"><code>arp-scan</code></a> or <a href="https://github.com/alexxy/netdiscover"><code>netdiscover</code></a>, just to name a few) that are much faster and provide much richer information than what we will build here.</p>
-<p>The reason why I wanted to do this project nonetheless is simply to see if I <em>could</em> - and the answer turned out to be “yes”. At the end of this post, we will have built a functioning IP sweeper. It won’t be fast and it won’t be very useful for most practical purposes, but it will do what it is supposed to, which is give you a list of all the other devices connected to the network you are on. For me, this project has been a nice learning experience about R programming and computer networking and I hope this post will bring you value, too.</p>
+<p>The reason why I wanted to do this project nonetheless is simply to see if I <em>could</em> - and the answer turned out to be “yes”. At the end of this post, we will have built a functioning IP sweeper. It won’t be fast and it won’t be very useful for most practical purposes, but it will do what it is supposed to, which is give you a list of all the other devices connected to the network you are on. For me, this project has been a nice learning experience about R programming and computer networking and I hope this post will bring you value, too. The code is written for Mac (and also works for Linux). For Windows, the regular expressions need to be tweaked slightly, but the code overall is very similar.</p>
 <h1 id="disclaimer">Disclaimer</h1>
 <p>Please be aware that the resources in this blog post are provided for educational purposes only. Don’t use them for anything illegal! Only sweep networks you own or have explicit permission to sweep. If you get in trouble for using the code presented here in an illicit manner, it is not my problem.</p>
 <h1 id="finding-other-machines-on-your-network">Finding other machines on your network</h1>
@@ -989,7 +989,7 @@
 192.168.56.1
 \]</span></p>
 <p>Put simply, an IPv4 address consists of four numbers between <span class="math inline">\(0\)</span> and <span class="math inline">\(255\)</span>, written next to each other, separated by a period. Each of these numbers corresponds to one byte whose value has been written out in decimal notation rather than binary notation, which allows for a more compact way of writing.</p>
-<p>A quick calculation shows that there only are <span class="math inline">\(2^{32} \approx 4.3 \times 10^9\)</span> IPv4 addresses in the whole world - way too few to assign a unique IP address to every device connected to the internet. To remedy this, people came up with IPv6, which with 128 bit long addresses and has an address space of <span class="math inline">\(2^{128} \approx 3.4 \times 10^{38}\)</span>, which are more addresses than we could ever need.</p>
+<p>A quick calculation shows that there only are <span class="math inline">\(2^{32} \approx 4.3 \times 10^9\)</span> IPv4 addresses in the whole world - way too few to assign a unique IP address to every device connected to the internet. To remedy this, people came up with IPv6, which with 128 bit long addresses has an address space of <span class="math inline">\(2^{128} \approx 3.4 \times 10^{38}\)</span>, which are more addresses than we could ever need.</p>
 <p>Still, IPv4 addresses did not abruptly disappear as one might expect. Instead, people used another workaround that allowed IPv4 to be continued to be used: The distinction between private and public IP addresses.</p>
 <p>Say, I have connected with my computing device to my home WIFI. My home WIFI and all the devices connected to it form one network. When my device wants to talk to a machine on a different network (such as a server hosting a website), my device sends the message it wants to transmit to the so-called <em>default gateway</em> for talking to the outside world (usually located inside little blinking box commonly called <em>router</em>). That is a particular router on my network that has an interface to other networks (“the outside world”) and its address was told to my computer when it first logged onto the network. In fact, every device on my network sends its requests with the outside world through that default gateway and the outside world sends all its replies back to that default gateway which then distributes it to the correct machines on my WIFI network. That means, for the outside world, it does not matter which devices are sitting on my network. All it needs to know is how to reach my default gateway, which then takes care of the rest. For that purpose, the default gateway has two interfaces, each with its own IP address. Let’s call them the “inwards facing IP address”, known to the devices on my network and the “outwards facing IP address” known to the outside world. The outwards facing IP address has to be unique, so that traffic can be sent correctly back to the machines on my network. The inward facing IP address on the other hand can be used in other networks, too! Simply because these inward facing addresses are only used to communicate within my local network. If somebody else, far away, uses the same local IP addresses in their network, it has no effect on me using them. These local addresses are never used to talk to the outside world. In fact, if you check your device’s IP address while connected to your home network, it will most likely start with <span class="math inline">\(192.168.\)</span>, as this is the type of IP address typically assigned to home networks.</p>
 <p>Therefore, sharing your private IP (the one starting with <span class="math inline">\(192.168.\)</span>) won’t tell others anything about you other than the fact that you are probably using a standard home network. The public or outwards facing IP of your router does reveal a lot about your location, however, as it is a unique identifier for your home network. When police in movies talk about “tracking down IP addresses”, they are referring to these public IPs.</p>
@@ -1010,7 +1010,7 @@ ifconfig</code></pre>
 ifconfig en0</code></pre>
 </div>
 <p>To only display the information about the <code>en0</code> network. Look for the line starting with <code>inet</code>. The IP address following is the IP address of your computer.</p>
-<p>On windows, open the comand prompt (search for <code>cmd</code> if unsure how to find it) and type</p>
+<p>On Windows, open the comand prompt (search for <code>cmd</code> if unsure how to find it) and type</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="bash"><code>
 ipconfig</code></pre>
@@ -1022,9 +1022,9 @@ ipconfig</code></pre>
 <p><span class="math display">\[
 11111111.11111111.11111111.0
 \]</span></p>
-<p>We see that there are 24 ones in that representation. That means, the first 24 bits of the IP space are fixed. The first 24 bits of our computer’s IP address are (back in dot-decimal notation): <span class="math inline">\(192.168.56.\)</span> The subnetmask of <span class="math inline">\(255.255.255.0\)</span> now tells us that every device connected to our network will have these exact same first 24 bits. Only the last 8 bits may vary between IP addresses. Since 8 bits allow for 256 different numbers, there can only be at most 256 different IP addresses assigned in our network. Since most households probably have way fewer devices connected to the internet, that’s plenty for most private purposes.</p>
+<p>We see that there are 24 ones in that representation. That means, the first 24 bits of the IP space are fixed. The first 24 bits of our computer’s IP address are (back in dot-decimal notation): <span class="math inline">\(192.168.56.\)</span> The subnetmask of <span class="math inline">\(255.255.255.0\)</span> now tells us that every device connected to our network will have these exact same first 24 bits. Only the last 8 bits may vary between IP addresses. Since 8 bits allow for 256 different numbers, there can only be at most 256 different IP addresses assigned in our network. On top of that, the very first and last IP address in the available range, in this case <code>192.168.56.0</code> and <code>192.168.56.255</code> are reserved as the network identifier and the broadcast address respectively and are never assigned to any devices on the network. Still, this leaves us with 254 usable IP addresses, which is plenty for most private purposes.</p>
 <h2 id="getting-that-info-in-r">Getting that info in R</h2>
-<p>Now that we have the necessary knowledge, the question is, how do we get that all that info into our R session? After all, being a true hackR means that we never leave R, right? First, we need to get our own IP address. For the purpose of this post, I have setup a virtual network using <a href="https://www.virtualbox.org">VirtualBox</a> and several <a href="https://en.wikipedia.org/wiki/Virtual_machine">virtual machines</a>, more on that in section <strong>FILL IN</strong> below. The name of my virtual network is the default name <code>vboxnet0</code>. So to get the local IP address of my machine for that network, I need to run</p>
+<p>Now that we have the necessary knowledge, the question is, how do we get that all that info into our R session? After all, being a true hackR means that we never leave R, right? First, we need to get our own IP address. For the purpose of this post, I have setup a virtual network using <a href="https://www.virtualbox.org">VirtualBox</a> and several <a href="https://en.wikipedia.org/wiki/Virtual_machine">virtual machines</a>, more on that in section <a href="#tryout">Trying it out!</a> below. The name of my virtual network is the default name <code>vboxnet0</code>. So to get the local IP address of my machine for that network, I need to run</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="bash"><code>
 ifconfig vboxnet0</code></pre>
@@ -1034,7 +1034,8 @@ vboxnet0: flags=8943&lt;UP,BROADCAST,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1
     inet 192.168.56.1 netmask 0xffffff00 broadcast 192.168.56.255</code></pre>
 </div>
 <p>If you are coding along on a Mac or Linux and are using your standard WIFI network, run <code>ifconfig en0</code> to get an output similar to the above. Alternatively, simply run <code>ifconfig</code> and search for your WIFI network/ for en0 (usually the first, possibly the only entry in that list). The line that we are interested in is the last one in the above display. It tells us that our local IP address is <code>192.168.56.1</code> and the subnetmask is <code>0xffffff00</code>, which is the hexadecimal notation for <code>255.255.255.0</code>, i.e. there are 256 IP addresses in that network available.</p>
-<p>In R, to run command line commands from within R, we can use the <code>system</code> (in case we do not specify any additional parameters) or <code>system2</code> (in case there are additional parameters) command. In this case, we want to pass the network name as parameter, so we need to use <code>system2</code>:</p>
+<p>Notice that the above output gives us another interesting piece of information: It tells us that the <a href="https://en.wikipedia.org/wiki/Broadcast_address">broadcast address</a> of my network is <code>192.168.56.255</code>. A message sent to that address is sent to all devices connected to the network, i.e. it is quite literally “broadcasted”. When IP sweeping a network, we want to ignore that address.</p>
+<p>In R, to run commandline commands from within R, we can use the <code>system</code> (in case we do not specify any additional parameters) or <code>system2</code> (in case there are additional parameters) function. In this case we want to pass the network name as parameter, so we need to use <code>system2</code>:</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 raw_IP &lt;- system2(&quot;ifconfig&quot;, args = &quot;vboxnet0&quot;, stdout = TRUE)
@@ -1045,14 +1046,14 @@ raw_IP</code></pre>
 [3] &quot;\tinet 192.168.56.1 netmask 0xffffff00 broadcast 192.168.56.255&quot;              </code></pre>
 </div>
 <p>The <code>args</code> argument takes the parameters we want to pass to the commandline command and setting <code>stdout = TRUE</code> means that we would like to have the result of the command returned to us as a string.</p>
-<p>To grab the information we are after, we need to use some regex magic. We can use <code>grep</code> to grab the line that holds the information we want (the output of <code>ifconfig</code> may have differing number of lines depending on your network, so simply running <code>raw_IP[3]</code> won’t do).</p>
+<p>To grab the information we are after, we need to use some regex magic. We can use <code>grep</code> to grab the line that holds the information we want (the output of <code>ifconfig</code> may have a differing number of lines depending on your network, so simply running <code>raw_IP[3]</code> won’t do).</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]</code></pre>
 <pre><code>
 [1] &quot;\tinet 192.168.56.1 netmask 0xffffff00 broadcast 192.168.56.255&quot;</code></pre>
 </div>
-<p>Let’s grab the first IP address. We use the <code>str_extract</code> function from the <code>stringr</code> package. Notice the tab (<code>\t</code>) sign at the beginning of the string, which we have to match, too. The regular expression we want is <code>&quot;\\tinet [\\d|\\.]+&quot;</code>, which translates to: Search for the pattern starting with “” (we have to escape the <code>\</code>, hence the <code>\\</code> in the expression), followed by a space, followed by as many instances of digits (<code>\d</code>) or periods (<code>\.</code>) as possible (again, we need to escape the <code>\</code> and hence are using <code>\\</code>). The output looks like this.</p>
+<p>Let’s grab the first IP address. We use the <code>str_extract</code> function from the <code>stringr</code> package. Notice the tab (<code>\t</code>) sign at the beginning of the string, which we have to match, too. The regular expression we want is <code>&quot;\\tinet [\\d|\\.]+&quot;</code>, which translates to: Search for the pattern starting with “\tinet” (we have to escape the <code>\</code>, hence the <code>\\</code> in the expression), followed by a space, followed by as many instances of digits (<code>\d</code>) or periods (<code>\.</code>) as possible (again, we need to escape the <code>\</code> and hence are using <code>\\</code>). The output looks like this.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
 library(stringr)
@@ -1108,14 +1109,214 @@ netmask</code></pre>
 <pre><code>
 [1] &quot;255.255.255.0&quot;</code></pre>
 </div>
+<p>Finally, we can do the same to get the broadcast address.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
-paste(sapply(strsplit(paste(rev(intToBits(12))),&quot;&quot;),`[[`,2),collapse=&quot;&quot;)</code></pre>
+broadcast &lt;- raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+    str_extract(&quot;broadcast [\\d|\\.]+&quot;)%&gt;%
+    str_extract(&quot;[\\d|\\.]+&quot;)
+
+broadcast</code></pre>
 <pre><code>
-[1] &quot;00000000000000000000000000001100&quot;</code></pre>
+[1] &quot;192.168.56.255&quot;</code></pre>
 </div>
-<h2 id="trying-it-out">Trying it out!</h2>
-<p>Set up lab with virtual box</p>
+<p>We wrap all of this into a nice little function called <code>network_info</code>, where we allow to specify the network name for which we want to grab the IP data:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+network_info &lt;- function(network_name = &quot;en0&quot;){
+  raw_IP &lt;- system2(&quot;ifconfig&quot;, args = network_name, stdout = TRUE)
+  myip &lt;- raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+    str_extract(&quot;\\tinet [\\d|\\.]+&quot;)%&gt;%
+    str_extract(&quot;[\\d|\\.]+&quot;)
+  netmask &lt;- raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+    str_extract(&quot;netmask 0x[:alnum:]+&quot;)%&gt;%
+    str_extract(&quot;0x[:alnum:]+&quot;)%&gt;%
+    str_remove(&quot;0x&quot;)%&gt;%
+    substring(., seq(1, nchar(.)-1, 2), seq(2, nchar(.), 2))%&gt;%
+    paste0(&quot;0x&quot;, .)%&gt;%
+    strtoi()%&gt;%
+    paste0(collapse = &quot;.&quot;)
+  broadcast &lt;- raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+    str_extract(&quot;broadcast [\\d|\\.]+&quot;)%&gt;%
+    str_extract(&quot;[\\d|\\.]+&quot;)
+  
+  return(data.frame(IP = myip, netmask = netmask, broadcast_IP = broadcast))
+   
+}
+
+# Try it out
+my_network &lt;- network_info(&quot;vboxnet0&quot;)
+my_network</code></pre>
+<pre><code>
+            IP       netmask   broadcast_IP
+1 192.168.56.1 255.255.255.0 192.168.56.255</code></pre>
+</div>
+<p>Later, when sweeping a network, this information can be used to deduce which are valid IP addresses in this network. In our case, this output tells us that our machine is sitting at IP <code>192.168.56.1</code> and that there are 256 available IP addresses in our network. Minus the network identifier <code>192.168.56.0</code>, our own IP <code>192.168.56.1</code> and the broadcast address <code>192.168.56.255</code>, we know that we need to ping all the adrresses between <code>192.168.56.2</code> and <code>192.168.56.254</code>.</p>
+<h2 id="pinging-other-machines">Pinging other machines</h2>
+<p>To send a ping to another IP address on our network (or any IP address, for that matter), we use the <code>ping</code> commandline utility. Its use is very simple: <code>ping &lt;IP-address&gt;</code>. On Mac, unless we provide further arguments to <code>ping</code>, it will simply keep sending pings to the IP address we specified. To set the number of pings sent to the IP address in question we can set the <code>-c</code> parameter. To set the number of seconds our machine waits for a response, we use <code>-t</code>. For example, in the <code>vboxnet0</code> network, I have a virtual Linux machine sitting at <code>192.168.56.104</code>. To send it a single ping and wait for one second to get a reply, we use</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="bash"><code>
+ping 192.168.56.104 -c 1 -t 1</code></pre>
+<pre><code>
+PING 192.168.56.104 (192.168.56.104): 56 data bytes
+64 bytes from 192.168.56.104: icmp_seq=0 ttl=64 time=0.522 ms
+
+--- 192.168.56.104 ping statistics ---
+1 packets transmitted, 1 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 0.522/0.522/0.522/0.000 ms</code></pre>
+</div>
+<p>Amongst other things, this output tells us that <code>0.0%</code> of sent packets were lost, i.e. all (in this case: one) packet was received by the virtual machine. We now know that there is a machine living at <code>192.168.56.104</code>. If, on the other hand, the IP address is unoccupied, we get</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="bash"><code>
+ping 192.168.56.105 -c 1 -t 1 || true</code></pre>
+<pre><code>
+PING 192.168.56.105 (192.168.56.105): 56 data bytes
+
+--- 192.168.56.105 ping statistics ---
+1 packets transmitted, 0 packets received, 100.0% packet loss</code></pre>
+</div>
+<p>Indicating there is no machine sitting at <code>192.168.56.105</code> (you may ignore the <code>|| true</code> part - it is only there, because <code>knitr</code> will throw an error upon knitting the document otherwise). The issue with sending a ping to every possible machine on the network is that our computer will wait for one second every time to get a reply, before concluding that the IP address is unoccupied. It is not possible to pass arguments smaller than <code>1</code> for the <code>t</code> parameter and since R does not support multithreding, we will simply have to wait for each ping to time out (we can speed up the process a little using multiple cores, though). It is possible to speed things up considerably using <a href="https://fping.org">fping</a>, but since this is not installed by default and this project is for educational purposes anyways and not meant to be a serious application, I decided to stick to the slow <code>ping</code>. To run the ping command from within R, we use once more <code>system2</code>. Notice that pinging other machines with R can also be achieved using the <a href="https://cran.r-project.org/web/packages/pingr/index.html">pingr</a> package. But looking at the source code of that package, we see that it, too, simply calls the <code>ping</code> commandline tool. So, we can just as well implement this short function ourselves.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+count &lt;- 1
+wait &lt;- 1
+IP &lt;- &quot;192.168.56.104&quot;
+result &lt;- system2(&quot;ping&quot;,
+                  args = paste(&quot;-c&quot;, count, &quot;-t&quot;, wait, IP),
+                  stdout = TRUE)
+
+result</code></pre>
+<pre><code>
+[1] &quot;PING 192.168.56.104 (192.168.56.104): 56 data bytes&quot;          
+[2] &quot;64 bytes from 192.168.56.104: icmp_seq=0 ttl=64 time=0.341 ms&quot;
+[3] &quot;&quot;                                                             
+[4] &quot;--- 192.168.56.104 ping statistics ---&quot;                       
+[5] &quot;1 packets transmitted, 1 packets received, 0.0% packet loss&quot;  
+[6] &quot;round-trip min/avg/max/stddev = 0.341/0.341/0.341/0.000 ms&quot;   </code></pre>
+</div>
+<p>If we try the unoccupied address instead:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+IP2 &lt;- &quot;192.168.56.105&quot;
+result2 &lt;- system2(&quot;ping&quot;,
+                   args = paste(&quot;-c&quot;, count, &quot;-t&quot;, wait, IP2),
+                   stdout = TRUE)
+
+result2</code></pre>
+<pre><code>
+[1] &quot;PING 192.168.56.105 (192.168.56.105): 56 data bytes&quot;          
+[2] &quot;&quot;                                                             
+[3] &quot;--- 192.168.56.105 ping statistics ---&quot;                       
+[4] &quot;1 packets transmitted, 0 packets received, 100.0% packet loss&quot;
+attr(,&quot;status&quot;)
+[1] 2</code></pre>
+</div>
+<p>We get a warning message alongside the information that <code>100%</code> of packets were lost.</p>
+<p>To extract the info whether the address is occupied, we use regular expressions: Using <code>grep</code> we extract the entry containing the <code>%</code> symbol and thus the info about packet loss. We extract the decimal number from that string, remove the <code>%</code> symbol and convert to numeric.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+status &lt;- result[grepl(pattern = &quot;%&quot;, result)]%&gt;%
+  str_extract(pattern = &quot;\\d+.\\d+%&quot;)%&gt;%
+  str_remove(&quot;%&quot;)%&gt;%
+  as.numeric()
+
+status</code></pre>
+<pre><code>
+[1] 0</code></pre>
+</div>
+<p>Similar for the failed IP address:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+status2 &lt;- result2[grepl(pattern = &quot;%&quot;, result2)]%&gt;%
+  str_extract(pattern = &quot;\\d+.\\d+%&quot;)%&gt;%
+  str_remove(&quot;%&quot;)%&gt;%
+  as.numeric()
+
+status2</code></pre>
+<pre><code>
+[1] 100</code></pre>
+</div>
+<p>If <code>status &lt; 100</code>, we know that at least some of our packets (in case we sent several) were received at that IP address, which therefore must be occupied. Let’s wrap this into a function:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+ping &lt;- function(IP, count = 1, wait = 1){
+  suppressWarnings(
+    result &lt;- system2(&quot;ping&quot;,
+                      args = paste(&quot;-c&quot;, count, &quot;-t&quot;, wait, IP),
+                      stdout = TRUE)
+  )
+  
+  status &lt;- result[grepl(pattern = &quot;%&quot;, result)]%&gt;%
+    str_extract(pattern = &quot;\\d+.\\d+%&quot;)%&gt;%
+    str_remove(&quot;%&quot;)%&gt;%
+    as.numeric()
+  
+  return( status &lt; 100)
+}</code></pre>
+</div>
+<p>Let’s try it out for the occupied address…</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+ping(IP)</code></pre>
+<pre><code>
+[1] TRUE</code></pre>
+</div>
+<p>… and the unoccupied address</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+ping(IP2)</code></pre>
+<pre><code>
+[1] FALSE</code></pre>
+</div>
+<p>Great! All that is left to do is write a function <code>sweep</code> that applies <code>ping()</code> to all the IP addresses in our network. To speed things up, we will use the multi-core version of <code>lapply</code>, <code>mclapply</code>, from the <code>parallel</code> package. We give the option to either specify a list of IP addresses we want to test or, if none is specified, test all the addresses on the current network.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+library(parallel)
+library(dplyr)
+
+sweep &lt;- function(IP_list = NULL, cores = 4, network_name){
+  if (is.null(IP_list)){
+    network &lt;- network_info(network_name)
+    base_IP &lt;- network%&gt;%pull(IP)%&gt;%str_extract(&quot;\\d{1,3}.\\d{1,3}.\\d{1,3}.&quot;)
+    my_IP &lt;- network%&gt;%pull(IP)%&gt;%as.character()
+    broadcast &lt;- network%&gt;%pull(broadcast_IP)%&gt;%as.character()
+    IP_list &lt;- setdiff(paste0(base_IP,1:255), c(my_IP, broadcast))
+    message(paste(&quot;No IP list specified. Sweeping network&quot;, network_name, &quot;with base IP&quot;, base_IP))
+  }
+  
+  status &lt;- mclapply(IP_list, ping, mc.cores = cores)
+  status &lt;- do.call(rbind, status)
+  
+  data.frame(IP = IP_list, status = status, stringsAsFactors = F)%&gt;%
+    filter(status == TRUE)
+}</code></pre>
+</div>
+<h2 id="trying-it-out-tryout">Trying it out! (#tryout)</h2>
+<p>All that is left to do is try out our new function! For this section I have set up a virtual network using <a href="https://www.virtualbox.org">VirtualBox</a>. I have my actual, physical machine (Mac) connected to it, which is the machine that will do the sweeping. To have something to sweep I also set up a virtual computer running <a href="https://linuxmint.com">Linux Mint</a>, sitting at IP <code>198.168.56.104</code> and a Windows 10 machine sitting at <code>198.168.56.103</code>. It also contains a <a href="https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol">DHPC</a> server, responsible for assigning IP addresses to new devices joining the network, sitting at IP <code>198.168.56.100</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+system.time(
+  swept &lt;- sweep(cores = 8, network_name = &quot;vboxnet0&quot;)
+)</code></pre>
+</div>
+<p><img src="swept.png" /></p>
+<p>(I did not want to re-run this rather time consuming bit of code everytime I re-knit the post, which is why I took the liberty to save the result and provide a screenshot of the output)</p>
+<p>This took around <code>33</code> seconds, which is very close to what we would expect and highlights exactly the bottleneck I have mentioned before: There are 254 IP addresses to check. Only four of them (my Mac, the DHPC server, the Linux and the Windows machine) are occupied and give a fast response. That means, for the 250 unoccupied addresses we need to wait one second each. And: <span class="math inline">\(250 / 8 = 31.25\)</span>, i.e. most of our time is spent waiting.</p>
+<p>But did we at least find all the machines on our network??</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+swept</code></pre>
+<pre><code>
+# A tibble: 4 x 2
+  IP             status
+  &lt;chr&gt;          &lt;lgl&gt; 
+1 192.168.56.1   TRUE  
+2 192.168.56.100 TRUE  
+3 192.168.56.103 TRUE  
+4 192.168.56.104 TRUE  </code></pre>
+</div>
+<p>YES!! This is exactly what we were expecting to see. Now we know which machines are connected to our network and as a tidyHackR, we might start thinking of ways of attacking these machines next, for example by checking them for vulnerabilities using <a href="https://en.wikipedia.org/wiki/Port_scanner">port scanning</a>.</p>
+<p>Thank you for sticking with me till the end! I hope you enjoyed this post. If you have any comments or suggestions, feel free to reach out to me.</p>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
