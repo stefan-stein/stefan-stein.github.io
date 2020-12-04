@@ -44,12 +44,12 @@
   <!--radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","draft"]}},"value":[{"type":"character","attributes":{},"value":["tidyHackR: Building an IP sweeper with R"]},{"type":"character","attributes":{},"value":["One of the first questions an (ethical) hacker would want to answer when testing a network for vulnerabilities is: Which other machines are sitting on the network in question (followed by: how can I attack them, but that's for another post)? IP sweepers are tools that answer this question for you. In this post I show you how to build an IP sweeper from scratch in R using the tidyverse suite.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Stefan Stein"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["11-20-2020"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"logical","attributes":{},"value":[true]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output","repository_url","preview"]}},"value":[{"type":"character","attributes":{},"value":["tidyHackR: Building an IP sweeper with R"]},{"type":"character","attributes":{},"value":["One of the first questions an (ethical) hacker would want to answer when testing a network for vulnerabilities is: Which other machines are sitting on the network in question (followed by: how can I attack them, but that's for another post)? IP sweepers are tools that answer this question for you. In this post I show you how to build an IP sweeper from scratch in R using the tidyverse suite.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Stefan Stein"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["11-20-2020"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["https://github.com/stefan-stein/networking_R"]},{"type":"character","attributes":{},"value":["hacker.png"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["swept.csv","swept.png","tidyhackr-building-an-ip-sweeper-with-r_files/bowser-1.9.3/bowser.min.js","tidyhackr-building-an-ip-sweeper-with-r_files/distill-2.2.21/template.v2.js","tidyhackr-building-an-ip-sweeper-with-r_files/jquery-1.11.3/jquery.min.js","tidyhackr-building-an-ip-sweeper-with-r_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["hacker.png","swept.csv","swept.png","tidyhackr-building-an-ip-sweeper-with-r_files/bowser-1.9.3/bowser.min.js","tidyhackr-building-an-ip-sweeper-with-r_files/distill-2.2.21/template.v2.js","tidyhackr-building-an-ip-sweeper-with-r_files/jquery-1.11.3/jquery.min.js","tidyhackr-building-an-ip-sweeper-with-r_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -966,6 +966,7 @@
 <h1 id="being-a-hackr">Being a hackR</h1>
 <p>Truth be told, I cannot think of too many reasons <em>why</em> you would want to build an IP sweeper, or any half-serious infosec tool, for that matter, with R. There is an abundance of tools out there (e.g. the infamous <a href="https://nmap.org">nmap</a>, <a href="https://linux.die.net/man/1/arp-scan"><code>arp-scan</code></a> or <a href="https://github.com/alexxy/netdiscover"><code>netdiscover</code></a>, just to name a few) that are much faster and provide much richer information than what we will build here.</p>
 <p>The reason why I wanted to do this project nonetheless is simply to see if I <em>could</em> - and the answer turned out to be “yes”. At the end of this post, we will have built a functioning IP sweeper. It won’t be fast and it won’t be very useful for most practical purposes, but it will do what it is supposed to, which is give you a list of all the other devices connected to the network you are on. For me, this project has been a nice learning experience about R programming and computer networking and I hope this post will bring you value, too. The code is written for Mac (and also works for Linux). For Windows, the regular expressions need to be tweaked slightly, but the code overall is very similar.</p>
+<p>The code used in this post can be found in the corresponding GitHub <a href="https://github.com/stefan-stein/networking_R">repository</a>. That repository also contains code for a port-scanner written in R, to which I will dedicate a blog post in the future.</p>
 <h1 id="disclaimer">Disclaimer</h1>
 <p>Please be aware that the resources in this blog post are provided for educational purposes only. Don’t use them for anything illegal! Only sweep networks you own or have explicit permission to sweep. If you get in trouble for using the code presented here in an illicit manner, it is not my problem.</p>
 <h1 id="finding-other-machines-on-your-network">Finding other machines on your network</h1>
@@ -1024,7 +1025,7 @@ ipconfig</code></pre>
 \]</span></p>
 <p>We see that there are 24 ones in that representation. That means, the first 24 bits of the IP space are fixed. The first 24 bits of our computer’s IP address are (back in dot-decimal notation): <span class="math inline">\(192.168.56.\)</span> The subnetmask of <span class="math inline">\(255.255.255.0\)</span> now tells us that every device connected to our network will have these exact same first 24 bits. Only the last 8 bits may vary between IP addresses. Since 8 bits allow for 256 different numbers, there can only be at most 256 different IP addresses assigned in our network. On top of that, the very first and last IP address in the available range, in this case <code>192.168.56.0</code> and <code>192.168.56.255</code> are reserved as the network identifier and the broadcast address respectively and are never assigned to any devices on the network. Still, this leaves us with 254 usable IP addresses, which is plenty for most private purposes.</p>
 <h2 id="getting-that-info-in-r">Getting that info in R</h2>
-<p>Now that we have the necessary knowledge, the question is, how do we get that all that info into our R session? After all, being a true hackR means that we never leave R, right? First, we need to get our own IP address. For the purpose of this post, I have setup a virtual network using <a href="https://www.virtualbox.org">VirtualBox</a> and several <a href="https://en.wikipedia.org/wiki/Virtual_machine">virtual machines</a>, more on that in section <a href="#tryout">Trying it out!</a> below. The name of my virtual network is the default name <code>vboxnet0</code>. So to get the local IP address of my machine for that network, I need to run</p>
+<p>Now that we have the necessary knowledge, the question is, how do we get that all that info into our R session? After all, being a true hackR means that we never leave R, right? First, we need to get our own IP address. For the purpose of this post, I have setup a virtual network using <a href="https://www.virtualbox.org">VirtualBox</a> and several <a href="https://en.wikipedia.org/wiki/Virtual_machine">virtual machines</a>, more on that in section <em>Trying it out!</em> below. The name of my virtual network is the default name <code>vboxnet0</code>. So to get the local IP address of my machine for that network, I need to run</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="bash"><code>
 ifconfig vboxnet0</code></pre>
@@ -1159,11 +1160,11 @@ my_network</code></pre>
 ping 192.168.56.104 -c 1 -t 1</code></pre>
 <pre><code>
 PING 192.168.56.104 (192.168.56.104): 56 data bytes
-64 bytes from 192.168.56.104: icmp_seq=0 ttl=64 time=0.522 ms
+64 bytes from 192.168.56.104: icmp_seq=0 ttl=64 time=0.592 ms
 
 --- 192.168.56.104 ping statistics ---
 1 packets transmitted, 1 packets received, 0.0% packet loss
-round-trip min/avg/max/stddev = 0.522/0.522/0.522/0.000 ms</code></pre>
+round-trip min/avg/max/stddev = 0.592/0.592/0.592/0.000 ms</code></pre>
 </div>
 <p>Amongst other things, this output tells us that <code>0.0%</code> of sent packets were lost, i.e. all (in this case: one) packet was received by the virtual machine. We now know that there is a machine living at <code>192.168.56.104</code>. If, on the other hand, the IP address is unoccupied, we get</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1188,11 +1189,11 @@ result &lt;- system2(&quot;ping&quot;,
 result</code></pre>
 <pre><code>
 [1] &quot;PING 192.168.56.104 (192.168.56.104): 56 data bytes&quot;          
-[2] &quot;64 bytes from 192.168.56.104: icmp_seq=0 ttl=64 time=0.341 ms&quot;
+[2] &quot;64 bytes from 192.168.56.104: icmp_seq=0 ttl=64 time=0.286 ms&quot;
 [3] &quot;&quot;                                                             
 [4] &quot;--- 192.168.56.104 ping statistics ---&quot;                       
 [5] &quot;1 packets transmitted, 1 packets received, 0.0% packet loss&quot;  
-[6] &quot;round-trip min/avg/max/stddev = 0.341/0.341/0.341/0.000 ms&quot;   </code></pre>
+[6] &quot;round-trip min/avg/max/stddev = 0.286/0.286/0.286/0.000 ms&quot;   </code></pre>
 </div>
 <p>If we try the unoccupied address instead:</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1291,7 +1292,7 @@ sweep &lt;- function(IP_list = NULL, cores = 4, network_name){
     filter(status == TRUE)
 }</code></pre>
 </div>
-<h2 id="trying-it-out-tryout">Trying it out! (#tryout)</h2>
+<h2 id="trying-it-out">Trying it out!</h2>
 <p>All that is left to do is try out our new function! For this section I have set up a virtual network using <a href="https://www.virtualbox.org">VirtualBox</a>. I have my actual, physical machine (Mac) connected to it, which is the machine that will do the sweeping. To have something to sweep I also set up a virtual computer running <a href="https://linuxmint.com">Linux Mint</a>, sitting at IP <code>198.168.56.104</code> and a Windows 10 machine sitting at <code>198.168.56.103</code>. It also contains a <a href="https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol">DHPC</a> server, responsible for assigning IP addresses to new devices joining the network, sitting at IP <code>198.168.56.100</code>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <pre class="r"><code>
@@ -1315,8 +1316,12 @@ swept</code></pre>
 3 192.168.56.103 TRUE  
 4 192.168.56.104 TRUE  </code></pre>
 </div>
-<p>YES!! This is exactly what we were expecting to see. Now we know which machines are connected to our network and as a tidyHackR, we might start thinking of ways of attacking these machines next, for example by checking them for vulnerabilities using <a href="https://en.wikipedia.org/wiki/Port_scanner">port scanning</a>.</p>
+<p>YES!! This is exactly what we were expecting to see. Now we know which machines are connected to our network and as a tidyHackR, we might start thinking of ways of attacking these machines next, for example by checking them for vulnerabilities using <a href="https://en.wikipedia.org/wiki/Port_scanner">port scanning</a> (provided that we have the explicit permission of the owner of that machine to scan it for vulnerabilities!!).</p>
 <p>Thank you for sticking with me till the end! I hope you enjoyed this post. If you have any comments or suggestions, feel free to reach out to me.</p>
+<h4 id="credits-for-the-preview-image">Credits for the preview image</h4>
+<div>
+Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+</div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
@@ -1337,7 +1342,10 @@ swept</code></pre>
 <!--radix_placeholder_site_after_body-->
 <!--/radix_placeholder_site_after_body-->
 <!--radix_placeholder_appendices-->
-<div class="appendix-bottom"></div>
+<div class="appendix-bottom">
+<h3 id="updates-and-corrections">Corrections</h3>
+<p>If you see mistakes or want to suggest changes, please <a href="https://github.com/stefan-stein/networking_R/issues/new">create an issue</a> on the source repository.</p>
+</div>
 <!--/radix_placeholder_appendices-->
 <!--radix_placeholder_navigation_after_body-->
 <!--/radix_placeholder_navigation_after_body-->

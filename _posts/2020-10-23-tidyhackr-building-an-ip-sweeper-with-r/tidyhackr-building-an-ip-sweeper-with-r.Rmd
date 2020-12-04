@@ -9,11 +9,13 @@ date: 11-20-2020
 output:
   distill::distill_article:
     self_contained: false
-draft: true
+repository_url: https://github.com/stefan-stein/networking_R
+preview: hacker.png
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(cache = TRUE)
 ```
 
 
@@ -22,6 +24,8 @@ knitr::opts_chunk$set(echo = TRUE)
 Truth be told, I cannot think of too many reasons *why* you would want to build an IP sweeper, or any half-serious infosec tool, for that matter, with R. There is an abundance of tools out there (e.g. the infamous [nmap](https://nmap.org), [`arp-scan`](https://linux.die.net/man/1/arp-scan) or [`netdiscover`](https://github.com/alexxy/netdiscover), just to name a few) that are much faster and provide much richer information than what we will build here.
 
 The reason why I wanted to do this project nonetheless is simply to see if I *could* - and the answer turned out to be "yes". At the end of this post, we will have built a functioning IP sweeper. It won't be fast and it won't be very useful for most practical purposes, but it will do what it is supposed to, which is give you a list of all the other devices connected to the network you are on. For me, this project has been a nice learning experience about R programming and computer networking and I hope this post will bring you value, too. The code is written for Mac (and also works for Linux). For Windows, the regular expressions need to be tweaked slightly, but the code overall is very similar.
+
+The code used in this post can be found in the corresponding GitHub [repository](https://github.com/stefan-stein/networking_R). That repository also contains code for a port-scanner written in R, to which I will dedicate a blog post in the future.
 
 # Disclaimer
 
@@ -109,7 +113,7 @@ We see that there are 24 ones in that representation. That means, the first 24 b
 
 ## Getting that info in R
 
-Now that we have the necessary knowledge, the question is, how do we get that all that info into our R session? After all, being a true hackR means that we never leave R, right? First, we need to get our own IP address. For the purpose of this post, I have setup a virtual network using [VirtualBox](https://www.virtualbox.org) and several [virtual machines](https://en.wikipedia.org/wiki/Virtual_machine), more on that in section [Trying it out!](#tryout) below. The name of my virtual network is the default name `vboxnet0`. So to get the local IP address of my machine for that network, I need to run
+Now that we have the necessary knowledge, the question is, how do we get that all that info into our R session? After all, being a true hackR means that we never leave R, right? First, we need to get our own IP address. For the purpose of this post, I have setup a virtual network using [VirtualBox](https://www.virtualbox.org) and several [virtual machines](https://en.wikipedia.org/wiki/Virtual_machine), more on that in section *Trying it out!* below. The name of my virtual network is the default name `vboxnet0`. So to get the local IP address of my machine for that network, I need to run
 
 ```{bash}
 ifconfig vboxnet0
@@ -347,7 +351,7 @@ sweep <- function(IP_list = NULL, cores = 4, network_name){
 ```
 
 
-## Trying it out! (#tryout)
+## Trying it out!
 
 All that is left to do is try out our new function! For this section I have set up a virtual network using [VirtualBox](https://www.virtualbox.org). I have my actual, physical machine (Mac) connected to it, which is the machine that will do the sweeping. To have something to sweep I also set up a virtual computer running [Linux Mint](https://linuxmint.com), sitting at IP `198.168.56.104` and a Windows 10 machine sitting at `198.168.56.103`. It also contains a [DHPC](https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol) server, responsible for assigning IP addresses to new devices joining the network, sitting at IP `198.168.56.100`.
 
@@ -374,6 +378,10 @@ But did we at least find all the machines on our network??
 swept
 ```
 
-YES!! This is exactly what we were expecting to see. Now we know which machines are connected to our network and as a tidyHackR, we might start thinking of ways of attacking these machines next, for example by checking them for vulnerabilities using [port scanning](https://en.wikipedia.org/wiki/Port_scanner).
+YES!! This is exactly what we were expecting to see. Now we know which machines are connected to our network and as a tidyHackR, we might start thinking of ways of attacking these machines next, for example by checking them for vulnerabilities using [port scanning](https://en.wikipedia.org/wiki/Port_scanner) (provided that we have the explicit permission of the owner of that machine to scan it for vulnerabilities!!).
 
 Thank you for sticking with me till the end! I hope you enjoyed this post. If you have any comments or suggestions, feel free to reach out to me.
+
+#### Credits for the preview image
+
+<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
