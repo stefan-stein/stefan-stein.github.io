@@ -6,6 +6,9 @@ author:
   - name: Stefan Stein
     url: {}
 date: 11-20-2020
+categories:
+  - R
+  - infosec
 output:
   distill::distill_article:
     self_contained: false

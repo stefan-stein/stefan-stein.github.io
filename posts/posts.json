@@ -10,9 +10,12 @@
       }
     ],
     "date": "2020-11-20",
-    "categories": [],
+    "categories": [
+      "R",
+      "infosec"
+    ],
     "preview": "posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/hacker.png",
-    "last_modified": "2020-12-04T17:50:50+01:00",
+    "last_modified": "2020-12-04T17:57:49+01:00",
     "preview_width": 512,
     "preview_height": 512
   },
