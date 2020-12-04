@@ -1,0 +1,1783 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+  <!--radix_placeholder_meta_tags-->
+<title>SteinsZeit: tidyHackR: Building an IP sweeper with R</title>
+
+<meta property="description" itemprop="description" content="One of the first questions an (ethical) hacker would want to answer when testing a network for vulnerabilities is: Which other machines are sitting on the network in question (followed by: how can I attack them, but that&#39;s for another post)? IP sweepers are tools that answer this question for you. In this post I show you how to build an IP sweeper from scratch in R using the tidyverse suite."/>
+
+<link rel="canonical" href="https://stefan-stein.github.io/posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/"/>
+<link rel="license" href="https://creativecommons.org/licenses/by/4.0/"/>
+
+<!--  https://schema.org/Article -->
+<meta property="article:published" itemprop="datePublished" content="2020-11-20"/>
+<meta property="article:created" itemprop="dateCreated" content="2020-11-20"/>
+<meta name="article:author" content="Stefan Stein"/>
+
+<!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+<meta property="og:title" content="SteinsZeit: tidyHackR: Building an IP sweeper with R"/>
+<meta property="og:type" content="article"/>
+<meta property="og:description" content="One of the first questions an (ethical) hacker would want to answer when testing a network for vulnerabilities is: Which other machines are sitting on the network in question (followed by: how can I attack them, but that&#39;s for another post)? IP sweepers are tools that answer this question for you. In this post I show you how to build an IP sweeper from scratch in R using the tidyverse suite."/>
+<meta property="og:url" content="https://stefan-stein.github.io/posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/"/>
+<meta property="og:image" content="https://stefan-stein.github.io/posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/hacker.png"/>
+<meta property="og:image:width" content="512"/>
+<meta property="og:image:height" content="512"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:site_name" content="SteinsZeit"/>
+
+<!--  https://dev.twitter.com/cards/types/summary -->
+<meta property="twitter:card" content="summary_large_image"/>
+<meta property="twitter:title" content="SteinsZeit: tidyHackR: Building an IP sweeper with R"/>
+<meta property="twitter:description" content="One of the first questions an (ethical) hacker would want to answer when testing a network for vulnerabilities is: Which other machines are sitting on the network in question (followed by: how can I attack them, but that&#39;s for another post)? IP sweepers are tools that answer this question for you. In this post I show you how to build an IP sweeper from scratch in R using the tidyverse suite."/>
+<meta property="twitter:url" content="https://stefan-stein.github.io/posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/"/>
+<meta property="twitter:image" content="https://stefan-stein.github.io/posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/hacker.png"/>
+<meta property="twitter:image:width" content="512"/>
+<meta property="twitter:image:height" content="512"/>
+<meta property="twitter:site" content="@SteinsZeit"/>
+
+<!--  https://scholar.google.com/intl/en/scholar/inclusion.html#indexing -->
+<meta name="citation_title" content="SteinsZeit: tidyHackR: Building an IP sweeper with R"/>
+<meta name="citation_fulltext_html_url" content="https://stefan-stein.github.io/posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/"/>
+<meta name="citation_fulltext_world_readable" content=""/>
+<meta name="citation_online_date" content="2020/11/20"/>
+<meta name="citation_publication_date" content="2020/11/20"/>
+<meta name="citation_author" content="Stefan Stein"/>
+<!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+<script type="text/json" id="radix-rmarkdown-metadata">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["creative_commons","title","description","author","date","output","repository_url","preview","citation_url","canonical_url"]}},"value":[{"type":"character","attributes":{},"value":["CC BY"]},{"type":"character","attributes":{},"value":["tidyHackR: Building an IP sweeper with R"]},{"type":"character","attributes":{},"value":["One of the first questions an (ethical) hacker would want to answer when testing a network for vulnerabilities is: Which other machines are sitting on the network in question (followed by: how can I attack them, but that's for another post)? IP sweepers are tools that answer this question for you. In this post I show you how to build an IP sweeper from scratch in R using the tidyverse suite."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Stefan Stein"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["11-20-2020"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]},{"type":"character","attributes":{},"value":["https://github.com/stefan-stein/networking_R"]},{"type":"character","attributes":{},"value":["hacker.png"]},{"type":"character","attributes":{},"value":["https://stefan-stein.github.io/posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/"]},{"type":"character","attributes":{},"value":["https://stefan-stein.github.io/posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/"]}]}
+</script>
+<!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["hacker.png","swept.csv","swept.png","tidyhackr-building-an-ip-sweeper-with-r_files/bowser-1.9.3/bowser.min.js","tidyhackr-building-an-ip-sweeper-with-r_files/distill-2.2.21/template.v2.js","tidyhackr-building-an-ip-sweeper-with-r_files/jquery-1.11.3/jquery.min.js","tidyhackr-building-an-ip-sweeper-with-r_files/webcomponents-2.0.0/webcomponents.js"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+
+<script type="application/javascript">
+
+  window.headroom_prevent_pin = false;
+
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+
+    // initialize headroom for banner
+    var header = $('header').get(0);
+    var headerHeight = header.offsetHeight;
+    var headroom = new Headroom(header, {
+      onPin : function() {
+        if (window.headroom_prevent_pin) {
+          window.headroom_prevent_pin = false;
+          headroom.unpin();
+        }
+      }
+    });
+    headroom.init();
+    if(window.location.hash)
+      headroom.unpin();
+    $(header).addClass('headroom--transition');
+
+    // offset scroll location for banner on hash change
+    // (see: https://github.com/WickyNilliams/headroom.js/issues/38)
+    window.addEventListener("hashchange", function(event) {
+      window.scrollTo(0, window.pageYOffset - (headerHeight + 25));
+    });
+
+    // responsive menu
+    $('.distill-site-header').each(function(i, val) {
+      var topnav = $(this);
+      var toggle = topnav.find('.nav-toggle');
+      toggle.on('click', function() {
+        topnav.toggleClass('responsive');
+      });
+    });
+
+    // nav dropdowns
+    $('.nav-dropbtn').click(function(e) {
+      $(this).next('.nav-dropdown-content').toggleClass('nav-dropdown-active');
+      $(this).parent().siblings('.nav-dropdown')
+         .children('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $("body").click(function(e){
+      $('.nav-dropdown-content').removeClass('nav-dropdown-active');
+    });
+    $(".nav-dropdown").click(function(e){
+      e.stopPropagation();
+    });
+  });
+</script>
+
+<style type="text/css">
+
+/* Theme (user-documented overrideables for nav appearance) */
+
+.distill-site-nav {
+  color: rgba(255, 255, 255, 0.8);
+  background-color: #455a64;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.distill-site-nav a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.distill-site-nav a:hover {
+  color: white;
+}
+
+@media print {
+  .distill-site-nav {
+    display: none;
+  }
+}
+
+.distill-site-header {
+
+}
+
+.distill-site-footer {
+
+}
+
+
+/* Site Header */
+
+.distill-site-header {
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 3;
+}
+
+.distill-site-header .nav-left {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header .nav-left {
+    margin-left: 0;
+  }
+}
+
+
+.distill-site-header .nav-right {
+  float: right;
+  margin-right: 8px;
+}
+
+.distill-site-header a,
+.distill-site-header .title {
+  display: inline-block;
+  text-align: center;
+  padding: 14px 10px 14px 10px;
+}
+
+.distill-site-header .title {
+  font-size: 18px;
+}
+
+.distill-site-header .logo {
+  padding: 0;
+}
+
+.distill-site-header .logo img {
+  display: none;
+  max-height: 20px;
+  width: auto;
+  margin-bottom: -4px;
+}
+
+.distill-site-header .nav-image img {
+  max-height: 18px;
+  width: auto;
+  display: inline-block;
+  margin-bottom: -3px;
+}
+
+
+
+@media screen and (min-width: 1000px) {
+  .distill-site-header .logo img {
+    display: inline-block;
+  }
+  .distill-site-header .nav-left {
+    margin-left: 20px;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 20px;
+  }
+  .distill-site-header .title {
+    padding-left: 12px;
+  }
+}
+
+
+.distill-site-header .nav-toggle {
+  display: none;
+}
+
+.nav-dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.nav-dropdown .nav-dropbtn {
+  border: none;
+  outline: none;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 16px 10px;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+  margin-top: 1px;
+  z-index: 2;
+}
+
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 200px;
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 4px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  z-index: 1;
+  margin-top: 2px;
+  white-space: nowrap;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.nav-dropdown-content hr {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-dropdown-active {
+  display: block;
+}
+
+.nav-dropdown-content a, .nav-dropdown-content .nav-dropdown-header {
+  color: black;
+  padding: 6px 24px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.nav-dropdown-content .nav-dropdown-header {
+  display: block;
+  padding: 5px 24px;
+  padding-bottom: 0;
+  text-transform: uppercase;
+  font-size: 14px;
+  color: #999999;
+  white-space: nowrap;
+}
+
+.nav-dropdown:hover .nav-dropbtn {
+  color: white;
+}
+
+.nav-dropdown-content a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.nav-right .nav-dropdown-content {
+  margin-left: -45%;
+  right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .distill-site-header a, .distill-site-header .nav-dropdown  {display: none;}
+  .distill-site-header a.nav-toggle {
+    float: right;
+    display: block;
+  }
+  .distill-site-header .title {
+    margin-left: 0;
+  }
+  .distill-site-header .nav-right {
+    margin-right: 0;
+  }
+  .distill-site-header {
+    overflow: hidden;
+  }
+  .nav-right .nav-dropdown-content {
+    margin-left: 0;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .distill-site-header.responsive {position: relative;}
+  .distill-site-header.responsive a.nav-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .distill-site-header.responsive a,
+  .distill-site-header.responsive .nav-dropdown {
+    display: block;
+    text-align: left;
+  }
+  .distill-site-header.responsive .nav-left,
+  .distill-site-header.responsive .nav-right {
+    width: 100%;
+  }
+  .distill-site-header.responsive .nav-dropdown {float: none;}
+  .distill-site-header.responsive .nav-dropdown-content {position: relative;}
+  .distill-site-header.responsive .nav-dropdown .nav-dropbtn {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+/* Site Footer */
+
+.distill-site-footer {
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  z-index: 3;
+  margin-top: 30px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
+/* Headroom */
+
+d-title {
+  padding-top: 6rem;
+}
+
+@media print {
+  d-title {
+    padding-top: 4rem;
+  }
+}
+
+.headroom {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.headroom--transition {
+  transition: all .4s ease-in-out;
+}
+
+.headroom--unpinned {
+  top: -100px;
+}
+
+.headroom--pinned {
+  top: 0;
+}
+
+</style>
+
+<link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
+<link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
+<script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
+<!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+<style type="text/css">
+
+body {
+  background-color: white;
+}
+
+.pandoc-table {
+  width: 100%;
+}
+
+.pandoc-table>caption {
+  margin-bottom: 10px;
+}
+
+.pandoc-table th:not([align]) {
+  text-align: left;
+}
+
+.pagedtable-footer {
+  font-size: 15px;
+}
+
+.html-widget {
+  margin-bottom: 2.0em;
+}
+
+.l-screen-inset {
+  padding-right: 16px;
+}
+
+.l-screen .caption {
+  margin-left: 10px;
+}
+
+.shaded {
+  background: rgb(247, 247, 247);
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .html-widget {
+  margin-bottom: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shaded .shaded-content {
+  background: white;
+}
+
+.text-output {
+  margin-top: 0;
+  line-height: 1.5em;
+}
+
+.hidden {
+  display: none !important;
+}
+
+d-article {
+  padding-bottom: 30px;
+}
+
+d-appendix {
+  padding-top: 30px;
+}
+
+d-article>p>img {
+  width: 100%;
+}
+
+d-article iframe {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 2.0em;
+  width: 100%;
+}
+
+figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+/* CSS for table of contents */
+
+.d-toc {
+  color: rgba(0,0,0,0.8);
+  font-size: 0.8em;
+  line-height: 1em;
+}
+
+.d-toc-header {
+  font-size: 0.6rem;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+  margin-top: 0;
+  margin-bottom: 1.3em;
+}
+
+.d-toc a {
+  border-bottom: none;
+}
+
+.d-toc ul {
+  padding-left: 0;
+}
+
+.d-toc li>ul {
+  padding-top: 0.8em;
+  padding-left: 16px;
+  margin-bottom: 0.6em;
+}
+
+.d-toc ul,
+.d-toc li {
+  list-style-type: none;
+}
+
+.d-toc li {
+  margin-bottom: 0.9em;
+}
+
+.d-toc-separator {
+  margin-top: 20px;
+  margin-bottom: 2em;
+}
+
+.d-article-with-toc {
+  border-top: none;
+  padding-top: 0;
+}
+
+
+
+/* Tweak code blocks (note that this CSS is repeated above in an injection
+   into the d-code shadow dom) */
+
+d-code {
+  overflow-x: auto !important;
+}
+
+pre.d-code code.d-code {
+  padding-left: 10px;
+  font-size: 12px;
+  border-left: 2px solid rgba(0,0,0,0.1);
+}
+
+pre.text-output {
+
+  font-size: 12px;
+  color: black;
+  background: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+@media(min-width: 768px) {
+
+d-code {
+  overflow-x: visible !important;
+}
+
+pre.d-code code.d-code  {
+    padding-left: 18px;
+    font-size: 14px;
+}
+pre.text-output {
+  font-size: 14px;
+}
+}
+
+/* Figure */
+
+.figure {
+  position: relative;
+  margin-bottom: 2.5em;
+  margin-top: 1.5em;
+}
+
+.figure img {
+  width: 100%;
+}
+
+.figure .caption {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+  line-height: 1.5em;
+}
+
+.figure img.external {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+.figure .caption a {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.figure .caption b,
+.figure .caption strong, {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 1.0);
+}
+
+
+
+/* Tweak 1000px media break to show more text */
+
+@media(min-width: 1000px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 16px;
+  }
+
+  .grid {
+    grid-column-gap: 16px;
+  }
+
+  d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+  }
+  figure .caption, .figure .caption, figure figcaption {
+    font-size: 13px;
+  }
+}
+
+@media(min-width: 1180px) {
+  .base-grid,
+  distill-header,
+  d-title,
+  d-abstract,
+  d-article,
+  d-appendix,
+  distill-appendix,
+  d-byline,
+  d-footnote-list,
+  d-citation-list,
+  distill-footer {
+    grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+    grid-column-gap: 32px;
+  }
+
+  .grid {
+    grid-column-gap: 32px;
+  }
+}
+
+
+/* Get the citation styles for the appendix (not auto-injected on render since
+   we do our own rendering of the citation appendix) */
+
+d-appendix .citation-appendix,
+.d-appendix .citation-appendix {
+  font-size: 11px;
+  line-height: 15px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  padding-left: 18px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.02);
+  padding: 10px 18px;
+  border-radius: 3px;
+  color: rgba(150, 150, 150, 1);
+  overflow: hidden;
+  margin-top: -12px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+
+/* Social footer */
+
+.social_footer {
+  margin-top: 30px;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.67);
+}
+
+.disqus-comments {
+  margin-right: 30px;
+}
+
+.disqus-comment-count {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+#disqus_thread {
+  margin-top: 30px;
+}
+
+.article-sharing a {
+  border-bottom: none;
+  margin-right: 8px;
+}
+
+.article-sharing a:hover {
+  border-bottom: none;
+}
+
+.sidebar-section.subscribe {
+  font-size: 12px;
+  line-height: 1.6em;
+}
+
+.subscribe p {
+  margin-bottom: 0.5em;
+}
+
+
+.article-footer .subscribe {
+  font-size: 15px;
+  margin-top: 45px;
+}
+
+
+/* Improve display for browsers without grid (IE/Edge <= 15) */
+
+.downlevel {
+  line-height: 1.6em;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+}
+
+.downlevel .d-title {
+  padding-top: 6rem;
+  padding-bottom: 1.5rem;
+}
+
+.downlevel .d-title h1 {
+  font-size: 50px;
+  font-weight: 700;
+  line-height: 1.1em;
+  margin: 0 0 0.5rem;
+}
+
+.downlevel .d-title p {
+  font-weight: 300;
+  font-size: 1.2rem;
+  line-height: 1.55em;
+  margin-top: 0;
+}
+
+.downlevel .d-byline {
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+  font-size: 0.8rem;
+  line-height: 1.8em;
+}
+
+.downlevel .section-separator {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.downlevel .d-article {
+  font-size: 1.06rem;
+  line-height: 1.7em;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+
+.downlevel .d-appendix {
+  padding-left: 0;
+  padding-right: 0;
+  max-width: none;
+  font-size: 0.8em;
+  line-height: 1.7em;
+  margin-bottom: 0;
+  color: rgba(0,0,0,0.5);
+  padding-top: 40px;
+  padding-bottom: 48px;
+}
+
+.downlevel .footnotes ol {
+  padding-left: 13px;
+}
+
+.downlevel .base-grid,
+.downlevel .distill-header,
+.downlevel .d-title,
+.downlevel .d-abstract,
+.downlevel .d-article,
+.downlevel .d-appendix,
+.downlevel .distill-appendix,
+.downlevel .d-byline,
+.downlevel .d-footnote-list,
+.downlevel .d-citation-list,
+.downlevel .distill-footer,
+.downlevel .appendix-bottom,
+.downlevel .posts-container {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@media(min-width: 768px) {
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+  padding-left: 150px;
+  padding-right: 150px;
+  max-width: 900px;
+}
+}
+
+.downlevel pre code {
+  display: block;
+  border-left: 2px solid rgba(0, 0, 0, .1);
+  padding: 0 0 0 20px;
+  font-size: 14px;
+}
+
+.downlevel code, .downlevel pre {
+  color: black;
+  background: none;
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+</style>
+
+<script type="application/javascript">
+
+function is_downlevel_browser() {
+  if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                 window.navigator.userAgent)) {
+    return true;
+  } else {
+    return window.load_distill_framework === undefined;
+  }
+}
+
+// show body when load is complete
+function on_load_complete() {
+
+  // set body to visible
+  document.body.style.visibility = 'visible';
+
+  // force redraw for leaflet widgets
+  if (window.HTMLWidgets) {
+    var maps = window.HTMLWidgets.findAll(".leaflet");
+    $.each(maps, function(i, el) {
+      var map = this.getMap();
+      map.invalidateSize();
+      map.eachLayer(function(layer) {
+        if (layer instanceof L.TileLayer)
+          layer.redraw();
+      });
+    });
+  }
+
+  // trigger 'shown' so htmlwidgets resize
+  $('d-article').trigger('shown');
+}
+
+function init_distill() {
+
+  init_common();
+
+  // create front matter
+  var front_matter = $('<d-front-matter></d-front-matter>');
+  $('#distill-front-matter').wrap(front_matter);
+
+  // create d-title
+  $('.d-title').changeElementType('d-title');
+
+  // create d-byline
+  var byline = $('<d-byline></d-byline>');
+  $('.d-byline').replaceWith(byline);
+
+  // create d-article
+  var article = $('<d-article></d-article>');
+  $('.d-article').wrap(article).children().unwrap();
+
+  // move posts container into article
+  $('.posts-container').appendTo($('d-article'));
+
+  // create d-appendix
+  $('.d-appendix').changeElementType('d-appendix');
+
+  // create d-bibliography
+  var bibliography = $('<d-bibliography></d-bibliography>');
+  $('#distill-bibliography').wrap(bibliography);
+
+  // flag indicating that we have appendix items
+  var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+  // replace citations with <d-cite>
+  $('.citation').each(function(i, val) {
+    appendix = true;
+    var cites = $(this).attr('data-cites').split(" ");
+    var dt_cite = $('<d-cite></d-cite>');
+    dt_cite.attr('key', cites.join());
+    $(this).replaceWith(dt_cite);
+  });
+  // remove refs
+  $('#refs').remove();
+
+  // replace footnotes with <d-footnote>
+  $('.footnote-ref').each(function(i, val) {
+    appendix = true;
+    var href = $(this).attr('href');
+    var id = href.replace('#', '');
+    var fn = $('#' + id);
+    var fn_p = $('#' + id + '>p');
+    fn_p.find('.footnote-back').remove();
+    var text = fn_p.html();
+    var dtfn = $('<d-footnote></d-footnote>');
+    dtfn.html(text);
+    $(this).replaceWith(dtfn);
+  });
+  // remove footnotes
+  $('.footnotes').remove();
+
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    var id = $(this).attr('id');
+    $('.d-toc a[href="#' + id + '"]').parent().remove();
+    appendix = true;
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+  });
+
+  // show d-appendix if we have appendix content
+  $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+  // replace code blocks with d-code
+  $('pre>code').each(function(i, val) {
+    var code = $(this);
+    var pre = code.parent();
+    var clz = "";
+    var language = pre.attr('class');
+    if (language) {
+      // map unknown languages to "clike" (without this they just dissapear)
+      if ($.inArray(language, ["bash", "clike", "css", "go", "html",
+                               "javascript", "js", "julia", "lua", "markdown",
+                               "markup", "mathml", "python", "svg", "xml"]) == -1)
+        language = "clike";
+      language = ' language="' + language + '"';
+      var dt_code = $('<d-code block' + language + clz + '></d-code>');
+      dt_code.text(code.text());
+      pre.replaceWith(dt_code);
+    } else {
+      code.addClass('text-output').unwrap().changeElementType('pre');
+    }
+  });
+
+  // localize layout chunks to just output
+  $('.layout-chunk').each(function(i, val) {
+
+    // capture layout
+    var layout = $(this).attr('data-layout');
+
+    // apply layout to markdown level block elements
+    var elements = $(this).children().not('d-code, pre.text-output, script');
+    elements.each(function(i, el) {
+      var layout_div = $('<div class="' + layout + '"></div>');
+      if (layout_div.hasClass('shaded')) {
+        var shaded_content = $('<div class="shaded-content"></div>');
+        $(this).wrap(shaded_content);
+        $(this).parent().wrap(layout_div);
+      } else {
+        $(this).wrap(layout_div);
+      }
+    });
+
+
+    // unwrap the layout-chunk div
+    $(this).children().unwrap();
+  });
+
+  // load distill framework
+  load_distill_framework();
+
+  // wait for window.distillRunlevel == 4 to do post processing
+  function distill_post_process() {
+
+    if (!window.distillRunlevel || window.distillRunlevel < 4)
+      return;
+
+    // hide author/affiliations entirely if we have no authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+    if (!have_authors)
+      $('d-byline').addClass('hidden');
+
+    // table of contents
+    if (have_authors) // adjust border if we are in authors
+      $('.d-toc').parent().addClass('d-article-with-toc');
+
+    // strip links that point to #
+    $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+    // hide elements of author/affiliations grid that have no value
+    function hide_byline_column(caption) {
+      $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+    }
+
+    // affiliations
+    var have_affiliations = false;
+    for (var i = 0; i<front_matter.authors.length; ++i) {
+      var author = front_matter.authors[i];
+      if (author.affiliation !== "&nbsp;") {
+        have_affiliations = true;
+        break;
+      }
+    }
+    if (!have_affiliations)
+      $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+    // published date
+    if (!front_matter.publishedDate)
+      hide_byline_column("Published");
+
+    // document object identifier
+    var doi = $('d-byline').find('h3:contains("DOI")');
+    var doi_p = doi.next().empty();
+    if (!front_matter.doi) {
+      // if we have a citation and valid citationText then link to that
+      if ($('#citation').length > 0 && front_matter.citationText) {
+        doi.html('Citation');
+        $('<a href="#citation"></a>')
+          .text(front_matter.citationText)
+          .appendTo(doi_p);
+      } else {
+        hide_byline_column("DOI");
+      }
+    } else {
+      $('<a></a>')
+         .attr('href', "https://doi.org/" + front_matter.doi)
+         .html(front_matter.doi)
+         .appendTo(doi_p);
+    }
+
+     // change plural form of authors/affiliations
+    if (front_matter.authors.length === 1) {
+      var grid = $('.authors-affiliations');
+      grid.children('h3:contains("Authors")').text('Author');
+      grid.children('h3:contains("Affiliations")').text('Affiliation');
+    }
+
+    // inject pre code styles (can't do this with a global stylesheet b/c a shadow root is used)
+    $('d-code').each(function(i, val) {
+      var style = document.createElement('style');
+      style.innerHTML = 'pre code { padding-left: 10px; font-size: 12px; border-left: 2px solid rgba(0,0,0,0.1); } ' +
+                        '@media(min-width: 768px) { pre code { padding-left: 18px; font-size: 14px; } }';
+      if (this.shadowRoot)
+        this.shadowRoot.appendChild(style);
+    });
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // clear polling timer
+    clearInterval(tid);
+
+    // show body now that everything is ready
+    on_load_complete();
+  }
+
+  var tid = setInterval(distill_post_process, 50);
+  distill_post_process();
+
+}
+
+function init_downlevel() {
+
+  init_common();
+
+   // insert hr after d-title
+  $('.d-title').after($('<hr class="section-separator"/>'));
+
+  // check if we have authors
+  var front_matter = JSON.parse($("#distill-front-matter").html());
+  var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+  // manage byline/border
+  if (!have_authors)
+    $('.d-byline').remove();
+  $('.d-byline').after($('<hr class="section-separator"/>'));
+  $('.d-byline a').remove();
+
+  // remove toc
+  $('.d-toc-header').remove();
+  $('.d-toc').remove();
+  $('.d-toc-separator').remove();
+
+  // move appendix elements
+  $('h1.appendix, h2.appendix').each(function(i, val) {
+    $(this).changeElementType('h3');
+  });
+  $('h3.appendix').each(function(i, val) {
+    $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+  });
+
+
+  // inject headers into references and footnotes
+  var refs_header = $('<h3></h3>');
+  refs_header.text('References');
+  $('#refs').prepend(refs_header);
+
+  var footnotes_header = $('<h3></h3');
+  footnotes_header.text('Footnotes');
+  $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+  // move appendix-bottom entries to the bottom
+  $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+  $('.appendix-bottom').remove();
+
+  // remove appendix if it's empty
+  if ($('.d-appendix').children().length === 0)
+    $('.d-appendix').remove();
+
+  // prepend separator above appendix
+  $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+  // trim code
+  $('pre>code').each(function(i, val) {
+    $(this).html($.trim($(this).html()));
+  });
+
+  // move posts-container right before article
+  $('.posts-container').insertBefore($('.d-article'));
+
+  $('body').addClass('downlevel');
+
+  on_load_complete();
+}
+
+
+function init_common() {
+
+  // jquery plugin to change element types
+  (function($) {
+    $.fn.changeElementType = function(newType) {
+      var attrs = {};
+
+      $.each(this[0].attributes, function(idx, attr) {
+        attrs[attr.nodeName] = attr.nodeValue;
+      });
+
+      this.replaceWith(function() {
+        return $("<" + newType + "/>", attrs).append($(this).contents());
+      });
+    };
+  })(jQuery);
+
+  // prevent underline for linked images
+  $('a > img').parent().css({'border-bottom' : 'none'});
+
+  // mark non-body figures created by knitr chunks as 100% width
+  $('.layout-chunk').each(function(i, val) {
+    var figures = $(this).find('img, .html-widget');
+    if ($(this).attr('data-layout') !== "l-body") {
+      figures.css('width', '100%');
+    } else {
+      figures.css('max-width', '100%');
+      figures.filter("[width]").each(function(i, val) {
+        var fig = $(this);
+        fig.css('width', fig.attr('width') + 'px');
+      });
+
+    }
+  });
+
+  // auto-append index.html to post-preview links in file: protocol
+  // and in rstudio ide preview
+  $('.post-preview').each(function(i, val) {
+    if (window.location.protocol === "file:")
+      $(this).attr('href', $(this).attr('href') + "index.html");
+  });
+
+  // get rid of index.html references in header
+  if (window.location.protocol !== "file:") {
+    $('.distill-site-header a[href]').each(function(i,val) {
+      $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+    });
+  }
+
+  // add class to pandoc style tables
+  $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+  $('.kable-table').children('table').addClass('pandoc-table');
+
+  // add figcaption style to table captions
+  $('caption').parent('table').addClass("figcaption");
+
+  // initialize posts list
+  if (window.init_posts_list)
+    window.init_posts_list();
+
+  // implmement disqus comment link
+  $('.disqus-comment-count').click(function() {
+    window.headroom_prevent_pin = true;
+    $('#disqus_thread').toggleClass('hidden');
+    if (!$('#disqus_thread').hasClass('hidden')) {
+      var offset = $(this).offset();
+      $(window).resize();
+      $('html, body').animate({
+        scrollTop: offset.top - 35
+      });
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (is_downlevel_browser())
+    init_downlevel();
+  else
+    window.addEventListener('WebComponentsReady', init_distill);
+});
+
+</script>
+
+<!--/radix_placeholder_distill-->
+  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/bowser-1.9.3/bowser.min.js"></script>
+  <script src="../../site_libs/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="../../site_libs/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-157630283-1"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-157630283-1');
+</script>
+<!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"tidyHackR: Building an IP sweeper with R","description":"One of the first questions an (ethical) hacker would want to answer when testing a network for vulnerabilities is: Which other machines are sitting on the network in question (followed by: how can I attack them, but that's for another post)? IP sweepers are tools that answer this question for you. In this post I show you how to build an IP sweeper from scratch in R using the tidyverse suite.","authors":[{"author":"Stefan Stein","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#"}],"publishedDate":"2020-11-20T00:00:00.000+01:00","citationText":"Stein, 2020"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<header class="header header--fixed" role="banner">
+<nav class="distill-site-nav distill-site-header">
+<div class="nav-left">
+<a href="../../index.html" class="title">SteinsZeit</a>
+</div>
+<div class="nav-right">
+<a href="../../index.html">Home</a>
+<a href="../../about.html">About</a>
+<a href="../../index.xml">
+<i class="fa fa-rss"></i>
+</a>
+<a href="https://twitter.com/SteinsZeit">
+<i class="fab fa-twitter"></i>
+</a>
+<a href="https://github.com/stefan-stein">
+<i class="fab fa-github"></i>
+</a>
+<a href="javascript:void(0);" class="nav-toggle">&#9776;</a>
+</div>
+</nav>
+</header>
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>tidyHackR: Building an IP sweeper with R</h1>
+<p>One of the first questions an (ethical) hacker would want to answer when testing a network for vulnerabilities is: Which other machines are sitting on the network in question (followed by: how can I attack them, but that’s for another post)? IP sweepers are tools that answer this question for you. In this post I show you how to build an IP sweeper from scratch in R using the tidyverse suite.</p>
+</div>
+
+<div class="d-byline">
+  Stefan Stein true 
+  
+<br/>11-20-2020
+</div>
+
+<div class="d-article">
+<h1 id="being-a-hackr">Being a hackR</h1>
+<p>Truth be told, I cannot think of too many reasons <em>why</em> you would want to build an IP sweeper, or any half-serious infosec tool, for that matter, with R. There is an abundance of tools out there (e.g. the infamous <a href="https://nmap.org">nmap</a>, <a href="https://linux.die.net/man/1/arp-scan"><code>arp-scan</code></a> or <a href="https://github.com/alexxy/netdiscover"><code>netdiscover</code></a>, just to name a few) that are much faster and provide much richer information than what we will build here.</p>
+<p>The reason why I wanted to do this project nonetheless is simply to see if I <em>could</em> - and the answer turned out to be “yes”. At the end of this post, we will have built a functioning IP sweeper. It won’t be fast and it won’t be very useful for most practical purposes, but it will do what it is supposed to, which is give you a list of all the other devices connected to the network you are on. For me, this project has been a nice learning experience about R programming and computer networking and I hope this post will bring you value, too. The code is written for Mac (and also works for Linux). For Windows, the regular expressions need to be tweaked slightly, but the code overall is very similar.</p>
+<p>The code used in this post can be found in the corresponding GitHub <a href="https://github.com/stefan-stein/networking_R">repository</a>. That repository also contains code for a port-scanner written in R, to which I will dedicate a blog post in the future.</p>
+<h1 id="disclaimer">Disclaimer</h1>
+<p>Please be aware that the resources in this blog post are provided for educational purposes only. Don’t use them for anything illegal! Only sweep networks you own or have explicit permission to sweep. If you get in trouble for using the code presented here in an illicit manner, it is not my problem.</p>
+<h1 id="finding-other-machines-on-your-network">Finding other machines on your network</h1>
+<p>Our strategy will be quite simple: We will simply try to connect to all <a href="https://en.wikipedia.org/wiki/IP_address"><em>Internet Protocol (IP) addresses</em></a> on our network and see for which IPs we get a response. If we get a response, we then will know that there must be a device or service located at that IP address. If we do not get a response, we will conclude that there is no device located at that IP. That’s it.</p>
+<p>There is a slight problem with that reasoning, though, that we should keep in mind. When we try to connect to another machine, we will send it a <a href="https://en.wikipedia.org/wiki/Ping_(networking_utility)"><code>ping</code></a>. Depending on the firewall setting of the machine it can either</p>
+<ul>
+<li>allow the connection, in which case we know that there is a machine at that IP address and it is open to receive packets, or,</li>
+<li>actively block the connection, in which case we know that there is a machine there, but it is blocking attempts to connect to it, or,</li>
+<li>do nothing and wait until the ping times out.</li>
+</ul>
+<p>In the last case, which for example is used on newer Windows machines with active firewall by default, we have no way of distinguishing between an unoccupied IP address and a machine that simply ignores us. Firewall evasion is a whole science unto itself and a very rapidly changing field. So we will not worry about this for this blog post and simply assume that IPs from which we do not get a response are unoccupied. In the later part of the post, when we try out our IP sweeper, we will switch off the firewall on our target machine for demonstration purposes. While this obviously is not a very realistic setting in the real world, I think it’s accaptable when we only want to understand the general concept of IP sweepers.</p>
+<p>In summary, the ingredients we need for our project are:</p>
+<ul>
+<li>Our own IP address,</li>
+<li>The network identifier and subnetmask (this will allow us to calculate the list of available IP addresses on the network),</li>
+<li>A way of connecting to IP addresses.</li>
+</ul>
+<h1 id="ip-addresses">IP addresses</h1>
+<p>We will focus on <a href="https://en.wikipedia.org/wiki/IPv4#Addressing">IPv4 addresses</a> and when referring to IP addresses I implicitly mean IPv4. An IPv4 address oncists of four bytes or 32 bits and usually is denoted in the <a href="https://en.wikipedia.org/wiki/Dot-decimal_notation">dot-decimal notation</a>. That means, it looks something like this:</p>
+<p><span class="math display">\[
+192.168.56.1
+\]</span></p>
+<p>Put simply, an IPv4 address consists of four numbers between <span class="math inline">\(0\)</span> and <span class="math inline">\(255\)</span>, written next to each other, separated by a period. Each of these numbers corresponds to one byte whose value has been written out in decimal notation rather than binary notation, which allows for a more compact way of writing.</p>
+<p>A quick calculation shows that there only are <span class="math inline">\(2^{32} \approx 4.3 \times 10^9\)</span> IPv4 addresses in the whole world - way too few to assign a unique IP address to every device connected to the internet. To remedy this, people came up with IPv6, which with 128 bit long addresses has an address space of <span class="math inline">\(2^{128} \approx 3.4 \times 10^{38}\)</span>, which are more addresses than we could ever need.</p>
+<p>Still, IPv4 addresses did not abruptly disappear as one might expect. Instead, people used another workaround that allowed IPv4 to be continued to be used: The distinction between private and public IP addresses.</p>
+<p>Say, I have connected with my computing device to my home WIFI. My home WIFI and all the devices connected to it form one network. When my device wants to talk to a machine on a different network (such as a server hosting a website), my device sends the message it wants to transmit to the so-called <em>default gateway</em> for talking to the outside world (usually located inside little blinking box commonly called <em>router</em>). That is a particular router on my network that has an interface to other networks (“the outside world”) and its address was told to my computer when it first logged onto the network. In fact, every device on my network sends its requests with the outside world through that default gateway and the outside world sends all its replies back to that default gateway which then distributes it to the correct machines on my WIFI network. That means, for the outside world, it does not matter which devices are sitting on my network. All it needs to know is how to reach my default gateway, which then takes care of the rest. For that purpose, the default gateway has two interfaces, each with its own IP address. Let’s call them the “inwards facing IP address”, known to the devices on my network and the “outwards facing IP address” known to the outside world. The outwards facing IP address has to be unique, so that traffic can be sent correctly back to the machines on my network. The inward facing IP address on the other hand can be used in other networks, too! Simply because these inward facing addresses are only used to communicate within my local network. If somebody else, far away, uses the same local IP addresses in their network, it has no effect on me using them. These local addresses are never used to talk to the outside world. In fact, if you check your device’s IP address while connected to your home network, it will most likely start with <span class="math inline">\(192.168.\)</span>, as this is the type of IP address typically assigned to home networks.</p>
+<p>Therefore, sharing your private IP (the one starting with <span class="math inline">\(192.168.\)</span>) won’t tell others anything about you other than the fact that you are probably using a standard home network. The public or outwards facing IP of your router does reveal a lot about your location, however, as it is a unique identifier for your home network. When police in movies talk about “tracking down IP addresses”, they are referring to these public IPs.</p>
+<h2 id="finding-your-ip-address">Finding your IP address</h2>
+<p>To check your device’s (private/ inward facing) IP address on a Mac, simply hold down the option (alt) key and click on the wifi symbol in the top right corner of your status bar. It will display all sorts of information about your current WIFI connection including:</p>
+<ul>
+<li>IP-address: The address of your device on the network,</li>
+<li>Router: The address of the default gateway.</li>
+</ul>
+<p>You can also find your address via the terminal (this also works on Linux). Open the terminal and type</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="bash"><code>
+ifconfig</code></pre>
+</div>
+<p>Depending on how many networks your computer is connected to, this might result in a lengthy list. Usually you are interested in the WIFI network located at <code>en0</code>, which should be located at the top of the list. You can also run</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="bash"><code>
+ifconfig en0</code></pre>
+</div>
+<p>To only display the information about the <code>en0</code> network. Look for the line starting with <code>inet</code>. The IP address following is the IP address of your computer.</p>
+<p>On Windows, open the comand prompt (search for <code>cmd</code> if unsure how to find it) and type</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="bash"><code>
+ipconfig</code></pre>
+</div>
+<p>The line starting with “IPv4 address” contains your computer’s IP address.</p>
+<h2 id="available-ip-addresses-on-a-network">Available IP addresses on a network</h2>
+<p>The next question we need to answer is, which IP addresses are available on the network we are connected to. Obviously it cannot be all <span class="math inline">\(2^{32}\)</span> and indeed, it usually are way fewer than that. The answer to that question is given by the <a href="https://en.wikipedia.org/wiki/Subnetwork"><code>subnetmask</code></a>. It has the same format as an IP address and its value is located on the same line of the output of <code>ifconfig</code> (Mac, Linux) or on the line starting with <code>subnetmask</code> on Windows. For home networks, it usually is <span class="math inline">\(255.255.255.0\)</span>. The value of the subnetmask tells us how many leading bits of the 32 bits of the IP addresses are “blocked” and how many are available to be used for the assignment of IP addresses. This is easiest understood if we convert the dot-decimal notation of the subnet mask back to binary notation.</p>
+<p>Suppose we our machine has IP address <span class="math inline">\(192.168.56.3\)</span> and we found out that the subnet mask is <span class="math inline">\(255.255.255.0\)</span>. Turning it into binary representation gives us:</p>
+<p><span class="math display">\[
+11111111.11111111.11111111.0
+\]</span></p>
+<p>We see that there are 24 ones in that representation. That means, the first 24 bits of the IP space are fixed. The first 24 bits of our computer’s IP address are (back in dot-decimal notation): <span class="math inline">\(192.168.56.\)</span> The subnetmask of <span class="math inline">\(255.255.255.0\)</span> now tells us that every device connected to our network will have these exact same first 24 bits. Only the last 8 bits may vary between IP addresses. Since 8 bits allow for 256 different numbers, there can only be at most 256 different IP addresses assigned in our network. On top of that, the very first and last IP address in the available range, in this case <code>192.168.56.0</code> and <code>192.168.56.255</code> are reserved as the network identifier and the broadcast address respectively and are never assigned to any devices on the network. Still, this leaves us with 254 usable IP addresses, which is plenty for most private purposes.</p>
+<h2 id="getting-that-info-in-r">Getting that info in R</h2>
+<p>Now that we have the necessary knowledge, the question is, how do we get that all that info into our R session? After all, being a true hackR means that we never leave R, right? First, we need to get our own IP address. For the purpose of this post, I have setup a virtual network using <a href="https://www.virtualbox.org">VirtualBox</a> and several <a href="https://en.wikipedia.org/wiki/Virtual_machine">virtual machines</a>, more on that in section <em>Trying it out!</em> below. The name of my virtual network is the default name <code>vboxnet0</code>. So to get the local IP address of my machine for that network, I need to run</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="bash"><code>
+ifconfig vboxnet0</code></pre>
+<pre><code>
+vboxnet0: flags=8943&lt;UP,BROADCAST,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500
+    ether 0a:00:27:00:00:00 
+    inet 192.168.56.1 netmask 0xffffff00 broadcast 192.168.56.255</code></pre>
+</div>
+<p>If you are coding along on a Mac or Linux and are using your standard WIFI network, run <code>ifconfig en0</code> to get an output similar to the above. Alternatively, simply run <code>ifconfig</code> and search for your WIFI network/ for en0 (usually the first, possibly the only entry in that list). The line that we are interested in is the last one in the above display. It tells us that our local IP address is <code>192.168.56.1</code> and the subnetmask is <code>0xffffff00</code>, which is the hexadecimal notation for <code>255.255.255.0</code>, i.e. there are 256 IP addresses in that network available.</p>
+<p>Notice that the above output gives us another interesting piece of information: It tells us that the <a href="https://en.wikipedia.org/wiki/Broadcast_address">broadcast address</a> of my network is <code>192.168.56.255</code>. A message sent to that address is sent to all devices connected to the network, i.e. it is quite literally “broadcasted”. When IP sweeping a network, we want to ignore that address.</p>
+<p>In R, to run commandline commands from within R, we can use the <code>system</code> (in case we do not specify any additional parameters) or <code>system2</code> (in case there are additional parameters) function. In this case we want to pass the network name as parameter, so we need to use <code>system2</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+raw_IP &lt;- system2(&quot;ifconfig&quot;, args = &quot;vboxnet0&quot;, stdout = TRUE)
+raw_IP</code></pre>
+<pre><code>
+[1] &quot;vboxnet0: flags=8943&lt;UP,BROADCAST,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500&quot;
+[2] &quot;\tether 0a:00:27:00:00:00 &quot;                                                   
+[3] &quot;\tinet 192.168.56.1 netmask 0xffffff00 broadcast 192.168.56.255&quot;              </code></pre>
+</div>
+<p>The <code>args</code> argument takes the parameters we want to pass to the commandline command and setting <code>stdout = TRUE</code> means that we would like to have the result of the command returned to us as a string.</p>
+<p>To grab the information we are after, we need to use some regex magic. We can use <code>grep</code> to grab the line that holds the information we want (the output of <code>ifconfig</code> may have a differing number of lines depending on your network, so simply running <code>raw_IP[3]</code> won’t do).</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]</code></pre>
+<pre><code>
+[1] &quot;\tinet 192.168.56.1 netmask 0xffffff00 broadcast 192.168.56.255&quot;</code></pre>
+</div>
+<p>Let’s grab the first IP address. We use the <code>str_extract</code> function from the <code>stringr</code> package. Notice the tab (<code>\t</code>) sign at the beginning of the string, which we have to match, too. The regular expression we want is <code>&quot;\\tinet [\\d|\\.]+&quot;</code>, which translates to: Search for the pattern starting with “\tinet” (we have to escape the <code>\</code>, hence the <code>\\</code> in the expression), followed by a space, followed by as many instances of digits (<code>\d</code>) or periods (<code>\.</code>) as possible (again, we need to escape the <code>\</code> and hence are using <code>\\</code>). The output looks like this.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+library(stringr)
+raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+    str_extract(&quot;\\tinet [\\d|\\.]+&quot;)</code></pre>
+<pre><code>
+[1] &quot;\tinet 192.168.56.1&quot;</code></pre>
+</div>
+<p>Now, to get the actual IP address, we need to get rid of the <code>\tinet</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+myip &lt;- raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+  str_extract(&quot;\\tinet [\\d|\\.]+&quot;)%&gt;%
+  str_extract(&quot;[\\d|\\.]+&quot;)
+
+myip</code></pre>
+<pre><code>
+[1] &quot;192.168.56.1&quot;</code></pre>
+</div>
+<p>We can extract the subnet mask in a similar manner, this time matching for the expression starting with <code>netmask 0x</code> followed by any number of alphanumeric characters.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+  str_extract(&quot;netmask 0x[:alnum:]+&quot;)%&gt;%
+  str_extract(&quot;0x[:alnum:]+&quot;)</code></pre>
+<pre><code>
+[1] &quot;0xffffff00&quot;</code></pre>
+</div>
+<p>This is currently a string, to get it into a more readable format, we first remove the leading <code>0x</code>. Then, we split it into pairs of two (each pair of two corresponds to one byte, i.e. one of the numbers between periods in our IP address) using the <code>base</code> function <code>substring</code>:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+  str_extract(&quot;netmask 0x[:alnum:]+&quot;)%&gt;%
+  str_extract(&quot;0x[:alnum:]+&quot;)%&gt;%
+  str_remove(&quot;0x&quot;)%&gt;%
+  substring(., seq(1, nchar(.)-1, 2), seq(2, nchar(.), 2))</code></pre>
+<pre><code>
+[1] &quot;ff&quot; &quot;ff&quot; &quot;ff&quot; &quot;00&quot;</code></pre>
+</div>
+<p>Next, we add the <code>0x</code> back on to each of these entries, to indicate that these are hexadecimal representations of integers. Then, we get their integer representation using <code>strtoi</code> from R <code>base</code>. Finally, we collapse the vector we created using a period between entries to get the familiar IP address notation.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+netmask &lt;- raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+    str_extract(&quot;netmask 0x[:alnum:]+&quot;)%&gt;%
+    str_extract(&quot;0x[:alnum:]+&quot;)%&gt;%
+    str_remove(&quot;0x&quot;)%&gt;%
+    substring(., seq(1, nchar(.)-1, 2), seq(2, nchar(.), 2))%&gt;%
+    paste0(&quot;0x&quot;, .)%&gt;%
+    strtoi()%&gt;%
+    paste0(collapse = &quot;.&quot;)
+
+netmask</code></pre>
+<pre><code>
+[1] &quot;255.255.255.0&quot;</code></pre>
+</div>
+<p>Finally, we can do the same to get the broadcast address.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+broadcast &lt;- raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+    str_extract(&quot;broadcast [\\d|\\.]+&quot;)%&gt;%
+    str_extract(&quot;[\\d|\\.]+&quot;)
+
+broadcast</code></pre>
+<pre><code>
+[1] &quot;192.168.56.255&quot;</code></pre>
+</div>
+<p>We wrap all of this into a nice little function called <code>network_info</code>, where we allow to specify the network name for which we want to grab the IP data:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+network_info &lt;- function(network_name = &quot;en0&quot;){
+  raw_IP &lt;- system2(&quot;ifconfig&quot;, args = network_name, stdout = TRUE)
+  myip &lt;- raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+    str_extract(&quot;\\tinet [\\d|\\.]+&quot;)%&gt;%
+    str_extract(&quot;[\\d|\\.]+&quot;)
+  netmask &lt;- raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+    str_extract(&quot;netmask 0x[:alnum:]+&quot;)%&gt;%
+    str_extract(&quot;0x[:alnum:]+&quot;)%&gt;%
+    str_remove(&quot;0x&quot;)%&gt;%
+    substring(., seq(1, nchar(.)-1, 2), seq(2, nchar(.), 2))%&gt;%
+    paste0(&quot;0x&quot;, .)%&gt;%
+    strtoi()%&gt;%
+    paste0(collapse = &quot;.&quot;)
+  broadcast &lt;- raw_IP[grep(x = raw_IP, pattern = &quot;\\tinet &quot;)]%&gt;%
+    str_extract(&quot;broadcast [\\d|\\.]+&quot;)%&gt;%
+    str_extract(&quot;[\\d|\\.]+&quot;)
+  
+  return(data.frame(IP = myip, netmask = netmask, broadcast_IP = broadcast))
+   
+}
+
+# Try it out
+my_network &lt;- network_info(&quot;vboxnet0&quot;)
+my_network</code></pre>
+<pre><code>
+            IP       netmask   broadcast_IP
+1 192.168.56.1 255.255.255.0 192.168.56.255</code></pre>
+</div>
+<p>Later, when sweeping a network, this information can be used to deduce which are valid IP addresses in this network. In our case, this output tells us that our machine is sitting at IP <code>192.168.56.1</code> and that there are 256 available IP addresses in our network. Minus the network identifier <code>192.168.56.0</code>, our own IP <code>192.168.56.1</code> and the broadcast address <code>192.168.56.255</code>, we know that we need to ping all the adrresses between <code>192.168.56.2</code> and <code>192.168.56.254</code>.</p>
+<h2 id="pinging-other-machines">Pinging other machines</h2>
+<p>To send a ping to another IP address on our network (or any IP address, for that matter), we use the <code>ping</code> commandline utility. Its use is very simple: <code>ping &lt;IP-address&gt;</code>. On Mac, unless we provide further arguments to <code>ping</code>, it will simply keep sending pings to the IP address we specified. To set the number of pings sent to the IP address in question we can set the <code>-c</code> parameter. To set the number of seconds our machine waits for a response, we use <code>-t</code>. For example, in the <code>vboxnet0</code> network, I have a virtual Linux machine sitting at <code>192.168.56.104</code>. To send it a single ping and wait for one second to get a reply, we use</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="bash"><code>
+ping 192.168.56.104 -c 1 -t 1</code></pre>
+<pre><code>
+PING 192.168.56.104 (192.168.56.104): 56 data bytes
+64 bytes from 192.168.56.104: icmp_seq=0 ttl=64 time=0.592 ms
+
+--- 192.168.56.104 ping statistics ---
+1 packets transmitted, 1 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 0.592/0.592/0.592/0.000 ms</code></pre>
+</div>
+<p>Amongst other things, this output tells us that <code>0.0%</code> of sent packets were lost, i.e. all (in this case: one) packet was received by the virtual machine. We now know that there is a machine living at <code>192.168.56.104</code>. If, on the other hand, the IP address is unoccupied, we get</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="bash"><code>
+ping 192.168.56.105 -c 1 -t 1 || true</code></pre>
+<pre><code>
+PING 192.168.56.105 (192.168.56.105): 56 data bytes
+
+--- 192.168.56.105 ping statistics ---
+1 packets transmitted, 0 packets received, 100.0% packet loss</code></pre>
+</div>
+<p>Indicating there is no machine sitting at <code>192.168.56.105</code> (you may ignore the <code>|| true</code> part - it is only there, because <code>knitr</code> will throw an error upon knitting the document otherwise). The issue with sending a ping to every possible machine on the network is that our computer will wait for one second every time to get a reply, before concluding that the IP address is unoccupied. It is not possible to pass arguments smaller than <code>1</code> for the <code>t</code> parameter and since R does not support multithreding, we will simply have to wait for each ping to time out (we can speed up the process a little using multiple cores, though). It is possible to speed things up considerably using <a href="https://fping.org">fping</a>, but since this is not installed by default and this project is for educational purposes anyways and not meant to be a serious application, I decided to stick to the slow <code>ping</code>. To run the ping command from within R, we use once more <code>system2</code>. Notice that pinging other machines with R can also be achieved using the <a href="https://cran.r-project.org/web/packages/pingr/index.html">pingr</a> package. But looking at the source code of that package, we see that it, too, simply calls the <code>ping</code> commandline tool. So, we can just as well implement this short function ourselves.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+count &lt;- 1
+wait &lt;- 1
+IP &lt;- &quot;192.168.56.104&quot;
+result &lt;- system2(&quot;ping&quot;,
+                  args = paste(&quot;-c&quot;, count, &quot;-t&quot;, wait, IP),
+                  stdout = TRUE)
+
+result</code></pre>
+<pre><code>
+[1] &quot;PING 192.168.56.104 (192.168.56.104): 56 data bytes&quot;          
+[2] &quot;64 bytes from 192.168.56.104: icmp_seq=0 ttl=64 time=0.286 ms&quot;
+[3] &quot;&quot;                                                             
+[4] &quot;--- 192.168.56.104 ping statistics ---&quot;                       
+[5] &quot;1 packets transmitted, 1 packets received, 0.0% packet loss&quot;  
+[6] &quot;round-trip min/avg/max/stddev = 0.286/0.286/0.286/0.000 ms&quot;   </code></pre>
+</div>
+<p>If we try the unoccupied address instead:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+IP2 &lt;- &quot;192.168.56.105&quot;
+result2 &lt;- system2(&quot;ping&quot;,
+                   args = paste(&quot;-c&quot;, count, &quot;-t&quot;, wait, IP2),
+                   stdout = TRUE)
+
+result2</code></pre>
+<pre><code>
+[1] &quot;PING 192.168.56.105 (192.168.56.105): 56 data bytes&quot;          
+[2] &quot;&quot;                                                             
+[3] &quot;--- 192.168.56.105 ping statistics ---&quot;                       
+[4] &quot;1 packets transmitted, 0 packets received, 100.0% packet loss&quot;
+attr(,&quot;status&quot;)
+[1] 2</code></pre>
+</div>
+<p>We get a warning message alongside the information that <code>100%</code> of packets were lost.</p>
+<p>To extract the info whether the address is occupied, we use regular expressions: Using <code>grep</code> we extract the entry containing the <code>%</code> symbol and thus the info about packet loss. We extract the decimal number from that string, remove the <code>%</code> symbol and convert to numeric.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+status &lt;- result[grepl(pattern = &quot;%&quot;, result)]%&gt;%
+  str_extract(pattern = &quot;\\d+.\\d+%&quot;)%&gt;%
+  str_remove(&quot;%&quot;)%&gt;%
+  as.numeric()
+
+status</code></pre>
+<pre><code>
+[1] 0</code></pre>
+</div>
+<p>Similar for the failed IP address:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+status2 &lt;- result2[grepl(pattern = &quot;%&quot;, result2)]%&gt;%
+  str_extract(pattern = &quot;\\d+.\\d+%&quot;)%&gt;%
+  str_remove(&quot;%&quot;)%&gt;%
+  as.numeric()
+
+status2</code></pre>
+<pre><code>
+[1] 100</code></pre>
+</div>
+<p>If <code>status &lt; 100</code>, we know that at least some of our packets (in case we sent several) were received at that IP address, which therefore must be occupied. Let’s wrap this into a function:</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+ping &lt;- function(IP, count = 1, wait = 1){
+  suppressWarnings(
+    result &lt;- system2(&quot;ping&quot;,
+                      args = paste(&quot;-c&quot;, count, &quot;-t&quot;, wait, IP),
+                      stdout = TRUE)
+  )
+  
+  status &lt;- result[grepl(pattern = &quot;%&quot;, result)]%&gt;%
+    str_extract(pattern = &quot;\\d+.\\d+%&quot;)%&gt;%
+    str_remove(&quot;%&quot;)%&gt;%
+    as.numeric()
+  
+  return( status &lt; 100)
+}</code></pre>
+</div>
+<p>Let’s try it out for the occupied address…</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+ping(IP)</code></pre>
+<pre><code>
+[1] TRUE</code></pre>
+</div>
+<p>… and the unoccupied address</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+ping(IP2)</code></pre>
+<pre><code>
+[1] FALSE</code></pre>
+</div>
+<p>Great! All that is left to do is write a function <code>sweep</code> that applies <code>ping()</code> to all the IP addresses in our network. To speed things up, we will use the multi-core version of <code>lapply</code>, <code>mclapply</code>, from the <code>parallel</code> package. We give the option to either specify a list of IP addresses we want to test or, if none is specified, test all the addresses on the current network.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+library(parallel)
+library(dplyr)
+
+sweep &lt;- function(IP_list = NULL, cores = 4, network_name){
+  if (is.null(IP_list)){
+    network &lt;- network_info(network_name)
+    base_IP &lt;- network%&gt;%pull(IP)%&gt;%str_extract(&quot;\\d{1,3}.\\d{1,3}.\\d{1,3}.&quot;)
+    my_IP &lt;- network%&gt;%pull(IP)%&gt;%as.character()
+    broadcast &lt;- network%&gt;%pull(broadcast_IP)%&gt;%as.character()
+    IP_list &lt;- setdiff(paste0(base_IP,1:255), c(my_IP, broadcast))
+    message(paste(&quot;No IP list specified. Sweeping network&quot;, network_name, &quot;with base IP&quot;, base_IP))
+  }
+  
+  status &lt;- mclapply(IP_list, ping, mc.cores = cores)
+  status &lt;- do.call(rbind, status)
+  
+  data.frame(IP = IP_list, status = status, stringsAsFactors = F)%&gt;%
+    filter(status == TRUE)
+}</code></pre>
+</div>
+<h2 id="trying-it-out">Trying it out!</h2>
+<p>All that is left to do is try out our new function! For this section I have set up a virtual network using <a href="https://www.virtualbox.org">VirtualBox</a>. I have my actual, physical machine (Mac) connected to it, which is the machine that will do the sweeping. To have something to sweep I also set up a virtual computer running <a href="https://linuxmint.com">Linux Mint</a>, sitting at IP <code>198.168.56.104</code> and a Windows 10 machine sitting at <code>198.168.56.103</code>. It also contains a <a href="https://en.wikipedia.org/wiki/Dynamic_Host_Configuration_Protocol">DHPC</a> server, responsible for assigning IP addresses to new devices joining the network, sitting at IP <code>198.168.56.100</code>.</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+system.time(
+  swept &lt;- sweep(cores = 8, network_name = &quot;vboxnet0&quot;)
+)</code></pre>
+</div>
+<p><img src="swept.png" /></p>
+<p>(I did not want to re-run this rather time consuming bit of code everytime I re-knit the post, which is why I took the liberty to save the result and provide a screenshot of the output)</p>
+<p>This took around <code>33</code> seconds, which is very close to what we would expect and highlights exactly the bottleneck I have mentioned before: There are 254 IP addresses to check. Only four of them (my Mac, the DHPC server, the Linux and the Windows machine) are occupied and give a fast response. That means, for the 250 unoccupied addresses we need to wait one second each. And: <span class="math inline">\(250 / 8 = 31.25\)</span>, i.e. most of our time is spent waiting.</p>
+<p>But did we at least find all the machines on our network??</p>
+<div class="layout-chunk" data-layout="l-body">
+<pre class="r"><code>
+swept</code></pre>
+<pre><code>
+# A tibble: 4 x 2
+  IP             status
+  &lt;chr&gt;          &lt;lgl&gt; 
+1 192.168.56.1   TRUE  
+2 192.168.56.100 TRUE  
+3 192.168.56.103 TRUE  
+4 192.168.56.104 TRUE  </code></pre>
+</div>
+<p>YES!! This is exactly what we were expecting to see. Now we know which machines are connected to our network and as a tidyHackR, we might start thinking of ways of attacking these machines next, for example by checking them for vulnerabilities using <a href="https://en.wikipedia.org/wiki/Port_scanner">port scanning</a> (provided that we have the explicit permission of the owner of that machine to scan it for vulnerabilities!!).</p>
+<p>Thank you for sticking with me till the end! I hope you enjoyed this post. If you have any comments or suggestions, feel free to reach out to me.</p>
+<h4 id="credits-for-the-preview-image">Credits for the preview image</h4>
+<div>
+Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+</div>
+<!--radix_placeholder_article_footer-->
+<div class="article-footer">
+  <p class="social_footer">
+    <span class="disqus-comments">
+      <i class="fas fa-comments"></i>
+      &nbsp;
+      <span class="disqus-comment-count" data-disqus-identifier="posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/">Comment on this article</span>
+    </span>
+    <span class="article-sharing">
+      Share: &nbsp;
+      <a href="https://twitter.com/share?text=tidyHackR%3A%20Building%20an%20IP%20sweeper%20with%20R&amp;url=https%3A%2F%2Fstefan-stein.github.io%2Fposts%2F2020-10-23-tidyhackr-building-an-ip-sweeper-with-r%2F">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2Fstefan-stein.github.io%2Fposts%2F2020-10-23-tidyhackr-building-an-ip-sweeper-with-r%2F&amp;title=tidyHackR%3A%20Building%20an%20IP%20sweeper%20with%20R">
+        <i class="fab fa-linkedin"></i>
+      </a>
+    </span>
+  </p>
+  <script id="dsq-count-scr" src="https://steinszeit.disqus.com/count.js" async></script>
+  <div id="disqus_thread" class="hidden"></div>
+  <script>
+var disqus_config = function () {
+  this.page.url = 'https://stefan-stein.github.io/posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/';
+  this.page.identifier = 'posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/';
+};
+(function() {
+  var d = document, s = d.createElement('script');
+  s.src = 'https://steinszeit.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+</script>
+</div>
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom">
+  <h3 id="updates-and-corrections">Corrections</h3>
+  <p>If you see mistakes or want to suggest changes, please <a href="https://github.com/stefan-stein/networking_R/issues/new">create an issue</a> on the source repository.</p>
+  <h3 id="reuse">Reuse</h3>
+  <p>Text and figures are licensed under Creative Commons Attribution <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Source code is available at <a href="https://github.com/stefan-stein/networking_R">https://github.com/stefan-stein/networking_R</a>, unless otherwise noted. The figures that have been reused from other sources don't fall under this license and can be recognized by a note in their caption: "Figure from ...".</p>
+  <h3 id="citation">Citation</h3>
+  <p>For attribution, please cite this work as</p>
+  <pre class="citation-appendix short">Stein (2020, Nov. 20). SteinsZeit: tidyHackR: Building an IP sweeper with R. Retrieved from https://stefan-stein.github.io/posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/</pre>
+  <p>BibTeX citation</p>
+  <pre class="citation-appendix long">@misc{stein2020tidyhackr:,
+  author = {Stein, Stefan},
+  title = {SteinsZeit: tidyHackR: Building an IP sweeper with R},
+  url = {https://stefan-stein.github.io/posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/},
+  year = {2020}
+}</pre>
+</div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

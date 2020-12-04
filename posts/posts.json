@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/",
+    "title": "tidyHackR: Building an IP sweeper with R",
+    "description": "One of the first questions an (ethical) hacker would want to answer when testing a network for vulnerabilities is: Which other machines are sitting on the network in question (followed by: how can I attack them, but that's for another post)? IP sweepers are tools that answer this question for you. In this post I show you how to build an IP sweeper from scratch in R using the tidyverse suite.",
+    "author": [
+      {
+        "name": "Stefan Stein",
+        "url": {}
+      }
+    ],
+    "date": "2020-11-20",
+    "categories": [],
+    "preview": "posts/2020-10-23-tidyhackr-building-an-ip-sweeper-with-r/hacker.png",
+    "last_modified": "2020-12-04T17:50:50+01:00",
+    "preview_width": 512,
+    "preview_height": 512
+  },
+  {
     "path": "posts/2020-06-14-websitesimilarities/",
     "title": "Website similarities with Python: Is Batman more like the Joker or more like Robin?",
     "description": "Spend enough time in academia and you might start to think that this is an excellent research question. In this post\nI try to give an answer by calculating the website similarities between the Wikipedia pages of Batman, the Joker and\nRobin. Some web scraping, data wrangling and NLP with Python lies ahead!",
